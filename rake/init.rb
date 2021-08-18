@@ -12,6 +12,9 @@ module Init
 
 
 	def self.init()
+
+		Git.init_all_submodules()
+
 		if (OS.linux?)
 			self.init_linux()
 		end

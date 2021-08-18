@@ -1,4 +1,24 @@
 module Git 
+
+	def self.init_all_submodules()
+
+		root = FileAide.root()
+
+		Dir.chdir(root) do 
+			Rake.sh "git submodule update --init"
+
+			dirs = Array['imogen', 'kicklab', 'StageHand']
+
+			dirs.each do |dir|
+				path = root + "/" + dir
+
+				Dir.chdir(path) do 
+					Rake.sh "git submodule update --init"
+				end
+			end
+		end
+	end
+
 	
 	def self.update_submodules_in_dir(dir)
     	Dir.chdir(dir) do
