@@ -14,16 +14,6 @@ module CMake
 	end
 
 
-	def self.configure_if_needed(mode)
-
-		dir = FileAide.root().to_s + "/Builds"
-
-		if not Dir.exist?(dir)
-			self.configure(mode)
-		end
-	end
-
-
 	def self.build_all(mode)
 		command = "cmake --build Builds --config " + mode
 		Rake.sh command
