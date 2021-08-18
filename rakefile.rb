@@ -46,6 +46,8 @@ namespace :build do
 		CMake.build_all(args.mode)
 	end
 
+	#  Plugins
+
 	desc "Builds Imogen"
 	task :imogen, [:mode, :formats] do |t, args|
 		args.with_defaults(:mode => default_config)
@@ -59,6 +61,8 @@ namespace :build do
 		CMake.configure_if_needed()
 		CMake.build_plugin_target("Kicklab", args.mode, args.formats, args.extras)
 	end
+
+	#  Apps
 
 	desc "Builds ImogenRemote"
 	task :imogen_remote, [:mode] do |t, args|
