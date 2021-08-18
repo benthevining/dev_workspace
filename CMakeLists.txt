@@ -9,7 +9,5 @@ set (CPM_Shared-code_SOURCE ${CMAKE_CURRENT_LIST_DIR}/Shared-code)
 #
 
 add_subdirectory (imogen)
-
 add_subdirectory (kicklab)
-
-#add_subdirectory (StageHand)
+add_subdirectory (StageHand)
