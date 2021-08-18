@@ -21,17 +21,23 @@ module Git
 
 
 	def self.commit_dev_workspace()
-
 		Dir.chdir(FileAide.root()) do 
 			Rake.sh "git commit -a -m \"Submodule auto-update\"" do |ok, res| end
+		end
+	end
+
+
+	def self.pull_dev_workspace()
+		Dir.chdir(FileAide.root()) do 
+			command = "git pull --rebase -j " + getNumCpuCores().to_s
+    		Rake.sh command
 		end
 	end
 
 	
   	def self.uth()
 
-  		command = "git pull --rebase -j " + getNumCpuCores().to_s
-    	Rake.sh command
+  		self.pull_dev_workspace()
 
   		Rake.sh "git submodule update"
 
