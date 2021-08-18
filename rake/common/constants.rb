@@ -1,3 +1,5 @@
+REPO_SUBDIRS = Array['imogen', 'kicklab', 'Shared-code', 'StageHand']
+
 PLUGIN_NAMES = Array['Imogen', 'Kicklab']
 
 APP_NAMES = Array['StageHand', 'ImogenRemote']

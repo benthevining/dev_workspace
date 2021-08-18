@@ -6,6 +6,8 @@ module CMake
 		else
 			Rake.sh "cmake -B Builds"
 		end
+
+		PostConfig.run()
 	end
 
 
