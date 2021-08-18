@@ -43,9 +43,14 @@ module CMake
 		formats.each { |format|
 			formatString = format.to_s.gsub("[", "").gsub("]", "").gsub("\"", "")
 
-			next if (formatString == "[]" or formatString == "")
+			next if formatString.empty?
 
 			name = target + "_" + formatString.upcase
+
+			if (name == "STANDALONE") 
+				name = "Standalone"
+			end
+
 			targetNames.push(name)
 		}
 
