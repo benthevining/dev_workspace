@@ -23,7 +23,7 @@ task :init => [:clean, :uth] do
 end
 
 desc "Runs clang format over all source code"
-task :clangformat do
+task :cf do
 	ClangFormat.run()
 end
 
