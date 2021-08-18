@@ -50,5 +50,11 @@ namespace :build do
 		CMake.build_plugin_target("Kicklab", args.mode, args.formats, args.extras)
 	end
 
+	desc "Builds StageHand"
+	task :stagehand, [:mode, :formats] => ["rake:config"] do |t, args|
+		args.with_defaults(:mode => default_config)
+		CMake.build_app_target("StageHand", args.mode)
+	end
+
 end
 
