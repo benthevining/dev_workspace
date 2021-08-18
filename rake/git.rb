@@ -67,6 +67,8 @@ module Git
 
       			Rake.sh "git pull --merge --quiet"
       			Rake.sh "git submodule sync --quiet"
+
+      			Rake.sh "git commit -a -m \"Submodule auto-update\""
       		end
     	end
 
