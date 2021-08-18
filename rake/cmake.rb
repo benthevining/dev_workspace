@@ -4,9 +4,7 @@ module CMake
 
 		command = "cmake -B Builds -DCMAKE_BUILD_TYPE=" + mode
 
-		if OS.mac?
-			command += " -G Xcode"
-		end
+		command += " -G Xcode" if OS.mac?
 
 		Rake.sh command
 
@@ -39,11 +37,14 @@ module CMake
 
 			next if formatString.empty?
 
+			if formatString.downcase == "all"
+				build_all_formats_for_plugin(target, mode)
+				return
+			end
+
 			name = target + "_" + formatString.upcase
 
-			if (name == "STANDALONE") 
-				name = "Standalone"
-			end
+			name = "Standalone" if name == "STANDALONE"
 
 			targetNames.push(name)
 		}

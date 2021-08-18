@@ -1,5 +1,7 @@
 require_relative "common/Common.rb"
 
+require_relative "clean.rb"
+
 require_relative "git.rb"
 require_relative "clangformat.rb"
 

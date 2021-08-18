@@ -15,9 +15,7 @@ module Init
 
 		Git.init_all_submodules()
 
-		if (OS.linux?)
-			self.init_linux()
-		end
+		self.init_linux() if OS.linux?
 	end
 
 
