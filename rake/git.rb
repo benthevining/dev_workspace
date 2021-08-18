@@ -90,7 +90,7 @@ module Git
 
   		Rake.sh "git submodule update"
 
-  		Rake.sh "git submodule foreach \'git checkout origin/HEAD && git submodule update && git pull\'"
+  		Rake.sh "git submodule foreach \'git checkout origin/HEAD && git pull origin main && git submodule update\'"
 
   	end
 
