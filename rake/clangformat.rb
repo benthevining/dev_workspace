@@ -10,8 +10,6 @@ module ClangFormat
 
 		Dir.chdir(dir) do
 
-			puts "Changed dir!"
-
 			Rake.sh command
 
 			Dir.glob("**/").each do |file|
