@@ -1,4 +1,3 @@
-
 [submodule "Shared-code"]
 	path = Shared-code
 	url = https://github.com/BenViningMusicSoftware/Shared-code
