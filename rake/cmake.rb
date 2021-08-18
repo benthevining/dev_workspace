@@ -27,13 +27,12 @@ module CMake
 	end
 
 
-	def self.build_all_formats_for_plugin(target, mode)
-		command = "cmake --build Builds --target " + target + "_All" + " --config " + mode
-		Rake.sh command
-	end
-
-
 	def self.build_plugin_target(target, mode, *formats)
+
+		def self.build_all_formats_for_plugin(target, mode)
+			command = "cmake --build Builds --target " + target + "_All" + " --config " + mode
+			Rake.sh command
+		end
 
 		if formats.empty?
 			self.build_all_formats_for_plugin(target, mode)

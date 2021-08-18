@@ -12,7 +12,7 @@ module GitIgnore
 
 			dir = root + "/" + sub_dir
 
-			path = dir + ".gitignore"
+			path = dir + "/.gitignore"
 
 			File.delete(path) if File.exist?(path)
 
