@@ -20,9 +20,32 @@ module Init
 
 	def self.init_lv2()
 		if not (OS.linux?)
+			puts "Warning: LV2 format is only available on Linux"
 			return
 		end
 
+		# install LV2 development headers
 		Rake.sh "sudo apt-get install lv2-dev"
+
+		# clone the LV2 porting project fork of Juce
+
+		dir = FileAide.root() + "/Cache"
+		cmd = "cd " + dir
+
+		Rake.sh cmd 
+
+		Rake.sh "git clone -b lv2 https://github.com/lv2-porting-project/JUCE.git"
+		Rake.sh "git pull"
+
+		dir += "JUCE"
+
+		# re-run cmake config
+
+		cdCmd = "cd " + FileAide.root()
+		Rake.sh cdCmd
+
+		configCmd = "cmake -B Builds -DFormats=LV2 -DCPM_JUCE_SOURCE=" + dir
+
+		Rake.sh configCmd
 	end
 end
