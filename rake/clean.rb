@@ -43,6 +43,6 @@ module Clean
 
 	def self.run()
 		self.delete_build_dir()
-        self.delete_installed_plugins()
+        #self.delete_installed_plugins()
 	end
 end
