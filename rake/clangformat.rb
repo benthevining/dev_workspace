@@ -13,7 +13,15 @@ module ClangFormat
 
 			Dir.glob("**/").each do |file|
 
-				newDir = dir + "/" + file
+				if dir[-1] == "/"
+					newDir = dir + file
+				else 
+					newDir = dir + "/" + file
+				end
+
+				if newDir[-1] == "/"
+					newDir.slice!(newDir.length-1, newDir.length)
+				end
 
 				self.process_dir(newDir) if Dir.exist?(newDir)
 			end
@@ -32,7 +40,7 @@ module ClangFormat
 
 			path = root + "/" + subdir
 
-			self.process_dir(path)
+			self.process_dir(path) if Dir.exist?(path)
 		}
 	end
 end
