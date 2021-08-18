@@ -23,5 +23,5 @@ end
 
 def getNumCpuCores()
 	require "etc"
-	yield Etc.nprocessors
+	return Etc.nprocessors
 end

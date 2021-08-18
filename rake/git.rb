@@ -55,7 +55,7 @@ module Git
 	def self.uth()
     	dir = FileAide.root()
 
-    	command = "git pull --rebase -j " + getNumCpuCores()
+    	command = "git pull --rebase -j " + getNumCpuCores().to_s
 puts command
     	Rake.sh command
 
