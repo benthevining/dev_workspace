@@ -36,9 +36,4 @@ namespace :build do
 	task :kicklab do 
 
 	end
-
-
-	task :stagehand do 
-
-	end
 end
