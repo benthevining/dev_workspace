@@ -1,6 +1,5 @@
-#require_relative "files.rb"
-
 module Git 
+	
 	def self.process_submodules(dir)
     	Dir.chdir(dir) do
       		fn = ".gitmodules"
@@ -32,6 +31,7 @@ module Git
     	end
   	end
 
+
   	def self.uth_rec(info, level)
     	p = info[:path]
     	m = info[:module]
@@ -51,9 +51,11 @@ module Git
     	process_submodules(p) { |info| uth_rec(info, level+1) } if b
   	end
 
+
 	def self.uth()
     	dir = FileAide.root()
     	`git pull --rebase -j 16`
     	process_submodules(dir) { |info| uth_rec(info, 0) }
   	end
+
 end
