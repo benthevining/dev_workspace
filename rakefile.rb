@@ -22,6 +22,11 @@ task :init => [:clean, :uth] do
 	Rake::Task["config"].invoke
 end
 
+desc "Runs clang format over all source code"
+task :clangformat do
+	ClangFormat.run()
+end
+
 
 namespace :build do 
 	
@@ -56,6 +61,5 @@ namespace :build do
 		args.with_defaults(:mode => default_config)
 		CMake.build_app_target("StageHand", args.mode)
 	end
-
 end
 
