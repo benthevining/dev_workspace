@@ -8,7 +8,7 @@ module CMake
 
 		Rake.sh command
 
-		Rake::Task["format"].invoke
+		PostConfig.run()
 	end
 
 

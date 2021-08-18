@@ -49,8 +49,6 @@ module ClangFormat
 
 		def self.configure_repo(dir)
 
-			puts dir
-
 			Dir.chdir(dir) do 
 
 				source = File.expand_path(File.dirname(__FILE__)) + "/DefaultClangFormat.txt"
