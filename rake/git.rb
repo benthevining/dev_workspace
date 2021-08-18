@@ -47,7 +47,6 @@ module Git
       		end
     	end
 
-    	puts " + " + "  "*level + "#{m}:#{b || '<none>'} [#{File.expand_path(p)}]"
     	process_submodules(p) { |info| uth_rec(info, level+1) } if b
   	end
 
