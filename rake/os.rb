@@ -19,3 +19,9 @@ module OS
     	RUBY_ENGINE == 'jruby'
   	end
 end
+
+
+def getNumCpuCores()
+	require "etc"
+	yield Etc.nprocessors
+end

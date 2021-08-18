@@ -54,7 +54,11 @@ module Git
 
 	def self.uth()
     	dir = FileAide.root()
-    	`git pull --rebase -j 16`
+
+    	command = "git pull --rebase -j " + getNumCpuCores()
+puts command
+    	Rake.sh command
+
     	process_submodules(dir) { |info| uth_rec(info, 0) }
   	end
 
