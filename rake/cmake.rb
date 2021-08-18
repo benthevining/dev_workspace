@@ -39,15 +39,7 @@ module CMake
 
 			next if (formatString == "[]" or formatString == "")
 
-			if (formatString == "au")
-				formatString = "AU"
-			elsif (formatString == "vst3")
-				formatString = "VST3"
-			elsif (formatString == "standalone")
-				formatString = "Standalone"
-			end
-
-			name = target + "_" + formatString
+			name = target + "_" + formatString.upcase
 			targetNames.push(name)
 		}
 
