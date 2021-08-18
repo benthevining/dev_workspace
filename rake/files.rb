@@ -1,21 +1,24 @@
 module FileAide
     
-    @@root = nil
-    @@dir = nil
-    
-    def self.root(*parts, file: nil)
-        unless @@root
-            @@root = File.dirname(File.dirname(__FILE__))
-        end
+    def self.root()
+        # unless @@root
+        #     @@root = File.dirname(File.dirname(__FILE__))
+        # end
 
-        all = [@@root] + parts + [file]
-        all.compact!
+        # all = [@@root] + parts + [file]
+        # all.compact!
 
-        File.join(all)
+        # File.join(all)
+
+        root = File.dirname(File.dirname(__FILE__))
+
+        puts root
+
+        return root.to_s
     end
 
 
-    def self.clean()
+    def self.delete_build_dir()
         dir = self.root() + "/Builds/"
 
         if Dir.exist?(dir)
@@ -23,4 +26,14 @@ module FileAide
         end
     end
 
+
+    def self.delete_installed_plugins()
+
+    end
+
+
+    def self.clean()
+        self.delete_build_dir()
+        self.delete_installed_plugins()
+    end
 end
