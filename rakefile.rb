@@ -12,7 +12,7 @@ task :uth do
 end
 
 desc "Runs CMake configuration"
-task :config do
+task :config => [:uth] do
 	CMake.configure()
 end
 
