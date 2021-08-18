@@ -29,11 +29,13 @@ module Git
 
   		branch_name = "main"
 
-  		command = "git submodule foreach \'git checkout " + branch_name + " && git pull origin " + branch_name + "\'"
+  		submodule_command = "git checkout " + branch_name + " && git pull origin " + branch_name
+
+  		command = "git submodule foreach \'" + submodule_command + "\'"
 
   		Rake.sh command
 
-  		Rake.sh "git commit -a -m \"Submodule auto-update\" && git push"
+  		Rake.sh "git commit -a -m \"Submodule auto-update\""
   	end
 
 end
