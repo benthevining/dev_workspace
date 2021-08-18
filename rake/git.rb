@@ -57,7 +57,7 @@ module Git
     	m = info[:module]
     	b = info[:branch]
 
-    	cmd = "git submodule --quiet update --init " + p
+    	cmd = "git submodule update --remote --merge --init " + p
     	Rake.sh cmd
     
     	Dir.chdir(p) do 
@@ -65,7 +65,7 @@ module Git
       			cmd = "git checkout " + b + " --quiet"
       			Rake.sh cmd
 
-      			Rake.sh "git pull --rebase --quiet"
+      			Rake.sh "git pull --merge --quiet"
       			Rake.sh "git submodule sync --quiet"
       		end
     	end
