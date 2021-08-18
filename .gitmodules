@@ -1,9 +1,1 @@
-[submodule "Shared-code"]
-	path = Shared-code
-	url = https://github.com/BenViningMusicSoftware/Shared-code
-[submodule "imogen"]
-	path = imogen
-	url = https://github.com/benthevining/imogen
-[submodule "kicklab"]
-	path = kicklab
-	url = https://github.com/benthevining/kicklab
+
