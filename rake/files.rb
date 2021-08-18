@@ -1,4 +1,5 @@
 module FileAide
+    
     @@root = nil
     @@dir = nil
     
@@ -13,6 +14,7 @@ module FileAide
         File.join(all)
     end
 
+
     def self.clean()
         dir = self.root() + "/Builds/"
 
@@ -20,4 +22,5 @@ module FileAide
             FileUtils.remove_dir(dir)
         end
     end
+
 end

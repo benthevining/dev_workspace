@@ -1,6 +1,7 @@
 require_relative "os.rb"
 
 module CMake
+
 	def self.configure()
 		if OS.mac?
 			Rake.sh "cmake -B Builds -G Xcode"
@@ -13,4 +14,5 @@ module CMake
 	def self.build()
 		
 	end
+	
 end
