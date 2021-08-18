@@ -11,8 +11,61 @@ module CMake
 	end
 
 
-	def self.build()
-		
+	def self.build_all(mode)
+		command = "cmake --build Builds --config " + mode
+		puts command
+		Rake.sh command
+	end
+
+
+	def self.build_all_formats_for_plugin(target, mode)
+		command = "cmake --build Builds --target " + target + "_All" + " --config " + mode
+		puts command
+		Rake.sh command
+	end
+
+
+	def self.build_plugin_target(target, mode, *formats)
+
+		if formats.empty?
+			self.build_all_formats_for_plugin(target, mode)
+			return
+		end
+
+		targetNames = Array.new
+
+		formats.each { |format|
+			formatString = format.to_s.gsub("[", "").gsub("]", "").gsub("\"", "")
+
+			next if (formatString == "[]" or formatString == "")
+
+			if (formatString == "au")
+				formatString = "AU"
+			elsif (formatString == "vst3")
+				formatString = "VST3"
+			elsif (formatString == "standalone")
+				formatString = "Standalone"
+			end
+
+			name = target + "_" + formatString
+			targetNames.push(name)
+		}
+
+		if targetNames.empty?
+			self.build_all_formats_for_plugin(target, mode)
+			return
+		end
+
+		command = "cmake --build Builds --target " + targetNames.join(" ") + " --config " + mode
+		puts command
+		Rake.sh command
+	end
+
+
+	def self.build_app_target(target, mode)
+		command = "cmake --build Builds --target " + target + " --config " + mode
+		puts command
+		Rake.sh command
 	end
 	
 end
