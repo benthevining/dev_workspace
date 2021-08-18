@@ -80,8 +80,18 @@ module Git
     	Rake.sh command
 
     	update_submodules_in_dir(FileAide.root()) { |info| uth_recurse(info, 0) }
+  	end
 
-    	#Rake.sh "git commit -a -m \"Submodule auto-update\""
+
+  	def self.new_uth()
+
+  		command = "git pull --rebase -j " + getNumCpuCores().to_s
+    	Rake.sh command
+
+  		Rake.sh "git submodule update"
+
+  		Rake.sh "git submodule foreach \'git checkout origin/HEAD && git submodule update && git pull\'"
+
   	end
 
 end
