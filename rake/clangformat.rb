@@ -2,15 +2,14 @@ module ClangFormat
 
 	def self.process_dir(dir)
 
-		file_types = "*.c *.h *.cpp *.hpp"
-
-		command = "clang-format -i " + file_types
-
 		puts dir
 
 		Dir.chdir(dir) do
 
-			Rake.sh command
+			file_types = "*.c *.h *.cpp *.hpp"
+			command = "clang-format -i " + file_types
+
+			Rake.sh command do |ok, res| end
 
 			Dir.glob("**/").each do |file|
 

@@ -22,7 +22,8 @@ module Git
 
 	def self.commit_dev_workspace()
 		Dir.chdir(FileAide.root()) do 
-			Rake.sh "git commit -a -m \"Submodule auto-update\"" do |ok, res| end
+			command = "git commit -a -m \"Submodule auto-update\""
+			Rake.sh command do |ok, res| end
 		end
 	end
 
