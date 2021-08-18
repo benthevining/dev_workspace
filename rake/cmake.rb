@@ -9,6 +9,16 @@ module CMake
 	end
 
 
+	def self.configure_if_needed()
+
+		dir = FileAide.root().to_s + "/Builds"
+
+		if not Dir.exist?(dir)
+			self.configure()
+		end
+	end
+
+
 	def self.build_all(mode)
 		command = "cmake --build Builds --config " + mode
 		puts command
