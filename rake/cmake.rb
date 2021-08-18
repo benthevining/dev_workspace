@@ -1,22 +1,25 @@
 module CMake
 
-	def self.configure()
+	def self.configure(mode)
+
+		command = "cmake -B Builds -DCMAKE_BUILD_TYPE=" + mode
+
 		if OS.mac?
-			Rake.sh "cmake -B Builds -G Xcode"
-		else
-			Rake.sh "cmake -B Builds"
+			command += " -G Xcode"
 		end
+
+		Rake.sh command
 
 		PostConfig.run()
 	end
 
 
-	def self.configure_if_needed()
+	def self.configure_if_needed(mode)
 
 		dir = FileAide.root().to_s + "/Builds"
 
 		if not Dir.exist?(dir)
-			self.configure()
+			self.configure(mode)
 		end
 	end
 
