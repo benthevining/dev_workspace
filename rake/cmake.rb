@@ -1,5 +1,3 @@
-require_relative "os.rb"
-
 module CMake
 
 	def self.configure()

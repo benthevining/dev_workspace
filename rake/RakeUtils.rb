@@ -1,0 +1,5 @@
+require_relative "files.rb"
+require_relative "os.rb"
+require_relative "git.rb"
+require_relative "cmake.rb"
+require_relative "init.rb"
