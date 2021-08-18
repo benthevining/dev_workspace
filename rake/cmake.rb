@@ -41,7 +41,7 @@ module CMake
 		targetNames = Array.new
 
 		formats.each { |format|
-			formatString = format.to_s.gsub("[", "").gsub("]", "").gsub("\"", "")
+			formatString = strip_array_foreach_chars(format)
 
 			next if formatString.empty?
 
