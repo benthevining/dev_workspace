@@ -24,16 +24,16 @@ end
 namespace :build do 
 
 	task :all do 
-
+		CMake.build()
 	end
 
 
 	task :imogen do 
-
+		CMake.build()
 	end
 
 
 	task :kicklab do 
-
+		CMake.build()
 	end
 end

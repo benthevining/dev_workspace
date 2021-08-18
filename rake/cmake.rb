@@ -9,4 +9,9 @@ module CMake
 			Rake.sh "cmake -B Builds"
 		end
 	end
+
+
+	def self.build()
+		
+	end
 end
