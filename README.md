@@ -10,3 +10,7 @@ curl --remote-name https://raw.githubusercontent.com/monfresh/install-ruby-on-ma
 /usr/bin/env bash install-ruby 2>&1 | tee ~/laptop.log
 ```
 Once the script is done, quit and relaunch terminal!
+
+## Windows
+
+## Linux
