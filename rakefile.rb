@@ -22,7 +22,7 @@ task :repos do
 end
 
 desc "Runs all formatting tasks"
-task :format => [:cf, :repos]
+task :format => [:repos, :cf]
 
 desc "Updates all git submodules to the latest commit on their main branch"
 task :uth do 

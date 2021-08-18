@@ -43,4 +43,33 @@ module ClangFormat
 			self.process_dir(path) if Dir.exist?(path)
 		}
 	end
+
+
+	def self.configure()
+
+		def self.configure_repo(dir)
+
+			Dir.chdir(dir) do 
+
+				source = File.expand_path(File.dirname(__FILE__)) + "/DefaultClangFormat.txt"
+
+				path = dir + "/.clang-format"
+
+				FileUtils.cp(source, path)
+			end
+		end
+
+		root = FileAide.root()
+
+		REPO_SUBDIRS.each { |repo|
+
+			subdir = strip_array_foreach_chars(repo)
+			next if subdir.empty?
+
+			path = root + "/" + subdir
+
+			self.configure_repo (path) if Dir.exist?(path)
+		}
+	end
 end
+
