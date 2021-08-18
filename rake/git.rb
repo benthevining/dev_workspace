@@ -96,7 +96,7 @@ module Git
 
   		Rake.sh command
 
-  		Rake.sh "git commit -a -m \"Submodule auto-update\""
+  		Rake.sh "git commit -a -m \"Submodule auto-update\" && git push"
   	end
 
 end
