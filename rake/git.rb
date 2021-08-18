@@ -42,13 +42,35 @@ module Git
 
   		Rake.sh "git submodule update"
 
-  		branch_name = "main"
+  		def self.update_subdir(dir, recurse)
 
-  		submodule_command = "git checkout " + branch_name + " && git pull origin " + branch_name
+  			branch_name = "main"
 
-  		command = "git submodule foreach \'" + submodule_command + "\'"
+  			Dir.chdir(dir) do 
+  				command = "git checkout " + branch_name + " && git pull origin " + branch_name
+  				Rake.sh command
 
-  		Rake.sh command
+  				if (recurse)
+  					rec_dir = dir + "/UsefulScripts"
+
+  					Dir.chdir(rec_dir) do 
+						Rake.sh command
+  					end
+  				end
+  			end
+  		end
+
+  		REPO_SUBDIRS.each { |repo|
+
+  			subdir = strip_array_foreach_chars(repo)
+  			next if subdir.empty?
+
+  			path = FileAide.root() + "/" + subdir
+
+  			recurse = subdir != "Shared-code"
+
+  			self.update_subdir(path, recurse)
+  		}
 
   		self.commit_dev_workspace()
   	end
