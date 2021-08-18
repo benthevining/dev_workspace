@@ -30,7 +30,7 @@ module Git
 	def self.pull_dev_workspace()
 		Dir.chdir(FileAide.root()) do 
 			command = "git pull --rebase -j " + getNumCpuCores().to_s
-    		Rake.sh command
+    		Rake.sh command do |ok, res| end
 		end
 	end
 

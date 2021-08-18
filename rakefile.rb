@@ -23,6 +23,7 @@ end
 
 desc "Runs CMake configuration"
 task :config do
+	Git.pull_dev_workspace()
 	CMake.configure()
 end
 
