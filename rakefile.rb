@@ -15,7 +15,7 @@ end
 
 desc "Updates all git submodules to the latest commit on their main branch"
 task :uth do 
-	Git.new_uth()
+	Git.uth()
 end
 
 
