@@ -22,6 +22,17 @@ module ClangFormat
 
 
 	def self.run()
-		self.process_dir(FileAide.root())
+
+		root = FileAide.root()
+
+		REPO_SUBDIRS.each { |repo|
+
+			subdir = strip_array_foreach_chars(repo)
+			next if subdir.empty?
+
+			path = root + "/" + subdir
+
+			self.process_dir(path)
+		}
 	end
 end
