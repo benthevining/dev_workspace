@@ -19,6 +19,7 @@ end
 desc "Initializes this workspace"
 task :init => [:clean, :uth] do 
 	Init.init()
+	Rake::Task["uth"].invoke
 end
 
 
