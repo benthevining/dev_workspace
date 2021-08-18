@@ -67,8 +67,6 @@ module Git
 
       			Rake.sh "git pull --merge --quiet"
       			Rake.sh "git submodule sync --quiet"
-
-      			Rake.sh "git commit -a -m \"Submodule auto-update\""
       		end
     	end
 
@@ -81,6 +79,8 @@ module Git
     	Rake.sh command
 
     	update_submodules_in_dir(FileAide.root()) { |info| uth_recurse(info, 0) }
+
+    	Rake.sh "git commit -a -m \"Submodule auto-update\""
   	end
 
 end
