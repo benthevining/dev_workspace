@@ -1,5 +1,3 @@
-require 'fileutils'
-
 module FileAide
     @@root = nil
     @@dir = nil
