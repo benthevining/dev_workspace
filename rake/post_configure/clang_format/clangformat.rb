@@ -49,7 +49,7 @@ module ClangFormat
 
 		def self.configure_repo(dir)
 
-			puts repo
+			puts dir
 
 			Dir.chdir(dir) do 
 
