@@ -16,6 +16,14 @@ task :cf do
 	ClangFormat.run()
 end
 
+desc "Configures default repo scripts"
+task :repos do
+	PostConfig.run()
+end
+
+desc "Runs all formatting tasks"
+task :format => [:cf, :repos]
+
 desc "Updates all git submodules to the latest commit on their main branch"
 task :uth do 
 	Git.uth()

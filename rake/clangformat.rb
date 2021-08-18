@@ -15,9 +15,7 @@ module ClangFormat
 
 				newDir = dir + "/" + file
 
-				next if not Dir.directory?(newDir)
-
-				self.process_dir(newDir)
+				self.process_dir(newDir) if Dir.exist?(newDir)
 			end
 		end
 	end
