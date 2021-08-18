@@ -21,14 +21,12 @@ module CMake
 
 	def self.build_all(mode)
 		command = "cmake --build Builds --config " + mode
-		puts command
 		Rake.sh command
 	end
 
 
 	def self.build_all_formats_for_plugin(target, mode)
 		command = "cmake --build Builds --target " + target + "_All" + " --config " + mode
-		puts command
 		Rake.sh command
 	end
 
@@ -57,14 +55,12 @@ module CMake
 		end
 
 		command = "cmake --build Builds --target " + targetNames.join(" ") + " --config " + mode
-		puts command
 		Rake.sh command
 	end
 
 
 	def self.build_app_target(target, mode)
 		command = "cmake --build Builds --target " + target + " --config " + mode
-		puts command
 		Rake.sh command
 	end
 	

@@ -1,6 +1,6 @@
 module Git 
 	
-	def self.process_submodules(dir)
+	def self.update_submodules_in_dir(dir)
     	Dir.chdir(dir) do
       		fn = ".gitmodules"
       		return false unless File.exists?(fn)
@@ -32,22 +32,25 @@ module Git
   	end
 
 
-  	def self.uth_rec(info, level)
+  	def self.uth_recurse(info, level)
     	p = info[:path]
     	m = info[:module]
     	b = info[:branch]
 
-    	`git submodule --quiet update --init #{p}`
+    	cmd = "git submodule --quiet update --init" + p
+    	Rake.sh cmd
     
     	Dir.chdir(p) do 
       		if b
-        		`git checkout #{b} --quiet`
-        		`git pull --rebase --quiet`
-        		`git submodule sync --quiet`
+      			cmd = "git checkout " + b + " --quiet"
+      			Rake.sh cmd
+
+      			Rake.sh "git pull --rebase --quiet"
+      			Rake.sh "git submodule sync --quiet"
       		end
     	end
 
-    	process_submodules(p) { |info| uth_rec(info, level+1) } if b
+    	update_submodules_in_dir(p) { |info| uth_recurse(info, level+1) } if b
   	end
 
 
@@ -55,7 +58,7 @@ module Git
     	command = "git pull --rebase -j " + getNumCpuCores().to_s
     	Rake.sh command
 
-    	process_submodules(FileAide.root()) { |info| uth_rec(info, 0) }
+    	update_submodules_in_dir(FileAide.root()) { |info| uth_recurse(info, 0) }
   	end
 
 end

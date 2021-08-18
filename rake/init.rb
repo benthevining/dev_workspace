@@ -29,23 +29,20 @@ module Init
 
 		# clone the LV2 porting project fork of Juce
 
-		dir = FileAide.root() + "/Cache"
-		cmd = "cd " + dir
+		dir = FileAide.root().to_s + "/Cache"
 
-		Rake.sh cmd 
-
-		Rake.sh "git clone -b lv2 https://github.com/lv2-porting-project/JUCE.git"
-		Rake.sh "git pull"
+		Dir.chdir(dir) do 
+			Rake.sh "git clone -b lv2 https://github.com/lv2-porting-project/JUCE.git"
+			Rake.sh "git pull"
+		end
 
 		dir += "JUCE"
 
 		# re-run cmake config
 
-		cdCmd = "cd " + FileAide.root()
-		Rake.sh cdCmd
-
-		configCmd = "cmake -B Builds -DFormats=LV2 -DCPM_JUCE_SOURCE=" + dir
-
-		Rake.sh configCmd
+		Dir.chdir(FileAide.root()) do
+			configCmd = "cmake -B Builds -DCPM_JUCE_SOURCE=" + dir
+			Rake.sh configCmd
+		end
 	end
 end
