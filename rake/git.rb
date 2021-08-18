@@ -1,4 +1,4 @@
-require_relative "build.rb"
+require_relative "files.rb"
 
 module Git 
 	def self.process_submodules(dir)
@@ -33,7 +33,7 @@ module Git
   	end
 
 	def self.uth()
-    	dir = Build.root()
+    	dir = FileAide.root()
     	`git pull --rebase -j 16`
     	process_submodules(dir) { |info| uth_rec(info, 0) }
   	end

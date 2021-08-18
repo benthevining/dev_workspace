@@ -1,19 +1,18 @@
+require_relative "rake/files.rb"
 require_relative "rake/git.rb"
 require_relative "rake/cmake.rb"
 
 #
 
 task :clean do
-	
+	FileAide.clean()
 end
 
-#
 
 task :uth do 
 	Git.uth()
 end
 
-#
 
 task :configure do 
 	CMake.configure()
