@@ -1,4 +1,4 @@
-require_relative "files.rb"
+#require_relative "files.rb"
 
 module Git 
 	def self.process_submodules(dir)
@@ -30,6 +30,25 @@ module Git
       	end
       		yield ({module: mod_name, path: path, branch: branch }) if mod_name && path
     	end
+  	end
+
+  	def self.uth_rec(info, level)
+    	p = info[:path]
+    	m = info[:module]
+    	b = info[:branch]
+
+    	`git submodule --quiet update --init #{p}`
+    
+    	Dir.chdir(p) do 
+      		if b
+        		`git checkout #{b} --quiet`
+        		`git pull --rebase --quiet`
+        		`git submodule sync --quiet`
+      		end
+    	end
+
+    	puts " + " + "  "*level + "#{m}:#{b || '<none>'} [#{File.expand_path(p)}]"
+    	process_submodules(p) { |info| uth_rec(info, level+1) } if b
   	end
 
 	def self.uth()
