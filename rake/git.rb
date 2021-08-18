@@ -37,7 +37,7 @@ module Git
     	m = info[:module]
     	b = info[:branch]
 
-    	cmd = "git submodule --quiet update --init" + p
+    	cmd = "git submodule --quiet update --init " + p
     	Rake.sh cmd
     
     	Dir.chdir(p) do 
