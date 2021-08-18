@@ -15,7 +15,7 @@ end
 
 #
 
-task configure: [:uth] do 
+task :configure do 
 	CMake.configure()
 end
 

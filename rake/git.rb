@@ -1,7 +1,6 @@
 require_relative "build.rb"
 
 module Git 
-
 	def self.process_submodules(dir)
     	Dir.chdir(dir) do
       		fn = ".gitmodules"
@@ -17,6 +16,7 @@ module Git
 
       		File.readlines(fn).each do |line|
         	res = nil
+        	
         	if res = mod_rgx.match(line)
           		yield ({module: mod_name, path: path, branch: branch }) if mod_name && path
           		mod_name = res[1]
@@ -31,8 +31,6 @@ module Git
       		yield ({module: mod_name, path: path, branch: branch }) if mod_name && path
     	end
   	end
-
-  	#
 
 	def self.uth()
     	dir = Build.root()
