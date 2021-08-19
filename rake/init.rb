@@ -17,7 +17,7 @@ module Init
 			Rake.sh "git remote update && git fetch"
 		end
 
-		Git.init_all_submodules()
+		Git.init_all_submodules
 
 		self.init_linux() if OS.linux?
 	end

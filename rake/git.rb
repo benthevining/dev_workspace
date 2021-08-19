@@ -53,7 +53,7 @@ module Git
   			end
   		end
 
-  		self.pull_dev_workspace()
+  		self.pull_dev_workspace
 
   		Rake.sh "git submodule update"
 
@@ -77,6 +77,6 @@ module Git
   		path = REPO_ROOT + "/rake/post_configure/DefaultGithubRepo"
   		self.update_subdir(path)
 
-  		self.commit_dev_workspace()
+  		self.commit_dev_workspace
   	end
 end

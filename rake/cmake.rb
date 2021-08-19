@@ -8,7 +8,7 @@ module CMake
 
 		Rake.sh command
 
-		PostConfig.run()
+		PostConfig.run
 	end
 
 
