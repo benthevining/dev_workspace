@@ -4,7 +4,11 @@ module CMake
 
 		command = "cmake -B Builds -DCMAKE_BUILD_TYPE=" + mode
 
-		command += " -G Xcode" if OS.mac?
+		if OS.mac?
+			command += " -G Xcode"
+		elsif OS.windows?
+			command += " -G \"Visual Studio 16 2019\""
+		end # use default Ninja generator on Linux
 
 		Rake.sh command
 
