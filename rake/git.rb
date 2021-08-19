@@ -63,7 +63,6 @@ module Git
   			next if subdir.empty?
 
   			path = REPO_ROOT + "/" + subdir
-
   			self.update_subdir(path)
 
   			if subdir == "Shared-code"
@@ -76,8 +75,7 @@ module Git
   		}
 
   		path = REPO_ROOT + "/rake/post_configure/DefaultGithubRepo"
-
-  		self.update_subdir(path, false)
+  		self.update_subdir(path)
 
   		self.commit_dev_workspace()
   	end
