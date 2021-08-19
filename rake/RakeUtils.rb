@@ -1,13 +1,13 @@
+def strip_array_foreach_chars(input)
+	return input.to_s.gsub("[", "").gsub("]", "").gsub("\"", "")
+end
+
+
 require_relative "constants.rb"
 
 
 Rake.application.options.trace = DEBUG_OUTPUT
 verbose(DEBUG_OUTPUT)
-
-
-def strip_array_foreach_chars(input)
-	return input.to_s.gsub("[", "").gsub("]", "").gsub("\"", "")
-end
 
 
 require_relative "os.rb"
