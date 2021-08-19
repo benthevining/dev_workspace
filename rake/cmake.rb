@@ -16,7 +16,7 @@ module CMake
 	end
 
 
-	default_cmake_command = "cmake --build Builds"
+	@@default_cmake_command = "cmake --build Builds"
 
 
 	def self.default_cmake_command_suffix(mode) 
@@ -27,7 +27,7 @@ module CMake
 
 
 	def self.build_all(mode)
-		command = default_cmake_command + self.default_cmake_command_suffix(mode)
+		command = @@default_cmake_command + self.default_cmake_command_suffix(mode)
 		Rake.sh command
 	end
 
@@ -35,7 +35,7 @@ module CMake
 	def self.build_plugin_target(target, mode, *formats)
 
 		def self.build_all_formats_for_plugin(target, mode)
-			command = default_cmake_command + " --target " + target + "_All" + self.default_cmake_command_suffix(mode)
+			command = @@default_cmake_command + " --target " + target + "_All" + self.default_cmake_command_suffix(mode)
 			Rake.sh command
 		end
 
@@ -68,13 +68,13 @@ module CMake
 			return
 		end
 
-		command = default_cmake_command + " --target " + targetNames.join(" ") + self.default_cmake_command_suffix(mode)
+		command = @@default_cmake_command + " --target " + targetNames.join(" ") + self.default_cmake_command_suffix(mode)
 		Rake.sh command
 	end
 
 
 	def self.build_app_target(target, mode)
-		command = default_cmake_command + " --target " + target + self.default_cmake_command_suffix(mode)
+		command = @@default_cmake_command + " --target " + target + self.default_cmake_command_suffix(mode)
 		Rake.sh command
 	end
 	
