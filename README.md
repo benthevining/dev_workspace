@@ -1,3 +1,5 @@
+[![Build](https://github.com/BenViningMusicSoftware/dev_workspace/actions/workflows/Build.yml/badge.svg?branch=main)](https://github.com/BenViningMusicSoftware/dev_workspace/actions/workflows/autoBuild.yml)
+
 # Installing Ruby
 
 ## MacOS
