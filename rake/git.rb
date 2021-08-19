@@ -5,15 +5,13 @@ module Git
 		Dir.chdir(REPO_ROOT) do 
 			Rake.sh "git submodule update --init"
 
-			dirs = Array['imogen', 'kicklab', 'StageHand']
-
-			dirs.each do |dir|
+			REPO_SUBDIRS.each { |dir|
 				path = REPO_ROOT + "/" + dir
 
 				Dir.chdir(path) do 
 					Rake.sh "git submodule update --init"
 				end
-			end
+			}
 		end
 	end
 
@@ -36,11 +34,17 @@ module Git
 	
   	def self.uth()
 
-  		def self.update_subdir(dir, recurse, commit)
+  		def self.update_subdir(dir, recurse)
+
+  			puts dir
 
   			Dir.chdir(dir) do 
   				branch_name = "main"
-  				command = "git checkout " + branch_name + " && git pull origin " + branch_name
+
+  				command = "git checkout " + branch_name
+  				Rake.sh command
+
+  				command = "git pull origin " + branch_name
   				Rake.sh command
 
   				if (recurse)
@@ -51,10 +55,8 @@ module Git
   					end
   				end
 
-  				if (commit)
-					command = "git commit -a -m \"Submodule auto-update\" && git push"
-  					Rake.sh command do |ok, res| end
-  				end
+  				command = "git commit -a -m \"Submodule auto-update\" && git push"
+  				Rake.sh command do |ok, res| end
   			end
   		end
 
@@ -71,17 +73,17 @@ module Git
 
   			recurse = subdir != "Shared-code"
 
-  			self.update_subdir(path, recurse, true)
+  			self.update_subdir(path, recurse)
 
   			if subdir == "Shared-code"
   				newPath = path + "/cmake/internal/UsefulScripts"
-  				self.update_subdir(newPath, false, true)
+  				self.update_subdir(newPath, false)
   			end
   		}
 
   		path = REPO_ROOT + "/rake/post_configure/DefaultGithubRepo"
 
-  		self.update_subdir(path, false, true)
+  		self.update_subdir(path, false)
 
   		self.commit_dev_workspace()
   	end
