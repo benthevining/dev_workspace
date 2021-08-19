@@ -12,19 +12,4 @@ module ClangFormat
 			ClangFormatHandle.process_dir(path) if Dir.exist?(path)
 		}
 	end
-
-
-	def self.configure()
-
-		REPO_SUBDIRS.each { |repo|
-
-			subdir = strip_array_foreach_chars(repo)
-			next if subdir.empty?
-
-			path = REPO_ROOT + "/" + subdir
-
-			ClangFormatHandle.configure_repo (path) if Dir.exist?(path)
-		}
-
-	end
 end
