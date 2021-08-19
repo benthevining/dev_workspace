@@ -11,22 +11,27 @@ task :clean do
 	Clean.run
 end
 
-desc "Runs clang-format over all source code"
-task :cf do
-	ClangFormat.run
-end
-
-desc "Configures default repo scripts"
-task :repos do
-	PostConfig.run
-end
-
-desc "Runs all formatting tasks"
-task :format => [:repos, :cf]
-
 desc "Updates all git submodules to the latest commit on their main branch"
 task :uth => [:clean] do 
 	Git.uth
+end
+
+
+namespace :format do 
+
+	desc "Runs clang-format over all source code"
+	task :code do
+		ClangFormat.run
+	end
+
+	desc "Configures default repo scripts"
+	task :repos do
+		PostConfig.run
+	end
+
+	desc "Runs all formatting tasks"
+	task :all => [:repos, :code]
+	
 end
 
 
@@ -39,7 +44,7 @@ task :config, [:mode] do |t, args|
 end
 
 desc "Initializes this workspace"
-task :init => [:clean, :uth, :repos] do 
+task :init => [:clean, :uth, "format:repos"] do 
 	Init.init
 end
 
