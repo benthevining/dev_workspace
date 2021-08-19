@@ -1,15 +1,15 @@
-BV_DEBUG_OUTPUT = false
+require_relative "constants.rb"
 
-Rake.application.options.trace = BV_DEBUG_OUTPUT
-verbose(BV_DEBUG_OUTPUT)
 
-#
+Rake.application.options.trace = DEBUG_OUTPUT
+verbose(DEBUG_OUTPUT)
+
 
 def strip_array_foreach_chars(input)
 	return input.to_s.gsub("[", "").gsub("]", "").gsub("\"", "")
 end
 
-require_relative "constants.rb"
+
 require_relative "os.rb"
 
 require_relative "clean.rb"
