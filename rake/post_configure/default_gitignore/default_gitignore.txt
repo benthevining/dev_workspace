@@ -1,4 +1,0 @@
-Builds/
-Cache/
-**/.DS_Store
-.clang-format

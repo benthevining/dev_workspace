@@ -10,3 +10,6 @@
 [submodule "StageHand"]
 	path = StageHand
 	url = https://github.com/BenViningMusicSoftware/StageHand
+[submodule "rake/post_configure/DefaultGithubRepo"]
+	path = rake/post_configure/DefaultGithubRepo
+	url = https://github.com/BenViningMusicSoftware/DefaultGithubRepo.git
