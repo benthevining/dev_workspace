@@ -38,10 +38,6 @@ module Git
 	
   	def self.uth()
 
-  		self.pull_dev_workspace()
-
-  		Rake.sh "git submodule update"
-
   		def self.update_subdir(dir, recurse)
 
   			branch_name = "main"
@@ -60,6 +56,10 @@ module Git
   			end
   		end
 
+  		self.pull_dev_workspace()
+
+  		Rake.sh "git submodule update"
+
   		REPO_SUBDIRS.each { |repo|
 
   			subdir = strip_array_foreach_chars(repo)
@@ -70,6 +70,11 @@ module Git
   			recurse = subdir != "Shared-code"
 
   			self.update_subdir(path, recurse)
+
+  			if subdir == "Shared-code"
+  				newPath = path + "/cmake/internal/UsefulScripts"
+  				self.update_subdir(newPath, false)
+  			end
   		}
 
   		self.commit_dev_workspace()
