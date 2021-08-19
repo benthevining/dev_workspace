@@ -1,7 +1,7 @@
-BV_DEBUG = true
+BV_DEBUG_OUTPUT = false
 
-Rake.application.options.trace = BV_DEBUG
-verbose(BV_DEBUG)
+Rake.application.options.trace = BV_DEBUG_OUTPUT
+verbose(BV_DEBUG_OUTPUT)
 
 #
 
