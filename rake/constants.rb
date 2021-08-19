@@ -1,4 +1,4 @@
-REPO_ROOT = File.dirname(File.dirname(File.dirname(__FILE__))).to_s
+REPO_ROOT = File.dirname(File.dirname(__FILE__)).to_s
 
 REPO_SUBDIRS = Array['imogen', 'kicklab', 'Shared-code', 'StageHand']
 
