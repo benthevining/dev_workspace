@@ -25,7 +25,7 @@ desc "Runs all formatting tasks"
 task :format => [:repos, :cf]
 
 desc "Updates all git submodules to the latest commit on their main branch"
-task :uth do 
+task :uth => [:clean] do 
 	Git.uth()
 end
 

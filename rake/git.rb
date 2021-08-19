@@ -79,5 +79,4 @@ module Git
 
   		self.commit_dev_workspace()
   	end
-
 end
