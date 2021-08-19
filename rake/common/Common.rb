@@ -4,4 +4,3 @@ end
 
 require_relative "constants.rb"
 require_relative "os.rb"
-require_relative "files.rb"

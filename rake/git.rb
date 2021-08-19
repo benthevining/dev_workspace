@@ -21,7 +21,7 @@ module Git
 
 
 	def self.commit_dev_workspace()
-		Dir.chdir(FileAide.root()) do 
+		Dir.chdir(REPO_ROOT) do 
 			command = "git commit -a -m \"Submodule auto-update\""
 			Rake.sh command do |ok, res| end
 		end
@@ -29,7 +29,7 @@ module Git
 
 
 	def self.pull_dev_workspace()
-		Dir.chdir(FileAide.root()) do 
+		Dir.chdir(REPO_ROOT) do 
 			command = "git pull --rebase -j " + getNumCpuCores().to_s
     		Rake.sh command do |ok, res| end
 		end
@@ -70,7 +70,7 @@ module Git
   			subdir = strip_array_foreach_chars(repo)
   			next if subdir.empty?
 
-  			path = FileAide.root() + "/" + subdir
+  			path = REPO_ROOT + "/" + subdir
 
   			recurse = subdir != "Shared-code"
 
@@ -82,7 +82,7 @@ module Git
   			end
   		}
 
-  		path = FileAide.root() + "/rake/post_configure/DefaultGithubRepo"
+  		path = REPO_ROOT + "/rake/post_configure/DefaultGithubRepo"
 
   		self.update_subdir(path, false, true)
 

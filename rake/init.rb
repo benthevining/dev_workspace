@@ -30,7 +30,7 @@ module Init
 
 		# clone the LV2 porting project fork of Juce
 
-		dir = FileAide.root().to_s + "/Cache"
+		dir = REPO_ROOT + "/Cache"
 
 		Dir.chdir(dir) do 
 			Rake.sh "git clone -b lv2 https://github.com/lv2-porting-project/JUCE.git"
@@ -41,7 +41,7 @@ module Init
 
 		# re-run cmake config
 
-		Dir.chdir(FileAide.root()) do
+		Dir.chdir(REPO_ROOT) do
 			configCmd = "cmake -B Builds -DCPM_JUCE_SOURCE=" + dir
 			Rake.sh configCmd
 		end

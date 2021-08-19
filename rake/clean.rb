@@ -1,7 +1,7 @@
 module Clean
 
 	def self.delete_build_dir()
-        dir = FileAide.root() + "/Builds/"
+        dir = REPO_ROOT + "/Builds/"
 
         FileUtils.remove_dir(dir) if Dir.exist?(dir)
     end
@@ -42,7 +42,7 @@ module Clean
 
 
     def self.delete_cached_cpm_script()
-        path = FileAide.root() + "/Cache/CPM.cmake"
+        path = REPO_ROOT + "/Cache/CPM.cmake"
         File.delete(path) if File.exist?(path)
     end
 
