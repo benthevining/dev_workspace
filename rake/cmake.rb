@@ -21,7 +21,7 @@ module CMake
 
 	def self.default_cmake_command_suffix(mode) 
 
-		suffix = " --config " + mode + " -j " + NUM_CPU_CORES.to_s
+		suffix = " --config " + mode + " -j " + NUM_CPU_CORES
 		return suffix
 	end
 
