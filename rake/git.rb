@@ -75,6 +75,9 @@ module Git
   				newPath = path + "/cmake/internal/UsefulScripts"
   				self.update_subdir(newPath, false)
   			end
+
+  			command = "git commit -a -m \"Submodule auto-update\" && git push"
+  			Rake.sh command do |ok, res| end
   		}
 
   		self.commit_dev_workspace()
