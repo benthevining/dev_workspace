@@ -45,7 +45,8 @@ module Git
   				command = "git checkout " + branch_name
   				Rake.sh command
 
-  				command = "git pull origin " + branch_name + " -j " + NUM_CPU_CORES
+  				command = "git pull -j " + NUM_CPU_CORES + " origin " + branch_name
+  				puts command
   				Rake.sh command
 
   				command = "git commit -a -m \"Submodule auto-update\" && git push"
