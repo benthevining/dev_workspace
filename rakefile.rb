@@ -49,8 +49,6 @@ task :init => [:clean, :uth, "format:repos"] do
 end
 
 
-##  BUILD TASKS
-
 namespace :build do 
 
 	desc "Builds all apps, and all formats of all plugins"
