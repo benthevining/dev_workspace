@@ -31,6 +31,9 @@ module Git
 		end
 	end
 
+
+	@@branch_name = "main"
+
 	
   	def self.uth()
 
@@ -40,12 +43,10 @@ module Git
 
   			Dir.chdir(dir) do 
 
-  				branch_name = "main"
-
-  				command = "git checkout " + branch_name
+  				command = "git checkout " + @@branch_name
   				Rake.sh command
 
-  				command = "git pull -j " + NUM_CPU_CORES + " origin " + branch_name
+  				command = "git pull -j " + NUM_CPU_CORES + " origin " + @@branch_name
   				puts command
   				Rake.sh command
 

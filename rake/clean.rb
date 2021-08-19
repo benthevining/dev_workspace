@@ -2,7 +2,6 @@ module Clean
 
 	def self.delete_build_dir()
         dir = REPO_ROOT + "/Builds/"
-
         FileUtils.remove_dir(dir) if Dir.exist?(dir)
     end
 
@@ -29,7 +28,6 @@ module Clean
         else # Linux
 
         end
-
 
         Dir.chdir(au_dir) do 
             delete_list_of_plugin_names(au_plugin_names)

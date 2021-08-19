@@ -6,7 +6,6 @@ module Init
 		Rake.sh "sudo apt update" do |ok, res| end
 
 		command = "sudo apt install " + deps.join(" ")
-		puts command
 		Rake.sh command
 	end
 
