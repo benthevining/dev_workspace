@@ -1,6 +1,6 @@
 require "etc"
 
-NUM_CPU_CORES = Etc.nprocessors
+NUM_CPU_CORES = Etc.nprocessors.to_s
 
 
 REPO_ROOT = File.dirname(File.dirname(__FILE__)).to_s
