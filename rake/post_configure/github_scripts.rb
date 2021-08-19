@@ -9,7 +9,7 @@ module GithubScripts
 
 			dir = REPO_ROOT + "/" + sub_dir
 
-			GithubScriptsHandle.update_subdir(dir)
+			GithubScriptsHandle.update_repo(dir)
 		}
 	end
 end
