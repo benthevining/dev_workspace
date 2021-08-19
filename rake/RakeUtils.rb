@@ -1,3 +1,10 @@
+BV_DEBUG = true
+
+Rake.application.options.trace = BV_DEBUG
+verbose(BV_DEBUG)
+
+#
+
 def strip_array_foreach_chars(input)
 	return input.to_s.gsub("[", "").gsub("]", "").gsub("\"", "")
 end
