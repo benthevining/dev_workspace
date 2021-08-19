@@ -2,15 +2,13 @@ module Git
 
 	def self.init_all_submodules()
 
-		root = FileAide.root()
-
 		Dir.chdir(root) do 
 			Rake.sh "git submodule update --init"
 
 			dirs = Array['imogen', 'kicklab', 'StageHand']
 
 			dirs.each do |dir|
-				path = root + "/" + dir
+				path = REPO_ROOT + "/" + dir
 
 				Dir.chdir(path) do 
 					Rake.sh "git submodule update --init"
@@ -40,9 +38,8 @@ module Git
 
   		def self.update_subdir(dir, recurse, commit)
 
-  			branch_name = "main"
-
   			Dir.chdir(dir) do 
+  				branch_name = "main"
   				command = "git checkout " + branch_name + " && git pull origin " + branch_name
   				Rake.sh command
 
