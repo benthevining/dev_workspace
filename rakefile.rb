@@ -42,7 +42,6 @@ end
 desc "Initializes this workspace"
 task :init => [:clean, :uth, :repos] do 
 	Init.init()
-	Rake::Task["config"].invoke
 end
 
 
