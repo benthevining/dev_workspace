@@ -34,13 +34,17 @@ jobs:
         submodules: recursive
         path: Workspace
         
-    - name: Set up Ruby
+    - name: Install Ruby
       uses: ruby/setup-ruby@v1.81.0
       with:
         ruby-version: 2.6
         bundler-cache: true
         
-    - name: Init workspace 
+    - name: Rake init
       shell: bash
       run: cd Workspace && rake init
+      
+    - name: Run build
+      shell: bash
+      run: rake build:all[release]
       
