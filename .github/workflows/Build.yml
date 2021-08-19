@@ -30,8 +30,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
+        token: ${{ secrets.ACCESS_TOKEN }}
         submodules: recursive
-        path: autoBuild
+        path: Workspace
         
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1.81.0
@@ -41,5 +42,5 @@ jobs:
         
     - name: Init workspace 
       shell: bash
-      run: rake init
+      run: cd Workspace && rake init
       
