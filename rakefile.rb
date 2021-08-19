@@ -35,7 +35,6 @@ end
 desc "Runs CMake configuration"
 task :config, [:mode] do |t, args|
 	args.with_defaults(:mode => default_config)
-	Git.pull_dev_workspace
 	CMake.configure(args.mode.capitalize)
 end
 
