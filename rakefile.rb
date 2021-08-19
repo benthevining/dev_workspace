@@ -1,7 +1,7 @@
 require_relative "rake/RakeUtils.rb"
 
 
-default_config = "debug"
+default_config = "Debug"
 
 
 ##  UTILITY TASKS
@@ -36,7 +36,7 @@ desc "Runs CMake configuration"
 task :config, [:mode] do |t, args|
 	args.with_defaults(:mode => default_config)
 	Git.pull_dev_workspace
-	CMake.configure(args.mode)
+	CMake.configure(args.mode.capitalize)
 end
 
 desc "Initializes this workspace"
@@ -52,7 +52,7 @@ namespace :build do
 	desc "Builds all apps, and all formats of all plugins"
 	task :all, [:mode] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => default_config)
-		CMake.build_all(args.mode)
+		CMake.build_all(args.mode.capitalize)
 	end
 
 	#  Plugins
@@ -60,13 +60,13 @@ namespace :build do
 	desc "Builds Imogen"
 	task :imogen, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => default_config)
-		CMake.build_plugin_target("Imogen", args.mode, args.formats, args.extras)
+		CMake.build_plugin_target("Imogen", args.mode.capitalize, args.formats, args.extras)
 	end
 
 	desc "Builds Kicklab"
 	task :kicklab, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => default_config)
-		CMake.build_plugin_target("Kicklab", args.mode, args.formats, args.extras)
+		CMake.build_plugin_target("Kicklab", args.mode.capitalize, args.formats, args.extras)
 	end
 
 	#  Apps
@@ -74,13 +74,13 @@ namespace :build do
 	desc "Builds ImogenRemote"
 	task :imogen_remote, [:mode] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => default_config)
-		CMake.build_app_target("ImogenRemote", args.mode)
+		CMake.build_app_target("ImogenRemote", args.mode.capitalize)
 	end
 
 	desc "Builds StageHand"
 	task :stagehand, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => default_config)
-		CMake.build_app_target("StageHand", args.mode)
+		CMake.build_app_target("StageHand", args.mode.capitalize)
 	end
 end
 
