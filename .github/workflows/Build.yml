@@ -46,5 +46,5 @@ jobs:
       
     - name: Run build
       shell: bash
-      run: rake build:all[release]
+      run: cd Workspace && rake 'build:all[release]'
       
