@@ -42,5 +42,5 @@ jobs:
         
     - name: Init workspace 
       shell: bash
-      run: cd Workspace && rake init
+      run: rake init
       
