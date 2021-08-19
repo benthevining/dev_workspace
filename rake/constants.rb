@@ -7,6 +7,16 @@ REPO_ROOT = File.dirname(File.dirname(__FILE__)).to_s
 
 REPO_SUBDIRS = Array['imogen', 'kicklab', 'Shared-code', 'StageHand']
 
+REPO_PATHS = Array.new
+
+REPO_SUBDIRS.each { |repo|
+	repo_dir = strip_array_foreach_chars(repo)
+	next if repo_dir.empty?
+
+	path = REPO_ROOT + "/" + repo_dir
+	REPO_PATHS.push(path)
+}
+
 
 PLUGIN_NAMES = Array['Imogen', 'Kicklab']
 

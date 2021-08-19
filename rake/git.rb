@@ -5,8 +5,9 @@ module Git
 		Dir.chdir(REPO_ROOT) do 
 			Rake.sh "git submodule update --init"
 
-			REPO_SUBDIRS.each { |dir|
-				path = REPO_ROOT + "/" + dir
+			REPO_PATHS.each { |dir|
+				path = strip_array_foreach_chars(dir)
+				next if path.empty?
 
 				Dir.chdir(path) do 
 					Rake.sh "git submodule update --init"
@@ -65,6 +66,7 @@ module Git
   			next if subdir.empty?
 
   			path = REPO_ROOT + "/" + subdir
+
   			self.update_subdir(path)
 
   			if subdir == "Shared-code"
