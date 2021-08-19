@@ -13,6 +13,10 @@ module Init
 
 	def self.init()
 
+		Dir.chdir(REPO_ROOT) do 
+			Rake.sh "git fetch"
+		end
+
 		Git.init_all_submodules()
 
 		self.init_linux() if OS.linux?
