@@ -2,6 +2,11 @@ require "etc"
 
 NUM_CPU_CORES = Etc.nprocessors.to_s
 
+#
+
+DEFAULT_BUILD_CONFIG = ENV.has_key?('DefaultConfig') ? ENV['DefaultConfig'] : 'Debug'
+
+#
 
 REPO_ROOT = File.dirname(File.dirname(__FILE__)).to_s
 
@@ -17,6 +22,7 @@ REPO_SUBDIRS.each { |repo|
 	REPO_PATHS.push(path)
 }
 
+#
 
 PLUGIN_NAMES = Array['Imogen', 'Kicklab']
 
