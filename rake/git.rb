@@ -34,11 +34,12 @@ module Git
 	
   	def self.uth()
 
-  		def self.update_subdir(dir, recurse)
+  		def self.update_subdir(dir)
 
   			puts dir
 
   			Dir.chdir(dir) do 
+
   				branch_name = "main"
 
   				command = "git checkout " + branch_name
@@ -46,14 +47,6 @@ module Git
 
   				command = "git pull origin " + branch_name
   				Rake.sh command
-
-  				if (recurse)
-  					rec_dir = dir + "/UsefulScripts"
-
-  					Dir.chdir(rec_dir) do 
-						Rake.sh command
-  					end
-  				end
 
   				command = "git commit -a -m \"Submodule auto-update\" && git push"
   				Rake.sh command do |ok, res| end
@@ -71,14 +64,15 @@ module Git
 
   			path = REPO_ROOT + "/" + subdir
 
-  			recurse = subdir != "Shared-code"
-
-  			self.update_subdir(path, recurse)
+  			self.update_subdir(path)
 
   			if subdir == "Shared-code"
-  				newPath = path + "/cmake/internal/UsefulScripts"
-  				self.update_subdir(newPath, false)
+  				rec_dir = path + "/cmake/internal/UsefulScripts"
+  			else 
+  				rec_dir = path + "/UsefulScripts"
   			end
+
+  			self.update_subdir(rec_dir)
   		}
 
   		path = REPO_ROOT + "/rake/post_configure/DefaultGithubRepo"
