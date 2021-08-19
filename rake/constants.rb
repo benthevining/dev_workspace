@@ -1,3 +1,8 @@
+require "etc"
+
+NUM_CPU_CORES = Etc.nprocessors
+
+
 REPO_ROOT = File.dirname(File.dirname(__FILE__)).to_s
 
 REPO_SUBDIRS = Array['imogen', 'kicklab', 'Shared-code', 'StageHand']
