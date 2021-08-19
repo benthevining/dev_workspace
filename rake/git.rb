@@ -2,7 +2,7 @@ module Git
 
 	def self.init_all_submodules()
 
-		Dir.chdir(root) do 
+		Dir.chdir(REPO_ROOT) do 
 			Rake.sh "git submodule update --init"
 
 			dirs = Array['imogen', 'kicklab', 'StageHand']
