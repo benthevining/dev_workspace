@@ -26,7 +26,7 @@ module Git
 
 	def self.pull_dev_workspace()
 		Dir.chdir(REPO_ROOT) do 
-			command = "git pull --rebase -j " + NUM_CPU_CORES
+			command = "git pull --rebase -j " + NUM_CPU_CORES.to_s
     		Rake.sh command do |ok, res| end
 		end
 	end
@@ -45,7 +45,7 @@ module Git
   				command = "git checkout " + branch_name
   				Rake.sh command
 
-  				command = "git pull origin " + branch_name + " -j " + NUM_CPU_CORES
+  				command = "git pull origin " + branch_name + " -j " + NUM_CPU_CORES.to_s
   				Rake.sh command
 
   				command = "git commit -a -m \"Submodule auto-update\" && git push"
