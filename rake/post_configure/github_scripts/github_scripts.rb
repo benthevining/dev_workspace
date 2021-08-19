@@ -10,7 +10,7 @@ module GithubScripts
 
 		def self.update_subdir(dir)
 
-			workflows = Array['Build', 'RepoMaintenance', 'UpdateGitSubmodules']
+			workflows = Array['RepoMaintenance', 'UpdateGitSubmodules']
 
 			workflows.each { |flow|
 
