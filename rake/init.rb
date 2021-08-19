@@ -14,7 +14,7 @@ module Init
 	def self.init()
 
 		Dir.chdir(REPO_ROOT) do 
-			Rake.sh "git fetch"
+			Rake.sh "git remote update && git fetch"
 		end
 
 		Git.init_all_submodules()
