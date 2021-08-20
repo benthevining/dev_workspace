@@ -41,7 +41,7 @@ task :config, [:mode] do |t, args|
 end
 
 desc "Initializes this workspace"
-task :init => [:clean, :uth, "format:repos"] do 
+task :init => [:uth, "format:repos"] do 
 	Init.init
 end
 
@@ -83,3 +83,4 @@ namespace :build do
 	end
 end
 
+require_relative "rake/build_tasks/rakefile.rb"
