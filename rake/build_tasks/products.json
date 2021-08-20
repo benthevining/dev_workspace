@@ -1,0 +1,24 @@
+{
+  "product": [ 
+	
+     { 
+        "name":"Imogen", 
+        "type":"plugin"
+     }, 
+	
+     { 
+        "name":"ImogenRemote", 
+        "type":"app"
+     },
+
+     {
+         "name":"Kicklab",
+         "type":"plugin"
+     },
+
+     {
+         "name":"StageHand",
+         "type":"app"
+     }
+  ]   
+}
