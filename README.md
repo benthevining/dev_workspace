@@ -43,3 +43,10 @@ All the build tasks automatically invoke the `config` task, but you can run just
 `rake build:imogen[debug]` builds all Imogen formats, in debug mode
 
 `rake build:kicklab[release, vst3, au]` builds Kicklab AU and VST3 in release mode
+
+
+# Rake environment variables
+
+**DEFAULT_BUILD_CONFIG:** either `Build` or `Debug`. Defaults to `Debug`. Defines the default build configuration used for the config and build tasks if mode is not specified as an argument to the task.
+
+**DEBUG_OUTPUT:** either `true` or `false`. Defaults to `true` if the value of `DEFAULT_BUILD_CONFIG` is `Debug`, else `false`. Defines whether rake will be verbose with its console output.
