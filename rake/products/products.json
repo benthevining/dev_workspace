@@ -3,7 +3,8 @@
 	
      { 
         "name":"Imogen", 
-        "type":"plugin"
+        "type":"plugin",
+        "subdir":"imogen"
      }, 
 	
      { 
@@ -13,12 +14,14 @@
 
      {
          "name":"Kicklab",
-         "type":"plugin"
+         "type":"plugin",
+         "subdir":"kicklab"
      },
 
      {
          "name":"StageHand",
-         "type":"app"
+         "type":"app",
+         "subdir":"StageHand"
      }
   ]   
 }

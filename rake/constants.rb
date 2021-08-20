@@ -12,8 +12,6 @@ DEBUG_OUTPUT = ENV.has_key?('DebugOutput') ? ENV['DebugOutput'] : DEFAULT_BUILD_
 
 REPO_ROOT = File.dirname(File.dirname(__FILE__)).to_s
 
-REPO_SUBDIRS = Array['imogen', 'kicklab', 'Shared-code', 'StageHand']
-
 REPO_PATHS = Array.new
 
 REPO_SUBDIRS.each { |repo|
@@ -23,14 +21,6 @@ REPO_SUBDIRS.each { |repo|
 	path = REPO_ROOT + "/" + repo_dir
 	REPO_PATHS.push(path)
 }
-
-#
-
-PLUGIN_NAMES = Array['Imogen', 'Kicklab']
-
-APP_NAMES = Array['StageHand', 'ImogenRemote']
-
-PRODUCT_NAMES = PLUGIN_NAMES + APP_NAMES
 
 #
 

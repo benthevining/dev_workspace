@@ -82,5 +82,3 @@ namespace :build do
 		CMake.build_app_target("StageHand", args.mode.capitalize)
 	end
 end
-
-#require_relative "rake/build_tasks/rakefile.rb"
