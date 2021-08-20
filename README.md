@@ -16,3 +16,28 @@ Once the script is done, quit and relaunch terminal!
 ## Windows
 
 ## Linux
+
+
+# Using Rake tasks
+
+After cloning this repo, you should run `rake init` once. If you haven't pulled the repo in 12 years and then pull again, maybe run `rake init` again just for good measure.
+
+`rake -T` to list all available tasks
+
+`rake clean` to purge the build directory and any installed binaries 
+
+`rake uth` to update all git submodules to their latest commits. You should usually run this after making changes to any of the git submodules, for those changes to be reflected here in the super-repo.
+
+All the build tasks automatically invoke the `config` task, but you can run just the CMake configuration by itself with `rake config[<MODE>]`, where `<MODE>` is either `Debug` or `Release` (default is `Debug`)
+
+Build tasks: 
+
+`rake build:all[<MODE>]`
+
+`rake build:<PRODUCT>[<MODE>, <FORMATS...>]`, where `<FORMATS>` is only needed for plugins, may be ommitted, and defaults to using all available formats for the given plugin
+
+*example:*
+
+`rake build:imogen[debug]` builds all Imogen formats, in debug mode
+
+`rake build:kicklab[release, vst3, au]` builds Kicklab AU and VST3 in release mode
