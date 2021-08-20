@@ -59,12 +59,14 @@ namespace :build do
 	desc "Builds Imogen"
 	task :imogen, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
+		
 		CMake.build_plugin_target("Imogen", args.mode.capitalize, args.formats, args.extras)
 	end
 
 	desc "Builds Kicklab"
 	task :kicklab, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
+		
 		CMake.build_plugin_target("Kicklab", args.mode.capitalize, args.formats, args.extras)
 	end
 

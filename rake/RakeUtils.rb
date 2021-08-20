@@ -1,5 +1,5 @@
 def strip_array_foreach_chars(input)
-	return input.to_s.gsub("[", "").gsub("]", "").gsub("\"", "")
+	return input.to_s.gsub("[", "").gsub("]", "").gsub("\"", "").gsub(",", "")
 end
 
 
