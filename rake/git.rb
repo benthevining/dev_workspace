@@ -70,7 +70,7 @@ module Git
   			self.update_subdir(path)
 
   			if subdir == "Shared-code"
-  				rec_dir = path + "/cmake/internal/UsefulScripts"
+  				rec_dir = path + "/cmake/UsefulScripts"
   			else 
   				rec_dir = path + "/UsefulScripts"
   			end
