@@ -4,24 +4,28 @@
      { 
         "name":"Imogen", 
         "type":"plugin",
-        "subdir":"imogen"
+        "subdir":"imogen",
+        "task":"imogen"
      }, 
 	
      { 
         "name":"ImogenRemote", 
-        "type":"app"
+        "type":"app",
+        "task":"imogenremote"
      },
 
      {
          "name":"Kicklab",
          "type":"plugin",
-         "subdir":"kicklab"
+         "subdir":"kicklab",
+         "task":"kicklab"
      },
 
      {
          "name":"StageHand",
          "type":"app",
-         "subdir":"StageHand"
+         "subdir":"StageHand",
+         "task":"stagehand"
      }
   ]   
 }

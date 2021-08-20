@@ -26,8 +26,8 @@ Dir.chdir(File.expand_path(File.dirname(__FILE__))) do
 		if product.has_key?("subdir")
 			REPO_SUBDIRS.push(product["subdir"])
 		end
+		
 	end
-
 end
 
 PRODUCT_NAMES = PLUGIN_NAMES + APP_NAMES
