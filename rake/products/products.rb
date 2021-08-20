@@ -6,6 +6,7 @@ APP_NAMES = Array.new
 
 REPO_SUBDIRS = Array.new
 
+#
 
 Dir.chdir(File.expand_path(File.dirname(__FILE__))) do 
 
@@ -14,20 +15,24 @@ Dir.chdir(File.expand_path(File.dirname(__FILE__))) do
 
 	json["product"].each do |product|
 
+		productName = product["name"]
 		type = product["type"]
 
 		if type == "plugin" 
-			PLUGIN_NAMES.push(product["name"])
+			PLUGIN_NAMES.push(productName)
 		elsif type == "app" 
-			APP_NAMES.push(product["name"])
+			APP_NAMES.push(productName)
 		else next
 		end
 
 		if product.has_key?("subdir")
 			REPO_SUBDIRS.push(product["subdir"])
 		end
-		
 	end
 end
 
+#
+
 PRODUCT_NAMES = PLUGIN_NAMES + APP_NAMES
+
+REPO_SUBDIRS.push("Shared-code")

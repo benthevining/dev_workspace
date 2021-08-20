@@ -46,7 +46,8 @@ task :init => [:uth, "format:repos"] do
 end
 
 
-namespace :build do 
+
+namespace :build do
 
 	desc "Builds all apps, and all formats of all plugins"
 	task :all, [:mode] => ["rake:config"] do |t, args|
@@ -54,7 +55,6 @@ namespace :build do
 		CMake.build_all(args.mode.capitalize)
 	end
 
-	#  Plugins
 
 	desc "Builds Imogen"
 	task :imogen, [:mode, :formats] => ["rake:config"] do |t, args|
@@ -68,7 +68,6 @@ namespace :build do
 		CMake.build_plugin_target("Kicklab", args.mode.capitalize, args.formats, args.extras)
 	end
 
-	#  Apps
 
 	desc "Builds ImogenRemote"
 	task :imogen_remote, [:mode] => ["rake:config"] do |t, args|
@@ -77,8 +76,9 @@ namespace :build do
 	end
 
 	desc "Builds StageHand"
-	task :stagehand, [:mode, :formats] => ["rake:config"] do |t, args|
+	task :stagehand, [:mode] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		CMake.build_app_target("StageHand", args.mode.capitalize)
 	end
+
 end
