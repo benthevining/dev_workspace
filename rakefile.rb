@@ -95,6 +95,13 @@ namespace :build do
 end
 
 
+desc "Runs CPack to create installers"
+task :pack, [:mode] do |t, args|
+	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
+	CPack.run(args.mode.capitalize)
+end
+
+
 desc "Launches the JUCE AudioPluginHost, building if necessary"
 task :APH, [:mode] do |t, args|
 	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
