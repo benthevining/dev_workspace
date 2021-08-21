@@ -21,3 +21,5 @@ require_relative "post_configure/PostConfigure.rb"
 
 require_relative "cmake.rb"
 require_relative "init.rb"
+
+require_relative "JucePluginHost.rb"

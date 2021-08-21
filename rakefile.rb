@@ -83,4 +83,11 @@ namespace :build do
 		CMake.build_app_target("StageHand", args.mode.capitalize)
 	end
 
+
+	desc "Builds the JUCE AudioPluginHost"
+	task :APH, [:mode] do |t, args|
+		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
+		JucePluginHost.build(args.mode.capitalize)
+	end
+
 end

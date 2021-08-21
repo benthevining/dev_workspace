@@ -1,3 +1,4 @@
 **/.DS_Store
 Builds/
+rake/JucePluginHost/Builds/
 Cache/
