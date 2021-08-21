@@ -3,7 +3,6 @@ def strip_array_foreach_chars(input)
 end
 
 
-require_relative "products/products.rb"
 require_relative "constants.rb"
 
 
