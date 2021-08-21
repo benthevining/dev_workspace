@@ -41,8 +41,10 @@ task :config, [:mode] do |t, args|
 end
 
 desc "Initializes this workspace"
-task :init => [:uth, "format:repos"] do 
+task :init do 
 	Init.init
+	Rake::Task["uth"].invoke
+	Rake::Task["format:repos"].invoke
 end
 
 
