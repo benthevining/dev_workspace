@@ -27,6 +27,23 @@ module CMake
 	end
 
 
+	def self.configure_ios(mode, repoDir, extraDefines = [])
+
+		if not OS.mac?
+			puts "Warning - compiling for iOS is only recommended on MacOS."
+			return
+		end
+
+		extraDefines.push("CMAKE_SYSTEM_NAME=iOS")
+
+		# CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY="iPhone Developer"
+		# CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=<10 character id>
+
+		self.configure(mode, repoDir, extraDefines)
+
+	end
+
+
 	@@default_cmake_command = "cmake --build Builds"
 
 
@@ -38,6 +55,11 @@ module CMake
 	def self.build_all(mode)
 		Rake.sh (@@default_cmake_command + self.default_cmake_command_suffix(mode))
 		puts "Built everything!"
+	end
+
+
+	def self.build_target(mode, target)
+		Rake.sh (@@default_cmake_command + " --target " + target + self.default_cmake_command_suffix(mode))
 	end
 
 
@@ -53,7 +75,7 @@ module CMake
 		end
 
 		def self.build_all_formats_for_plugin(target, mode)
-			Rake.sh (@@default_cmake_command + " --target " + target + "_All" + self.default_cmake_command_suffix(mode))
+			self.build_target(mode, (target + "_All"))
 			puts "Built all formats for " + target
 		end
 
@@ -96,14 +118,13 @@ module CMake
 			return
 		end
 
-		Rake.sh (@@default_cmake_command + " --target " + targetNames.join(" ") + self.default_cmake_command_suffix(mode))
+		self.build_target(mode, targetNames.join(" "))
 		puts "Built formats of " + target + ": " + actualFormats.join(" ")
 	end
 
 
 	def self.build_app_target(target, mode)
-		Rake.sh (@@default_cmake_command + " --target " + target + self.default_cmake_command_suffix(mode))
+		self.build_target(mode, target)
 		puts "Built " + target
 	end
-	
 end
