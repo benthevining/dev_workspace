@@ -7,8 +7,7 @@ module JucePluginHost
 		CMake.configure(mode, @@JPH_FILE_PATH, ["BV_REPO_ROOT=#{REPO_ROOT}"])
 
 		Dir.chdir(@@JPH_FILE_PATH) do 
-			command = "cmake --build Builds" + CMake.default_cmake_command_suffix(mode)
-			Rake.sh command
+			Rake.sh ("cmake --build Builds" + CMake.default_cmake_command_suffix(mode))
 		end
 	end
 

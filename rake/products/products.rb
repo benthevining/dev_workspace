@@ -3,7 +3,6 @@ require "json"
 
 PLUGIN_NAMES = Array.new
 APP_NAMES = Array.new
-
 REPO_SUBDIRS = Array.new
 
 #

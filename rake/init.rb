@@ -5,8 +5,7 @@ module Init
 
 		Rake.sh "sudo apt update" do |ok, res| end
 
-		command = "sudo apt install " + deps.join(" ")
-		Rake.sh command
+		Rake.sh ("sudo apt install " + deps.join(" "))
 	end
 
 
@@ -45,8 +44,7 @@ module Init
 		# re-run cmake config
 
 		Dir.chdir(REPO_ROOT) do
-			configCmd = "cmake -B Builds -DCPM_JUCE_SOURCE=" + dir
-			Rake.sh configCmd
+			Rake.sh ("cmake -B Builds -DCPM_JUCE_SOURCE=" + dir)
 		end
 	end
 end
