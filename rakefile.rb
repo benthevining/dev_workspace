@@ -37,10 +37,7 @@ end
 desc "Runs CMake configuration"
 task :config, [:mode] do |t, args|
 	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-
-	Dir.chdir(REPO_ROOT) do 
-		CMake.configure(args.mode.capitalize)
-	end
+	CMake.configure(args.mode.capitalize, REPO_ROOT)
 end
 
 desc "Initializes this workspace"

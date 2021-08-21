@@ -8,34 +8,29 @@ module Clean
 
     def self.delete_installed_plugins()
 
-        def delete_list_of_plugin_names(list)
-            list.each { |name|
-                plugin_name = strip_array_foreach_chars(name)
-                next if plugin_name.empty?
-                File.delete(plugin_name) if File.exist?(plugin_name)
-            }
+        def delete_list_of_plugin_names(list, dir)
+            Dir.chdir(dir) do 
+                list.each { |name|
+                    plugin_name = strip_array_foreach_chars(name)
+                    next if plugin_name.empty?
+                    File.delete(plugin_name) if File.exist?(plugin_name)
+                }
+            end
         end
 
         if OS.mac?
-
             plugins_dir = "~/Library/Audio/Plug-Ins/"
 
             au_dir = plugins_dir + "Components"
             vst3_dir = plugins_dir + "VST3"
-
         elsif OS.windows?
 
         else # Linux
 
         end
 
-        Dir.chdir(au_dir) do 
-            delete_list_of_plugin_names(au_plugin_names)
-        end
-
-        Dir.chdir(vst3_dir) do 
-            delete_list_of_plugin_names(vst3_plugin_names)
-        end
+        delete_list_of_plugin_names(au_plugin_names, au_dir)
+        delete_list_of_plugin_names(vst3_plugin_names, vst3_dir)
     end
 
 

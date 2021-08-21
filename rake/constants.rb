@@ -31,9 +31,7 @@ au_plugin_names = Array.new
 vst3_plugin_names = Array.new
 
 PLUGIN_NAMES.each { |name|
-
 	plugin_name = strip_array_foreach_chars(name)
-
 	next if plugin_name.empty?
     
     au_plugin_names.push(plugin_name + au_xtn)

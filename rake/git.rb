@@ -19,16 +19,14 @@ module Git
 
 	def self.commit_dev_workspace()
 		Dir.chdir(REPO_ROOT) do 
-			command = "git commit -a -m \"Submodule auto-update\""
-			Rake.sh command do |ok, res| end
+			Rake.sh "git commit -a -m \"Submodule auto-update\"" do |ok, res| end
 		end
 	end
 
 
 	def self.pull_dev_workspace()
 		Dir.chdir(REPO_ROOT) do 
-			command = "git pull --rebase -j " + NUM_CPU_CORES
-    		Rake.sh command do |ok, res| end
+    		Rake.sh ("git pull --rebase -j " + NUM_CPU_CORES) do |ok, res| end
 		end
 	end
 
@@ -43,16 +41,9 @@ module Git
   			puts dir
 
   			Dir.chdir(dir) do 
-
-  				command = "git checkout " + @@branch_name
-  				Rake.sh command
-
-  				command = "git pull -j " + NUM_CPU_CORES + " origin " + @@branch_name
-  				puts command
-  				Rake.sh command
-
-  				command = "git commit -a -m \"Submodule auto-update\" && git push"
-  				Rake.sh command do |ok, res| end
+  				Rake.sh ("git checkout " + @@branch_name)
+  				Rake.sh ("git pull -j " + NUM_CPU_CORES + " origin " + @@branch_name)
+  				Rake.sh ("git commit -a -m \"Submodule auto-update\" && git push") do |ok, res| end
   			end
   		end
 
@@ -79,7 +70,7 @@ module Git
   		}
 
   		path = REPO_ROOT + "/rake/post_configure/DefaultGithubRepo"
-  		self.update_subdir(path)
+  		self.update_subdir(REPO_ROOT + "/rake/post_configure/DefaultGithubRepo")
 
   		self.commit_dev_workspace
   	end

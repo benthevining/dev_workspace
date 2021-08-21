@@ -1,18 +1,29 @@
 module CMake
 
-	def self.configure(mode)
+	def self.configure(mode, repoDir, extraDefines = [])
 
-		command = "cmake -B Builds -DCMAKE_BUILD_TYPE=" + mode
+		Dir.chdir(repoDir) do 
 
-		if OS.mac?
-			command += " -G Xcode"
-		elsif OS.windows?
-			command += " -G \"Visual Studio 16 2019\""
-		end # use default Ninja generator on Linux
+			command = "cmake -B Builds -DCMAKE_BUILD_TYPE=" + mode
 
-		Rake.sh command
+			if not extraDefines.empty?
+				extraDefines.each { |define|
+					defString = strip_array_foreach_chars(define)
+					next if defString.empty?
+					command += " -D" + defString
+				}
+			end
 
-		PostConfig.run
+			if OS.mac?
+				command += " -G Xcode"
+			elsif OS.windows?
+				command += " -G \"Visual Studio 16 2019\""
+			end # use default Ninja generator on Linux
+
+			Rake.sh command
+
+			PostConfig.run
+		end
 	end
 
 
@@ -20,23 +31,19 @@ module CMake
 
 
 	def self.default_cmake_command_suffix(mode) 
-
-		suffix = " --config " + mode + " -j " + NUM_CPU_CORES
-		return suffix
+		return (" --config " + mode + " -j " + NUM_CPU_CORES)
 	end
 
 
 	def self.build_all(mode)
-		command = @@default_cmake_command + self.default_cmake_command_suffix(mode)
-		Rake.sh command
+		Rake.sh (@@default_cmake_command + self.default_cmake_command_suffix(mode))
 		puts "Built everything!"
 	end
 
 
 	def self.build_plugin_target(target, mode, firstFormat, restFormats)
 
-		formats = Array.new
-		formats.push(firstFormat)
+		formats = [firstFormat]
 
 		if not restFormats.empty?
 			restFormats.each { |fmt|
@@ -46,8 +53,7 @@ module CMake
 		end
 
 		def self.build_all_formats_for_plugin(target, mode)
-			command = @@default_cmake_command + " --target " + target + "_All" + self.default_cmake_command_suffix(mode)
-			Rake.sh command
+			Rake.sh (@@default_cmake_command + " --target " + target + "_All" + self.default_cmake_command_suffix(mode))
 			puts "Built all formats for " + target
 		end
 
@@ -90,15 +96,13 @@ module CMake
 			return
 		end
 
-		command = @@default_cmake_command + " --target " + targetNames.join(" ") + self.default_cmake_command_suffix(mode)
-		Rake.sh command
+		Rake.sh (@@default_cmake_command + " --target " + targetNames.join(" ") + self.default_cmake_command_suffix(mode))
 		puts "Built formats of " + target + ": " + actualFormats.join(" ")
 	end
 
 
 	def self.build_app_target(target, mode)
-		command = @@default_cmake_command + " --target " + target + self.default_cmake_command_suffix(mode)
-		Rake.sh command
+		Rake.sh (@@default_cmake_command + " --target " + target + self.default_cmake_command_suffix(mode))
 		puts "Built " + target
 	end
 	
