@@ -13,7 +13,7 @@ DEBUG_OUTPUT = ENV.has_key?('DebugOutput') ? ENV['DebugOutput'] : DEFAULT_BUILD_
 
 #
 
-REPO_ROOT = File.dirname(File.dirname(__FILE__)).to_s
+REPO_ROOT = File.expand_path(File.dirname(File.dirname(__FILE__))).to_s
 
 #
 
