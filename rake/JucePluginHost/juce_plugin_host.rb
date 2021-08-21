@@ -9,7 +9,6 @@ module JucePluginHost
 			CMake.configure(mode)
 
 			command = "cmake --build Builds" + CMake.default_cmake_command_suffix(mode)
-			puts command
 			Rake.sh command
 		end
 	end

@@ -8,6 +8,6 @@ set (RepoRoot ${CMAKE_CURRENT_LIST_DIR}/../..)
 set (ENV{CPM_SOURCE_CACHE} ${RepoRoot}/Cache)
 
 
-add_subdirectory (${RepoRoot}/Shared-code ${CMAKE_CURRENT_LIST_DIR}/Builds/Shared-code)
+add_subdirectory (${RepoRoot}/Shared-code ${CMAKE_BINARY_DIR}/Shared-code)
 
-add_subdirectory (${JUCE_SOURCE_DIR}/extras/AudioPluginHost ${CMAKE_CURRENT_LIST_DIR}/Builds/PluginHost)
+add_subdirectory (${JUCE_SOURCE_DIR}/extras/AudioPluginHost ${CMAKE_BINARY_DIR}/PluginHost)
