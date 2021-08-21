@@ -49,5 +49,7 @@ module Clean
 		self.delete_build_dir
         self.delete_cached_cpm_script
         #self.delete_installed_plugins
+
+        JucePluginHost.clean
 	end
 end

@@ -91,3 +91,10 @@ namespace :build do
 	end
 
 end
+
+
+desc "Launches the JUCE AudioPluginHost, building if necessary"
+task :APH, [:mode] do |t, args|
+	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
+	JucePluginHost.launch(args.mode.capitalize)
+end
