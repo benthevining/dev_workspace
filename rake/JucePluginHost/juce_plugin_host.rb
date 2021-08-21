@@ -16,13 +16,15 @@ module JucePluginHost
 
 		path = @@JPH_FILE_PATH + "/Builds/PluginHost/AudioPluginHost_artefacts/" + mode + "/AudioPluginHost.app"
 
-		if (File.exist?(path))
-			puts "Exists!"
-		else
+		if not File.exist?(path)
 			puts "AudioPluginHost not found, building now..."
 			Rake::Task["build:APH"].invoke(mode)
 			self.launch(mode)
+			return
 		end
+
+		pid = spawn(path)
+		Process.detach(pid)
 	end
 
 
