@@ -46,7 +46,6 @@ module CMake
 
 	@@default_cmake_command = "cmake --build Builds"
 
-
 	def self.default_cmake_command_suffix(mode) 
 		return (" --config " + mode + " -j " + NUM_CPU_CORES)
 	end
