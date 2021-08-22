@@ -1,3 +1,5 @@
+require_relative "zipper.rb"
+
 module CMake
 
 	def self.configure(mode, repoDir, extraDefines = [])
@@ -60,6 +62,8 @@ module CMake
 		end
 
 		puts "Built everything!"
+
+		Zipper.zip_all
 	end
 
 
@@ -70,7 +74,7 @@ module CMake
 	end
 
 
-	def self.build_plugin_target(target, mode, firstFormat, restFormats)
+	def self.build_plugin(target, mode, firstFormat, restFormats)
 
 		formats = [firstFormat]
 
@@ -84,6 +88,7 @@ module CMake
 		def self.build_all_formats_for_plugin(target, mode)
 			self.build_target(mode, (target + "_All"))
 			puts "Built all formats for " + target
+			Zipper.zip_plugin(target)
 		end
 
 		if formats.empty?
@@ -127,11 +132,16 @@ module CMake
 
 		self.build_target(mode, targetNames.join(" "))
 		puts "Built formats of " + target + ": " + actualFormats.join(" ")
+
+		Zipper.zip_plugin(target)
 	end
 
 
-	def self.build_app_target(target, mode)
+	def self.build_app(target, mode)
+
 		self.build_target(mode, target)
 		puts "Built " + target
+
+		Zipper.zip_app(target)
 	end
 end

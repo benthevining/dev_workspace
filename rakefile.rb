@@ -62,27 +62,27 @@ namespace :build do
 	task :imogen, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		
-		CMake.build_plugin_target("Imogen", args.mode.capitalize, args.formats, args.extras)
+		CMake.build_plugin("Imogen", args.mode.capitalize, args.formats, args.extras)
 	end
 
 	desc "Builds Kicklab"
 	task :kicklab, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		
-		CMake.build_plugin_target("Kicklab", args.mode.capitalize, args.formats, args.extras)
+		CMake.build_plugin("Kicklab", args.mode.capitalize, args.formats, args.extras)
 	end
 
 
 	desc "Builds ImogenRemote"
 	task :imogen_remote, [:mode] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		CMake.build_app_target("ImogenRemote", args.mode.capitalize)
+		CMake.build_app("ImogenRemote", args.mode.capitalize)
 	end
 
 	desc "Builds StageHand"
 	task :stagehand, [:mode] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		CMake.build_app_target("StageHand", args.mode.capitalize)
+		CMake.build_app("StageHand", args.mode.capitalize)
 	end
 
 
