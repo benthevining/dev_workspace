@@ -27,6 +27,12 @@ jobs:
 
     steps:
 
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1.81.0
+      with:
+        ruby-version: 2.6
+        bundler-cache: true
+
     - name: Checkout code
       uses: actions/checkout@v2
       with:
@@ -34,11 +40,13 @@ jobs:
         submodules: recursive
         path: Workspace
         
-    - name: Install Ruby
-      uses: ruby/setup-ruby@v1.81.0
+    - name: Set up cache
+      uses: actions/cache@v2
       with:
-        ruby-version: 2.6
-        bundler-cache: true
+        path: Workspace/Cache
+        key: ${{ runner.os }}-cpm-${{ hashFiles('**/') }}
+        restore-keys: |
+          ${{ runner.os }}-cpm-
         
     - name: Rake init
       shell: bash
