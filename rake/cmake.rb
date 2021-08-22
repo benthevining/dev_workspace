@@ -40,7 +40,6 @@ module CMake
 		# CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=<10 character id>
 
 		self.configure(mode, repoDir, extraDefines)
-
 	end
 
 
@@ -52,7 +51,10 @@ module CMake
 
 
 	def self.build_all(mode)
-		Rake.sh (@@default_cmake_command + self.default_cmake_command_suffix(mode))
+		Dir.chdir(REPO_ROOT) do 
+			Rake.sh (@@default_cmake_command + self.default_cmake_command_suffix(mode))
+		end
+
 		puts "Built everything!"
 	end
 

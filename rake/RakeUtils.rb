@@ -22,3 +22,5 @@ require_relative "init.rb"
 require_relative "JucePluginHost/juce_plugin_host.rb"
 
 require_relative "clean.rb"
+
+require_relative "tests.rb"
