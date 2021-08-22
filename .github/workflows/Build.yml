@@ -44,9 +44,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: Workspace/Cache
-        key: ${{ runner.os }}-cpm-${{ hashFiles('**/') }}
+        key: ${{ runner.os }}-cache
         restore-keys: |
-          ${{ runner.os }}-cpm-
+          ${{ runner.os }}-cache
         
     - name: Rake init
       shell: bash
