@@ -6,12 +6,8 @@ module JucePluginHost
 
 		CMake.configure(mode, @@JPH_FILE_PATH, ["BV_REPO_ROOT=#{REPO_ROOT}"])
 
-		CMake.build_target(mode, "AudioPluginHost")
-
-		Dir.chdir(@@JPH_FILE_PATH) do 
-			CMake.build_target(mode, "AudioPluginHost")
-			#Rake.sh (CMake.default_cmake_command_prefix + CMake.default_cmake_command_suffix(mode))
-		end
+		CMake.build_target(mode, "AudioPluginHost", @@JPH_FILE_PATH)
+		#Rake.sh (CMake.default_cmake_command_prefix + CMake.default_cmake_command_suffix(mode))
 	end
 
 

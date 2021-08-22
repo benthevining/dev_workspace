@@ -57,8 +57,10 @@ module CMake
 	end
 
 
-	def self.build_target(mode, target)
-		Rake.sh (@@default_cmake_command + " --target " + target + self.default_cmake_command_suffix(mode))
+	def self.build_target(mode, target, dir = REPO_ROOT)
+		Dir.chdir(dir) do 
+			Rake.sh (@@default_cmake_command + " --target " + target + self.default_cmake_command_suffix(mode))
+		end
 	end
 
 
