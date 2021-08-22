@@ -27,7 +27,7 @@ Dir.chdir(REPO_ROOT) do
 	json = JSON.parse(File.read("products.json"))
 
 
-	json["product"].each do |product|
+	json["product"].each { |product|
 
 		productName = product["name"]
 		type = product["type"]
@@ -42,15 +42,11 @@ Dir.chdir(REPO_ROOT) do
 		if product.has_key?("subdir")
 			REPO_SUBDIRS.push(product["subdir"])
 		end
-	end
+	}
 end
 
 REPO_SUBDIRS.each { |repo|
-	repo_dir = strip_array_foreach_chars(repo)
-	next if repo_dir.empty?
-
-	path = REPO_ROOT + "/" + repo_dir
-	REPO_PATHS.push(path)
+	REPO_PATHS.push(REPO_ROOT + "/" + repo)
 }
 
 PRODUCT_NAMES = PLUGIN_NAMES + APP_NAMES
@@ -64,9 +60,6 @@ au_plugin_names = Array.new
 vst3_plugin_names = Array.new
 
 PLUGIN_NAMES.each { |name|
-	plugin_name = strip_array_foreach_chars(name)
-	next if plugin_name.empty?
-    
-    au_plugin_names.push(plugin_name + au_xtn)
-    vst3_plugin_names.push(plugin_name + vst3_xtn)
+    au_plugin_names.push(name + au_xtn)
+    vst3_plugin_names.push(name + vst3_xtn)
 }

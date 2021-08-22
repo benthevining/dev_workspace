@@ -6,10 +6,7 @@ module Git
 			Rake.sh "git submodule update --init"
 
 			REPO_PATHS.each { |dir|
-				path = strip_array_foreach_chars(dir)
-				next if path.empty?
-
-				Dir.chdir(path) do 
+				Dir.chdir(dir) do 
 					Rake.sh "git submodule update --init"
 				end
 			}
@@ -53,14 +50,11 @@ module Git
 
   		REPO_SUBDIRS.each { |repo|
 
-  			subdir = strip_array_foreach_chars(repo)
-  			next if subdir.empty?
-
-  			path = REPO_ROOT + "/" + subdir
+  			path = REPO_ROOT + "/" + repo
 
   			self.update_subdir(path)
 
-  			if subdir == "Shared-code"
+  			if repo == "Shared-code"
   				rec_dir = path + "/cmake/UsefulScripts"
   			else 
   				rec_dir = path + "/UsefulScripts"
@@ -69,7 +63,6 @@ module Git
   			self.update_subdir(rec_dir)
   		}
 
-  		path = REPO_ROOT + "/rake/post_configure/DefaultGithubRepo"
   		self.update_subdir(REPO_ROOT + "/rake/post_configure/DefaultGithubRepo")
 
   		self.commit_dev_workspace
