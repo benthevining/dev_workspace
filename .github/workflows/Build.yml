@@ -39,7 +39,7 @@ jobs:
         token: ${{ secrets.ACCESS_TOKEN }}
         submodules: recursive
         path: Workspace
-        
+
     - name: Set up cache
       uses: actions/cache@v2
       with:
@@ -47,12 +47,18 @@ jobs:
         key: ${{ runner.os }}-cache-${{ hashFiles('**/') }}
         restore-keys: |
           ${{ runner.os }}-cache-
-        
+
     - name: Rake init
       shell: bash
       run: cd Workspace && rake init
-      
+
     - name: Run build
       shell: bash
       run: cd Workspace && rake 'build:all[release]'
-      
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ runner.os }}.zip
+        path: Workspace/Builds/Artifacts.zip
+
