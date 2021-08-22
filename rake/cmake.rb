@@ -4,7 +4,11 @@ module CMake
 
 		Dir.chdir(repoDir) do 
 
-			command = "cmake -B Builds -DCMAKE_BUILD_TYPE=" + mode
+			command = "cmake -B Builds" 
+
+			if (OS.linux?)
+				command += " -DCMAKE_BUILD_TYPE=" + mode
+			end
 
 			if not extraDefines.empty?
 				extraDefines.each { |define|
@@ -34,9 +38,9 @@ module CMake
 			return
 		end
 
-		extraDefines.push("CMAKE_SYSTEM_NAME=iOS")
+		extraDefines.push("CMAKE_SYSTEM_NAME=iOS", 
+						  "CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=\"iPhone Developer\"")
 
-		# CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY="iPhone Developer"
 		# CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=<10 character id>
 
 		self.configure(mode, repoDir, extraDefines)
