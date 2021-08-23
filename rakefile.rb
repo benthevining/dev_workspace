@@ -56,6 +56,7 @@ desc "Runs CMake configuration"
 task :config, [:mode] do |t, args|
 	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 	CMake.configure(BuildMode.parse(args.mode), REPO_ROOT)
+	PostConfig.run
 end
 
 desc "Initializes this workspace"
@@ -110,4 +111,8 @@ namespace :build do
 		JucePluginHost.build(BuildMode.parse(args.mode))
 	end
 
+end
+
+task :piv do 
+	Pluginval.run("Release")
 end

@@ -26,8 +26,6 @@ module CMake
 			end # use default Ninja generator on Linux
 
 			Rake.sh command
-
-			PostConfig.run
 		end
 	end
 

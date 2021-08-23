@@ -4,27 +4,37 @@ module Git
 
 		Dir.chdir(REPO_ROOT) do 
 			Rake.sh "git submodule update --init"
+		end
 
-			REPO_PATHS.each { |dir|
-				Dir.chdir(dir) do 
-					Rake.sh "git submodule update --init"
-				end
-			}
+		REPO_PATHS.each { |dir|
+			Dir.chdir(dir) do 
+				Rake.sh "git submodule update --init"
+			end
+		}
+	end
+
+
+	def self.commit(dir)
+		Dir.chdir(dir) do 
+			Rake.sh "git commit -a -m \"Rake auto-commit\"" do |ok, res| end
+		end
+	end
+
+
+	def self.pull(dir)
+		Dir.chdir(dir) do 
+    		Rake.sh ("git pull --rebase -j " + NUM_CPU_CORES) do |ok, res| end
 		end
 	end
 
 
 	def self.commit_dev_workspace()
-		Dir.chdir(REPO_ROOT) do 
-			Rake.sh "git commit -a -m \"Submodule auto-update\"" do |ok, res| end
-		end
+		self.commit(REPO_ROOT)
 	end
 
 
 	def self.pull_dev_workspace()
-		Dir.chdir(REPO_ROOT) do 
-    		Rake.sh ("git pull --rebase -j " + NUM_CPU_CORES) do |ok, res| end
-		end
+		self.pull(REPO_ROOT)
 	end
 
 

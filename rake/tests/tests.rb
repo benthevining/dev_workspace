@@ -1,3 +1,5 @@
+require_relative "pluginval.rb"
+
 module Tests
 
 	def self.run_pluginval()
