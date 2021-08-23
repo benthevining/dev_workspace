@@ -19,11 +19,8 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
         include:
         - os: windows-latest
-          artifact: Windows
         - os: ubuntu-latest
-          artifact: Linux
         - os: macos-latest
-          artifact: MacOS
 
     steps:
 
@@ -44,9 +41,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: Workspace/Cache
-        key: ${{ runner.os }}-cache-${{ hashFiles('**/') }}
+        key: ${{ runner.os }}-${{ hashFiles('**/') }}
         restore-keys: |
-          ${{ runner.os }}-cache-
+          ${{ runner.os }}-
 
     - name: Rake init
       shell: bash
