@@ -13,6 +13,8 @@ module Zipper
 			artefacts = dir + "/" + productName + "_artefacts"
 			zipFileName = productName + ".zip"
 
+			return if not (Dir.exist?(artefacts + "/Debug") or Dir.exist?(artefacts + "/Release"))
+
 			Rake.sh ("cmake -E tar cfv " + zipFileName + " --format=zip " + artefacts) do |ok, res| end
 
 			if not dirToCopyTo.empty?
