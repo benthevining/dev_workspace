@@ -62,8 +62,6 @@ module CMake
 		end
 
 		puts "Built everything!"
-
-		Zipper.zip_all
 	end
 
 
@@ -88,7 +86,6 @@ module CMake
 		def self.build_all_formats_for_plugin(target, mode)
 			self.build_target(mode, (target + "_All"))
 			puts "Built all formats for " + target
-			Zipper.zip_plugin(target)
 		end
 
 		if formats.empty?
@@ -132,8 +129,6 @@ module CMake
 
 		self.build_target(mode, targetNames.join(" "))
 		puts "Built formats of " + target + ": " + actualFormats.join(" ")
-
-		Zipper.zip_plugin(target)
 	end
 
 
@@ -141,7 +136,5 @@ module CMake
 
 		self.build_target(mode, target)
 		puts "Built " + target
-
-		Zipper.zip_app(target)
 	end
 end

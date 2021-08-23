@@ -7,6 +7,8 @@ module Zipper
 
 		dir = @@BUILD_DIR + "/" + reponame
 
+		return if not Dir.exist?(dir) 
+
 		Dir.chdir(dir) do 
 			artefacts = dir + "/" + productName + "_artefacts"
 			zipFileName = productName + ".zip"

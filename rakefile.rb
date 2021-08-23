@@ -13,6 +13,11 @@ task :uth => [:clean] do
 	Git.uth
 end
 
+desc "Zips any found build artefacts"
+task :zip do 
+	Zipper.zip_all
+end
+
 
 namespace :format do 
 
