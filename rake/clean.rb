@@ -6,6 +6,12 @@ module Clean
     end
 
 
+    def self.delete_cpm_cache()
+        dir = REPO_ROOT + "/Cache/"
+        FileUtils.remove_dir(dir) if Dir.exist?(dir)
+    end
+
+
     def self.delete_installed_plugins()
 
         def delete_list_of_plugin_names(list, dir)
@@ -33,15 +39,8 @@ module Clean
     end
 
 
-    def self.delete_cached_cpm_script()
-        path = REPO_ROOT + "/Cache/CPM.cmake"
-        File.delete(path) if File.exist?(path)
-    end
-
-
 	def self.run()
 		self.delete_build_dir
-        self.delete_cached_cpm_script
         #self.delete_installed_plugins
 
         JucePluginHost.clean
