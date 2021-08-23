@@ -23,6 +23,9 @@ module Pluginval
 
 	def self.build(mode)
 
+		build_dir = @@PLUGINVAL_REPO + "/Builds"
+		FileUtils.remove_dir(build_dir) if Dir.exist?(build_dir)
+
 		if Dir.exist?(@@PLUGINVAL_REPO)
 			self.pull_repo
 		else 
@@ -34,9 +37,9 @@ module Pluginval
 	end
 
 
-	def self.run(mode, pluginPaths = [], level = 5)
+	def self.run(mode, pluginNames = [], level = 5)
 
-		return if pluginPaths.empty?
+		return if pluginNames.empty?
 
 		dir = @@PLUGINVAL_REPO + "/Builds/pluginval_artefacts/" + mode
 
@@ -44,19 +47,29 @@ module Pluginval
 			self.build(mode)
 		end
 
+		if OS.mac?
+			command = "pluginval.app/Contents/MacOS/pluginval"
+		elsif OS.windows?
+			command = "pluginval.exe"
+		else 
+			command = "./pluginval"
+		end
+
+		pluginPaths = Array.new
+
+		pluginNames.each { |name|
+			path = REPO_ROOT + "/Builds/" + name.to_s.downcase + "/" + name + "_artefacts/" + mode
+			
+			au = path + "/AU/" + name + ".component"
+			pluginPaths.push(au) if Dir.exist?(au)
+
+			vst3 = path + "/VST3/" + name + ".vst3"
+			pluginPaths.push(vst3) if Dir.exist?(vst3)
+		}
+
 		Dir.chdir(dir) do 
-
-			if OS.mac?
-				command = "pluginval.app/Contents/MacOS/pluginval"
-			elsif OS.windows?
-				command = "pluginval.exe"
-			else 
-				command = "./pluginval"
-			end
-
 			pluginPaths.each { |path|
-
-				Rake.sh (command + " --validate-in-process --strictness-level " + level + " --output-dir \"./bin\" --validate \"" + path + "\"")
+				Rake.sh (command + " --validate-in-process --strictness-level " + level.to_s + " --output-dir \"./bin\" --validate \"" + path + "\"") do |ok, res| end
 			}
 		end
 	end

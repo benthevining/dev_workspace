@@ -114,5 +114,5 @@ namespace :build do
 end
 
 task :piv do 
-	Pluginval.run("Release")
+	Pluginval.run("Debug", ["Imogen"])
 end

@@ -71,17 +71,23 @@ module CMake
 
 	def self.build_plugin(target, mode, firstFormat, restFormats)
 
+		def self.build_all_formats_for_plugin(target, mode)
+			self.build_target(mode, (target + "_All"))
+			puts "Built all formats for " + target
+		end
+
+		if firstFormat.to_s.empty?
+			self.build_all_formats_for_plugin(target, mode)
+			return
+		end
+
+
 		formats = [firstFormat]
 
 		if not restFormats.empty?
 			restFormats.each { |format|
 				formats.push(format) if not format.empty?
 			}
-		end
-
-		def self.build_all_formats_for_plugin(target, mode)
-			self.build_target(mode, (target + "_All"))
-			puts "Built all formats for " + target
 		end
 
 		if formats.empty?
@@ -95,6 +101,8 @@ module CMake
 		formats.each { |format|
 			
 			format = format.to_s.downcase
+
+			next if format.empty?
 
 			if format == "all"
 				self.build_all_formats_for_plugin(target, mode)
