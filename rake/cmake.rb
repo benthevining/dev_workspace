@@ -14,9 +14,8 @@ module CMake
 
 			if not extraDefines.empty?
 				extraDefines.each { |define|
-					defString = strip_array_foreach_chars(define)
-					next if defString.empty?
-					command += " -D" + defString
+					next if define.empty?
+					command += " -D" + define
 				}
 			end
 
@@ -77,8 +76,7 @@ module CMake
 		formats = [firstFormat]
 
 		if not restFormats.empty?
-			restFormats.each { |fmt|
-				format = strip_array_foreach_chars(fmt)
+			restFormats.each { |format|
 				formats.push(format) if not format.empty?
 			}
 		end
@@ -97,23 +95,24 @@ module CMake
 		targetNames = Array.new
 
 		formats.each { |format|
-			formatString = strip_array_foreach_chars(format).downcase
-			next if formatString.empty?
+			next if format.empty?
 
-			if formatString == "all"
+			format.downcase
+
+			if format == "all"
 				self.build_all_formats_for_plugin(target, mode)
 				return
 			end
 
-			def self.to_formatted_formatString(formatString)
-				if formatString == "standalone" || formatString == "unity"
-					return formatString.capitalize
+			def self.to_formatted_formatString(format)
+				if format == "standalone" || format == "unity"
+					return format.capitalize
 				end
 				
-				return formatString.upcase
+				return format.upcase
 			end
 
-			newFormat = self.to_formatted_formatString(formatString)
+			newFormat = self.to_formatted_formatString(format)
 
 			actualFormats.push(newFormat)
 

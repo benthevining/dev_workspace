@@ -11,18 +11,17 @@ module Clean
         def delete_list_of_plugin_names(list, dir)
             Dir.chdir(dir) do 
                 list.each { |name|
-                    plugin_name = strip_array_foreach_chars(name)
-                    next if plugin_name.empty?
-                    File.delete(plugin_name) if File.exist?(plugin_name)
+                    next if name.empty?
+                    File.delete(name) if File.exist?(name)
                 }
             end
         end
 
         if OS.mac?
             plugins_dir = "~/Library/Audio/Plug-Ins/"
-
             au_dir = plugins_dir + "Components"
             vst3_dir = plugins_dir + "VST3"
+            
         elsif OS.windows?
 
         else # Linux
