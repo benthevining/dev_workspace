@@ -1,21 +1,35 @@
 module OS
 	def self.windows?
-    	(/(cygwin)|(mswin)|(mingw)|(bccwin)|(wince)|(emx)/ =~ RUBY_PLATFORM) != nil
+    	return (/(cygwin)|(mswin)|(mingw)|(bccwin)|(wince)|(emx)/ =~ RUBY_PLATFORM) != nil
   	end
 
   	def self.mac?
-   		(/darwin/ =~ RUBY_PLATFORM) != nil
+   		return (/darwin/ =~ RUBY_PLATFORM) != nil
   	end
 
   	def self.unix?
-    	!self.windows?
+    	return !self.windows?
   	end
 
   	def self.linux?
-    	self.unix? and not self.mac?
+    	return (self.unix? and not self.mac?)
   	end
 
   	def self.jruby?
-    	RUBY_ENGINE == 'jruby'
+    	return RUBY_ENGINE == 'jruby'
+  	end
+
+
+  	def self.get_program_command(programName)
+
+  		if self.mac?
+  			return (programName + ".app/Contents/MacOS/" + programName)
+  		end
+
+  		if self.windows?
+  			return (programName + ".exe")
+  		end
+
+  		return ("./" + programName)
   	end
 end

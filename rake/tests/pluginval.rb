@@ -47,13 +47,7 @@ module Pluginval
 			self.build(mode)
 		end
 
-		if OS.mac?
-			command = "pluginval.app/Contents/MacOS/pluginval"
-		elsif OS.windows?
-			command = "pluginval.exe"
-		else 
-			command = "./pluginval"
-		end
+		command = OS.get_program_command(pluginval)
 
 		pluginPaths = Array.new
 
