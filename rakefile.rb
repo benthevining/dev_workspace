@@ -21,14 +21,14 @@ end
 desc "Runs CPack to create installers"
 task :pack, [:mode] do |t, args|
 	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-	CPack.run(args.mode.capitalize)
+	CPack.run(BuildMode.parse(args.mode))
 end
 
 
 desc "Launches the JUCE AudioPluginHost, building if necessary"
 task :APH, [:mode] do |t, args|
 	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-	JucePluginHost.launch(args.mode.capitalize)
+	JucePluginHost.launch(BuildMode.parse(args.mode))
 end
 
 
@@ -55,7 +55,7 @@ end
 desc "Runs CMake configuration"
 task :config, [:mode] do |t, args|
 	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-	CMake.configure(args.mode.capitalize, REPO_ROOT)
+	CMake.configure(BuildMode.parse(args.mode), REPO_ROOT)
 end
 
 desc "Initializes this workspace"
@@ -72,7 +72,7 @@ namespace :build do
 	desc "Builds all apps, and all formats of all plugins"
 	task :all, [:mode] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		CMake.build_all(args.mode.capitalize)
+		CMake.build_all(BuildMode.parse(args.mode))
 	end
 
 
@@ -80,34 +80,34 @@ namespace :build do
 	task :imogen, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		
-		CMake.build_plugin("Imogen", args.mode.capitalize, args.formats, args.extras)
+		CMake.build_plugin("Imogen", BuildMode.parse(args.mode), args.formats, args.extras)
 	end
 
 	desc "Builds Kicklab"
 	task :kicklab, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		
-		CMake.build_plugin("Kicklab", args.mode.capitalize, args.formats, args.extras)
+		CMake.build_plugin("Kicklab", BuildMode.parse(args.mode), args.formats, args.extras)
 	end
 
 
 	desc "Builds ImogenRemote"
 	task :imogen_remote, [:mode] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		CMake.build_app("ImogenRemote", args.mode.capitalize)
+		CMake.build_app("ImogenRemote", BuildMode.parse(args.mode))
 	end
 
 	desc "Builds StageHand"
 	task :stagehand, [:mode] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		CMake.build_app("StageHand", args.mode.capitalize)
+		CMake.build_app("StageHand", BuildMode.parse(args.mode))
 	end
 
 
 	desc "Builds the JUCE AudioPluginHost"
 	task :APH, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		JucePluginHost.build(args.mode.capitalize)
+		JucePluginHost.build(BuildMode.parse(args.mode))
 	end
 
 end

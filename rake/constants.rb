@@ -7,7 +7,7 @@ NUM_CPU_CORES = Etc.nprocessors.to_s
 
 #
 
-DEFAULT_BUILD_CONFIG = ENV.has_key?('DefaultConfig') ? ENV['DefaultConfig'] : 'Debug'
+DEFAULT_BUILD_CONFIG = ENV.has_key?('DefaultConfig') ? BuildMode.parse(ENV['DebugOutput']) : 'Debug'
 
 DEBUG_OUTPUT = ENV.has_key?('DebugOutput') ? ENV['DebugOutput'] : DEFAULT_BUILD_CONFIG == 'Debug'
 
