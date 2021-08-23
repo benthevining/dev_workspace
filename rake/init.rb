@@ -6,6 +6,8 @@ module Init
 		Rake.sh "sudo apt update" do |ok, res| end
 
 		Rake.sh ("sudo apt install " + deps.join(" "))
+
+		Rake.sh "sudo apt install lv2-dev"
 	end
 
 
@@ -17,34 +19,7 @@ module Init
 
 		Git.init_all_submodules
 
-		self.init_linux() if OS.linux?
+		self.init_linux if OS.linux?
 	end
 
-
-	def self.init_lv2()
-		if not (OS.linux?)
-			puts "Warning: LV2 format is only available on Linux"
-			return
-		end
-
-		# install LV2 development headers
-		Rake.sh "sudo apt-get install lv2-dev"
-
-		# clone the LV2 porting project fork of Juce
-
-		dir = REPO_ROOT + "/Cache"
-
-		Dir.chdir(dir) do 
-			Rake.sh "git clone -b lv2 https://github.com/lv2-porting-project/JUCE.git"
-			Rake.sh "git pull"
-		end
-
-		dir += "JUCE"
-
-		# re-run cmake config
-
-		Dir.chdir(REPO_ROOT) do
-			Rake.sh ("cmake -B Builds -DCPM_JUCE_SOURCE=" + dir)
-		end
-	end
 end
