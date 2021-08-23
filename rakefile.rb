@@ -18,6 +18,19 @@ task :zip do
 	Zipper.zip_all
 end
 
+desc "Runs CPack to create installers"
+task :pack, [:mode] do |t, args|
+	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
+	CPack.run(args.mode.capitalize)
+end
+
+
+desc "Launches the JUCE AudioPluginHost, building if necessary"
+task :APH, [:mode] do |t, args|
+	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
+	JucePluginHost.launch(args.mode.capitalize)
+end
+
 
 namespace :format do 
 
@@ -97,18 +110,4 @@ namespace :build do
 		JucePluginHost.build(args.mode.capitalize)
 	end
 
-end
-
-
-desc "Runs CPack to create installers"
-task :pack, [:mode] do |t, args|
-	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-	CPack.run(args.mode.capitalize)
-end
-
-
-desc "Launches the JUCE AudioPluginHost, building if necessary"
-task :APH, [:mode] do |t, args|
-	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-	JucePluginHost.launch(args.mode.capitalize)
 end
