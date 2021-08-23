@@ -34,7 +34,9 @@ module Pluginval
 	end
 
 
-	def self.run(mode)
+	def self.run(mode, pluginPaths = [], level = 5)
+
+		return if pluginPaths.empty?
 
 		dir = @@PLUGINVAL_REPO + "/Builds/pluginval_artefacts/" + mode
 
@@ -42,7 +44,20 @@ module Pluginval
 			self.build(mode)
 		end
 
-		
+		Dir.chdir(dir) do 
 
+			if OS.mac?
+				command = "pluginval.app/Contents/MacOS/pluginval"
+			elsif OS.windows?
+				command = "pluginval.exe"
+			else 
+				command = "./pluginval"
+			end
+
+			pluginPaths.each { |path|
+
+				Rake.sh (command + " --validate-in-process --strictness-level " + level + " --output-dir \"./bin\" --validate \"" + path + "\"")
+			}
+		end
 	end
 end

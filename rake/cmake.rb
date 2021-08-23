@@ -93,9 +93,8 @@ module CMake
 		targetNames = Array.new
 
 		formats.each { |format|
-			next if format.empty?
-
-			format.downcase
+			
+			format = format.to_s.downcase
 
 			if format == "all"
 				self.build_all_formats_for_plugin(target, mode)
