@@ -10,7 +10,7 @@ jobs:
 
   build:
 
-    name: ${{ matrix.artifact }} build
+    name: ${{ matrix.os }} build
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
