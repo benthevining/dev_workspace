@@ -40,6 +40,8 @@ module Zipper
 
 	def self.zip_all()
 
+		return if not Dir.exist?(@@BUILD_DIR)
+
 		dir = @@BUILD_DIR + "/Artifacts"
 
 		FileUtils.remove_dir(dir) if Dir.exist?(dir)
