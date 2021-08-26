@@ -1,6 +1,4 @@
-require_relative "mode.rb"
-require_relative "constants.rb"
-require_relative "os.rb"
+require_relative "common/Common.rb"
 
 require_relative "git.rb"
 require_relative "clean.rb"
