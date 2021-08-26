@@ -18,7 +18,7 @@ verbose(DEBUG_OUTPUT)
 
 #
 
-REPO_ROOT = File.expand_path(File.dirname(File.dirname(File.dirname(__FILE__))).to_s
+REPO_ROOT = File.expand_path(File.dirname(File.dirname(File.dirname(__FILE__)))).to_s
 
 #
 
