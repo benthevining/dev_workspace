@@ -5,6 +5,7 @@ module Pluginval
 
 	def self.pull_repo()
 		Git.pull(@@PLUGINVAL_REPO)
+		Git.pull(@@PLUGINVAL_REPO + "/modules/juce")
 	end
 
 
@@ -47,7 +48,7 @@ module Pluginval
 			self.build(mode)
 		end
 
-		command = OS.get_program_command(pluginval)
+		command = OS.get_program_command("pluginval")
 
 		pluginPaths = Array.new
 
