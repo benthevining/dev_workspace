@@ -20,12 +20,6 @@ task :zip do
 	Zipper.zip_all
 end
 
-desc "Runs CPack to create installers"
-task :pack, [:mode] do |t, args|
-	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-	CPack.run(BuildMode.parse(args.mode))
-end
-
 
 desc "Launches the JUCE AudioPluginHost, building if necessary"
 task :APH, [:mode] do |t, args|
@@ -82,14 +76,12 @@ namespace :build do
 	desc "Builds Imogen"
 	task :imogen, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		
 		CMake.build_plugin("Imogen", BuildMode.parse(args.mode), args.formats, args.extras)
 	end
 
 	desc "Builds Kicklab"
 	task :kicklab, [:mode, :formats] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		
 		CMake.build_plugin("Kicklab", BuildMode.parse(args.mode), args.formats, args.extras)
 	end
 
@@ -112,9 +104,11 @@ namespace :build do
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		JucePluginHost.build(BuildMode.parse(args.mode))
 	end
-
 end
 
-task :piv do 
-	Pluginval.run("Debug", ["Imogen"])
+
+desc "Runs CPack to create installers"
+task :pack, [:mode] do |t, args|
+	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
+	CPack.run(BuildMode.parse(args.mode))
 end
