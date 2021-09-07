@@ -64,8 +64,3 @@ jobs:
       with:
         name: ${{ runner.os }}.zip
         path: Workspace/Builds/Artifacts.zip
-        
-    - name: Run pluginval
-      shell: bash
-      run: cd Workspace && rake piv
-
