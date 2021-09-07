@@ -21,13 +21,6 @@ task :zip do
 end
 
 
-desc "Launches the JUCE AudioPluginHost, building if necessary"
-task :APH, [:mode] do |t, args|
-	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-	JucePluginHost.launch(BuildMode.parse(args.mode))
-end
-
-
 namespace :format do 
 
 	desc "Runs clang-format over all source code"
@@ -96,13 +89,6 @@ namespace :build do
 	task :stagehand, [:mode] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		CMake.build_app("StageHand", BuildMode.parse(args.mode))
-	end
-
-
-	desc "Builds the JUCE AudioPluginHost"
-	task :APH, [:mode] do |t, args|
-		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		JucePluginHost.build(BuildMode.parse(args.mode))
 	end
 end
 
