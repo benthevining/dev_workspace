@@ -1,5 +1,3 @@
-require_relative "zipper.rb"
-
 module CMake
 
 	def self.configure(mode, repoDir, extraDefines = [])
