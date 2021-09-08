@@ -54,10 +54,6 @@ jobs:
     - name: Run build
       shell: bash
       run: cd Workspace && rake 'build:all[release]'
-      
-    - name: Zip artifacts
-      shell: bash
-      run: cd Workspace && rake zip
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
