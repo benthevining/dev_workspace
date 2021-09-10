@@ -1,8 +1,8 @@
 module CMake
 
-	def self.configure(mode, repoDir, extraDefines = [])
+	def self.configure(mode, extraDefines = [])
 
-		Dir.chdir(repoDir) do 
+		Dir.chdir(REPO_ROOT) do 
 
 			command = "cmake -B Builds" 
 
@@ -28,7 +28,7 @@ module CMake
 	end
 
 
-	def self.configure_ios(mode, repoDir, extraDefines = [])
+	def self.configure_ios(mode, extraDefines = [])
 
 		if not OS.mac?
 			puts "Warning - compiling for iOS is only recommended on MacOS."
@@ -60,8 +60,8 @@ module CMake
 	end
 
 
-	def self.build_target(mode, target, dir = REPO_ROOT)
-		Dir.chdir(dir) do 
+	def self.build_target(mode, target)
+		Dir.chdir(REPO_ROOT) do 
 			Rake.sh (@@default_cmake_command + " --target " + target + self.default_cmake_command_suffix(mode))
 		end
 	end

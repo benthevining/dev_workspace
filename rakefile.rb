@@ -39,7 +39,7 @@ end
 desc "Runs CMake configuration"
 task :config, [:mode] do |t, args|
 	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-	CMake.configure(BuildMode.parse(args.mode), REPO_ROOT)
+	CMake.configure(BuildMode.parse(args.mode))
 	PostConfig.run
 end
 
@@ -58,6 +58,18 @@ namespace :build do
 	task :all, [:mode] => ["rake:config"] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		CMake.build_all(BuildMode.parse(args.mode))
+	end
+
+	desc "Builds all plugins"
+	task :plugins, [:mode] => ["rake:config"] do |t, args|
+		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
+		CMake.build_target(BuildMode.parse(args.mode), "ALL_PLUGINS")
+	end
+
+	desc "Builds all apps"
+	task :apps, [:mode] => ["rake:config"] do |t, args|
+		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
+		CMake.build_target(BuildMode.parse(args.mode), "ALL_APPS")
 	end
 
 
