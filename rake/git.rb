@@ -72,8 +72,8 @@ module Git
   			self.update_subdir(path)
   		}
 
-  		self.update_subdir(REPO_ROOT + "/lab")
   		self.update_subdir(REPO_ROOT + "/lab/UsefulScripts")
+  		self.update_subdir(REPO_ROOT + "/lab")
 
   		self.update_subdir(REPO_ROOT + "/rake/post_configure/DefaultGithubRepo")
 
