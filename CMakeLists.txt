@@ -11,3 +11,5 @@ set (ENV{BV_WORKSPACE_BUILD} TRUE)
 add_subdirectory (imogen)
 add_subdirectory (kicklab)
 add_subdirectory (StageHand)
+
+add_subdirectory (lab)

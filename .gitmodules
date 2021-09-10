@@ -13,3 +13,6 @@
 [submodule "rake/post_configure/DefaultGithubRepo"]
 	path = rake/post_configure/DefaultGithubRepo
 	url = https://github.com/BenViningMusicSoftware/DefaultGithubRepo.git
+[submodule "lab"]
+	path = lab
+	url = https://github.com/benthevining/TestLab.git
