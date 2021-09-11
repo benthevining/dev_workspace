@@ -39,13 +39,8 @@ jobs:
         submodules: recursive
         path: Workspace
         
-    - name: Download ccache
-      id: ccache
-      shell: cmake -P {0}
-      run: |
-        set(ccache_url "https://github.com/cristianadam/ccache/releases/download/v4.4/${{ runner.os }}.tar.xz")
-        file(DOWNLOAD "${ccache_url}" ./ccache.tar.xz SHOW_PROGRESS)
-        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf ./ccache.tar.xz)
+    - name: Set up ccache
+      uses: hendrikmuhs/ccache-action@v1
 
     - name: Set up cache
       uses: actions/cache@v2
