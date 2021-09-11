@@ -13,3 +13,5 @@ add_subdirectory (kicklab)
 add_subdirectory (StageHand)
 
 #add_subdirectory (lab)
+
+include (CPack)
