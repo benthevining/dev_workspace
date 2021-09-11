@@ -20,16 +20,24 @@ module OS
   	end
 
 
-  	def self.get_program_command(programName)
+  	def self.getNameAsString()
 
   		if self.mac?
-  			return (programName + ".app/Contents/MacOS/" + programName)
+  			return "macOS"
   		end
 
   		if self.windows?
-  			return (programName + ".exe")
+  			return "Windows"
   		end
 
-  		return ("./" + programName)
+  		if self.linux?
+  			return "Linux"
+  		end
+
+  		if self.jruby?
+  			return "jruby"
+  		end
+
+  		return "Unknown"
   	end
 end

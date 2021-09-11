@@ -2,6 +2,24 @@ module Init
 
 	def self.install_ccache()
 
+		url = "http://github.com/cristianadam/ccache/releases/download/v4.4/" + OS.getNameAsString + ".tar.xz"
+
+		dir = REPO_ROOT + "/Cache/ccache"
+
+		FileUtils.mkdir(dir) unless Dir.exist?(dir)
+
+		path = dir + "/ccache.tar"
+
+		puts url
+
+		puts path
+
+		Download.download_file(url, path)
+
+		Dir.chdir(dir) do 
+			Rake.sh "cmake -E tar xvf " + path
+		end
+
 	end
 
 
@@ -18,11 +36,11 @@ module Init
 
 	def self.init()
 
-		Dir.chdir(REPO_ROOT) do 
-			Rake.sh "git remote update && git fetch"
-		end
+		#Dir.chdir(REPO_ROOT) do 
+		#	Rake.sh "git remote update && git fetch"
+		#end
 
-		Git.init_all_submodules
+		#Git.init_all_submodules
 
 		self.install_ccache
 
