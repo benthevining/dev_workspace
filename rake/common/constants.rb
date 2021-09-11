@@ -18,7 +18,7 @@ verbose(DEBUG_OUTPUT)
 
 #
 
-REPO_SUBDIRS = ["Shared-code" "lab"]
+REPO_SUBDIRS = ["Shared-code", "lab"]
 REPO_PATHS = Array.new
 PLUGIN_NAMES = Array.new
 APP_NAMES = Array.new

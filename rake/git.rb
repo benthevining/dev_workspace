@@ -62,7 +62,7 @@ module Git
 
   			path = REPO_ROOT + "/" + repo
 
-  			if repo == "Shared-code" or repo == "lab"
+  			if repo == "Shared-code" 
   				rec_dir = path + "/cmake/UsefulScripts"
   			else 
   				rec_dir = path + "/UsefulScripts"
