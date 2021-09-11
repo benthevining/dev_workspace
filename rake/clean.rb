@@ -42,5 +42,10 @@ module Clean
 	def self.run()
 		self.delete_build_dir
         #self.delete_installed_plugins
+
+        REPO_PATHS.each { |repo|
+            path = repo.to_s + "/Builds"
+            FileUtils.remove_dir(path) if Dir.exist?(path)
+        }
 	end
 end
