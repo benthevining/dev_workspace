@@ -62,7 +62,7 @@ module Git
 
   			path = REPO_ROOT + "/" + repo
 
-  			if repo == "Shared-code"
+  			if repo == "Shared-code" or repo == "lab"
   				rec_dir = path + "/cmake/UsefulScripts"
   			else 
   				rec_dir = path + "/UsefulScripts"
@@ -71,9 +71,6 @@ module Git
   			self.update_subdir(rec_dir)
   			self.update_subdir(path)
   		}
-
-  		self.update_subdir(REPO_ROOT + "/lab/UsefulScripts")
-  		self.update_subdir(REPO_ROOT + "/lab")
 
   		self.update_subdir(REPO_ROOT + "/rake/post_configure/DefaultGithubRepo")
 
