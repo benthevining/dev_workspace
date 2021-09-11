@@ -4,13 +4,10 @@
 
 ## MacOS
 
-Follow the instructions from [this repo's](https://github.com/monfresh/install-ruby-on-macos) readme:
+There's a handy shell script at `shell/mac_install_ruby.sh` -- simply run this shell script once. It is safe to run multiple times on the same machine.
 
-```
-cd ~
-curl --remote-name https://raw.githubusercontent.com/monfresh/install-ruby-on-macos/master/install-ruby
-/usr/bin/env bash install-ruby 2>&1 | tee ~/laptop.log
-```
+This simply fetches and runs the script from [this repo](https://github.com/monfresh/install-ruby-on-macos).
+
 Once the script is done, quit and relaunch terminal!
 
 ## Windows
