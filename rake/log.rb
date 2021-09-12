@@ -15,6 +15,8 @@ module Log
 
 		File.delete(dest) if File.exist?(dest)
 
+		File.new(dest, "w") 
+
 		FileUtils.cp(@@log_file, dest)
 	end
 
