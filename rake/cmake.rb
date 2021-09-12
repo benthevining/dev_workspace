@@ -54,7 +54,11 @@ module CMake
 
 
 	def self.build_all(mode)
-		self.build_target(mode, "ALL_BUILD")
+		Dir.chdir(REPO_ROOT) do 
+			command = "cmake --build Builds" + self.default_cmake_command_suffix(mode)
+			Log.capture_output(command)
+		end
+
 		puts "Built everything!"
 	end
 
