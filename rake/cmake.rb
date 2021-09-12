@@ -62,12 +62,7 @@ module CMake
 	def self.build_target(mode, target)
 		Dir.chdir(REPO_ROOT) do 
 			command = "cmake --build Builds" + " --target " + target + self.default_cmake_command_suffix(mode)
-
-			# capture build tool's output
-			stdout, stderr, status = Open3.capture3(command)
-
-			# write to a log file
-			Log.write(stdout, stderr)
+			Log.capture_output(command)
 		end
 	end
 
@@ -87,11 +82,9 @@ module CMake
 
 		formats = [firstFormat]
 
-		if not restFormats.empty?
-			restFormats.each { |format|
-				formats.push(format) if not format.empty?
-			}
-		end
+		restFormats.each { |format|
+			formats.push(format) if not format.empty?
+		}
 
 		if formats.empty?
 			self.build_all_formats_for_plugin(target, mode)
@@ -113,10 +106,7 @@ module CMake
 			end
 
 			def self.to_formatted_formatString(format)
-				if format == "standalone" || format == "unity"
-					return format.capitalize
-				end
-				
+				return format.capitalize if format == "standalone" || format == "unity"
 				return format.upcase
 			end
 
@@ -140,7 +130,6 @@ module CMake
 
 
 	def self.build_app(target, mode)
-
 		self.build_target(mode, target)
 		puts "Built " + target
 	end

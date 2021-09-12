@@ -34,4 +34,10 @@ module Log
 		self.copy_to_deploy_dir
 	end
 
+
+	def self.capture_output(command)
+		stdout, stderr, status = Open3.capture3(command)
+		self.write(stdout, stderr)
+	end
+
 end
