@@ -2,11 +2,11 @@ module Init
 
 	def self.install_ccache()
 
-		puts "\n -- installing ccache..."
-
 		dir = REPO_ROOT + "/Cache/ccache"
 
 		return if (File.exist?(dir + "/ccache"))
+
+		puts "\n -- installing ccache..."
 
 		FileUtils.mkdir(dir) unless Dir.exist?(dir)
 
