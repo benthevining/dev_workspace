@@ -1,6 +1,10 @@
+require "open3"
+
 module CMake
 
 	def self.configure(mode, extraDefines = [])
+
+		Log.delete
 
 		Dir.chdir(REPO_ROOT) do 
 
@@ -44,25 +48,26 @@ module CMake
 	end
 
 
-	@@default_cmake_command = "cmake --build Builds"
-
 	def self.default_cmake_command_suffix(mode) 
 		return (" --config " + mode + " -j " + NUM_CPU_CORES)
 	end
 
 
 	def self.build_all(mode)
-		Dir.chdir(REPO_ROOT) do 
-			Rake.sh (@@default_cmake_command + self.default_cmake_command_suffix(mode))
-		end
-
+		self.build_target(mode, "ALL_BUILD")
 		puts "Built everything!"
 	end
 
 
 	def self.build_target(mode, target)
 		Dir.chdir(REPO_ROOT) do 
-			Rake.sh (@@default_cmake_command + " --target " + target + self.default_cmake_command_suffix(mode))
+			command = "cmake --build Builds" + " --target " + target + self.default_cmake_command_suffix(mode)
+
+			# capture build tool's output
+			stdout, stderr, status = Open3.capture3(command)
+
+			# write to a log file
+			Log.write(stdout, stderr)
 		end
 	end
 
