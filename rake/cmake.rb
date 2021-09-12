@@ -1,5 +1,3 @@
-require "open3"
-
 module CMake
 
 	def self.configure(mode, extraDefines = [])
@@ -48,26 +46,24 @@ module CMake
 	end
 
 
-	def self.default_cmake_command_suffix(mode) 
-		return (" --config " + mode + " -j " + NUM_CPU_CORES)
-	end
+	def self.build_target(mode, target)
 
+		command = "cmake --build Builds"
+
+		command += (" --target " + target) if (target != "_ALL")
+
+		command += (" --config " + mode + " -j " + NUM_CPU_CORES)
+
+		puts "\n" + command + "\n\n"
+
+		Dir.chdir(REPO_ROOT) do 
+			Log.capture_build_output(command)
+		end
+	end
 
 	def self.build_all(mode)
-		Dir.chdir(REPO_ROOT) do 
-			command = "cmake --build Builds" + self.default_cmake_command_suffix(mode)
-			Log.capture_output(command)
-		end
-
+		self.build_target(mode, "_ALL")
 		puts "Built everything!"
-	end
-
-
-	def self.build_target(mode, target)
-		Dir.chdir(REPO_ROOT) do 
-			command = "cmake --build Builds" + " --target " + target + self.default_cmake_command_suffix(mode)
-			Log.capture_output(command)
-		end
 	end
 
 

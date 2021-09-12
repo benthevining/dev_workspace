@@ -1,3 +1,6 @@
+require "open3"
+
+
 module Log 
 
 	@@log_file = REPO_ROOT + "/Builds/build.log"
@@ -23,21 +26,28 @@ module Log
 	end
 
 
-	def self.write(stdout, stderr)
+	def self.capture_build_output(command)
+
+		self.delete
+
+		startTime = FormattedTime.get
+
+		stdout, stderr, status = Open3.capture3(command)
+
+		endTime = FormattedTime.get
 
 		File.new(@@log_file, "w") unless File.exist?(@@log_file)
 
 		File.open(@@log_file, "w") { |f| 
-			f.write(stdout + "\n \n ERRORS \n" + stderr) 
+			f.write("Build start time: " + startTime.to_s + "\n")
+			f.write("Build end time: " + endTime.to_s + "\n")
+			f.write("Total build duration: " + FormattedTime.compare(startTime, endTime) + "\n")
+
+			f.write("\n \n" + stdout) 
+			f.write("\n \n  -- ERRORS -- \n" + stderr) unless stderr.empty?
 		}
 
 		self.copy_to_deploy_dir
-	end
-
-
-	def self.capture_output(command)
-		stdout, stderr, status = Open3.capture3(command)
-		self.write(stdout, stderr)
 	end
 
 end
