@@ -13,9 +13,7 @@ module Log
 
 		dest = REPO_ROOT + "/Builds/deploy/build.log"
 
-		File.delete(dest) if File.exist?(dest)
-
-		File.new(dest, "w") 
+		File.new(dest, "w") unless File.exist?(dest)
 
 		FileUtils.cp(@@log_file, dest)
 	end
