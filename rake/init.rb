@@ -8,6 +8,8 @@ module Init
 
 		dir = REPO_ROOT + "/Cache/ccache"
 
+		return if (File.exist?(dir + "/ccache"))
+
 		FileUtils.mkdir(dir) unless Dir.exist?(dir)
 
 		path = dir + "/ccache.tar"
