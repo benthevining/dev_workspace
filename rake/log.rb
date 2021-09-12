@@ -11,7 +11,11 @@ module Log
 
 		return if not File.exist?(@@log_file)
 
-		dest = REPO_ROOT + "/Builds/deploy/build.log"
+		deploy_dir = REPO_ROOT + "/Builds/deploy"
+
+		FileUtils.mkdir(deploy_dir) unless Dir.exist?(deploy_dir)
+
+		dest = deploy_dir + "/build.log"
 
 		File.new(dest, "w") unless File.exist?(dest)
 
