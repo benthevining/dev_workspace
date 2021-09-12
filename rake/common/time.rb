@@ -9,9 +9,9 @@ module FormattedTime
 	def self.get()
 		timeNow = Time.now
 
-		hr  = timeNow.hour.to_s; hr = self.check_time_token(hr)
-		min = timeNow.min.to_s; min = self.check_time_token(min)
-		sec = timeNow.sec.to_s; sec = self.check_time_token(sec)
+		hr  = self.check_time_token(timeNow.hour.to_s)
+		min = self.check_time_token(timeNow.min.to_s)
+		sec = self.check_time_token(timeNow.sec.to_s)
 
 		return hr.to_s + ":" + min.to_s + ":" + sec.to_s
 	end
@@ -22,9 +22,11 @@ module FormattedTime
 		startTokens = startString.split(":")
 		endTokens = endString.split(":")
 
-		hr  = (endTokens[0].to_i - startTokens[0].to_i).to_s; hr  = self.check_time_token(hr)
-		min = (endTokens[1].to_i - startTokens[1].to_i).to_s; min = self.check_time_token(min)
-		sec = (endTokens[2].to_i - startTokens[2].to_i).to_s; sec = self.check_time_token(sec)
+		compare_tokens = -> (idx) { return endTokens[idx].to_i - startTokens[idx].to_i }
+
+		hr  = self.check_time_token(compare_tokens.(0).to_s)
+		min = self.check_time_token(compare_tokens.(1).to_s)
+		sec = self.check_time_token(compare_tokens.(2).to_s)
 
 		return hr.to_s + ":" + min.to_s + ":" + sec.to_s
 	end
