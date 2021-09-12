@@ -30,24 +30,26 @@ module Log
 
 		self.delete
 
-		startTime = FormattedTime.get
-		puts "\n Build start time: " + startTime.to_s
+		startTimeObject = Time.now
+		startTimeString = FormattedTime.get(startTimeObject).to_s
+		puts "\n Build start time: " + startTimeString
 
 		# this performs the actual build
 		puts "\n" + command
 		stdout, stderr, status = Open3.capture3(command)
 
-		endTime = FormattedTime.get
-		puts "\n Build end time: " + endTime.to_s
+		endTimeObject = Time.now
+		endTimeString = FormattedTime.get(endTimeObject).to_s
+		puts "\n Build end time: " + endTimeString
 
-		duration = FormattedTime.compare(startTime, endTime).to_s
+		duration = FormattedTime.compare(startTimeObject, endTimeObject).to_s
 		puts "\n Build duration: " + duration
 
 		File.new(@@log_file, "w") unless File.exist?(@@log_file)
 
 		File.open(@@log_file, "w") { |f| 
-			f.write("Build start time: " + startTime.to_s + "\n")
-			f.write("Build end time: " + endTime.to_s + "\n")
+			f.write("Build start time: " + startTimeString.to_s + "\n")
+			f.write("Build end time: " + endTimeString.to_s + "\n")
 			f.write("Total build duration: " + duration + "\n")
 
 			f.write("\n \n  -- ERRORS -- \n" + stderr) unless stderr.empty?
