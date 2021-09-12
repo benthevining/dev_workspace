@@ -1,3 +1,5 @@
+require "fileutils"
+
 require_relative "mode.rb"
 require_relative "constants.rb"
 require_relative "os.rb"
