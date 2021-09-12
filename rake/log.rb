@@ -31,20 +31,28 @@ module Log
 		self.delete
 
 		startTime = FormattedTime.get
+		puts "\n Build start time: " + startTime.to_s
 
+		# this performs the actual build
+		puts "\n" + command
 		stdout, stderr, status = Open3.capture3(command)
 
 		endTime = FormattedTime.get
+		puts "\n Build end time: " + endTime.to_s
+
+		duration = FormattedTime.compare(startTime, endTime).to_s
+		puts "\n Build duration: " + duration
 
 		File.new(@@log_file, "w") unless File.exist?(@@log_file)
 
 		File.open(@@log_file, "w") { |f| 
 			f.write("Build start time: " + startTime.to_s + "\n")
 			f.write("Build end time: " + endTime.to_s + "\n")
-			f.write("Total build duration: " + FormattedTime.compare(startTime, endTime) + "\n")
+			f.write("Total build duration: " + duration + "\n")
+
+			f.write("\n \n  -- ERRORS -- \n" + stderr) unless stderr.empty?
 
 			f.write("\n \n" + stdout) 
-			f.write("\n \n  -- ERRORS -- \n" + stderr) unless stderr.empty?
 		}
 
 		self.copy_to_deploy_dir

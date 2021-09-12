@@ -2,7 +2,12 @@ module FormattedTime
 
 	def self.get()
 		timeNow = Time.now
-		return timeNow.hour.to_s + ":" + timeNow.min.to_s + ":" + timeNow.sec.to_s
+
+		hr  = timeNow.hour.to_s; hr = "0" + hr  if (hr.length == 1)
+		min = timeNow.min.to_s; min = "0" + min if (min.length == 1)
+		sec = timeNow.sec.to_s; sec = "0" + sec if (sec.length == 1)
+
+		return hr.to_s + ":" + min.to_s + ":" + sec.to_s
 	end
 
 
@@ -11,9 +16,9 @@ module FormattedTime
 		startTokens = startString.split(":")
 		endTokens = endString.split(":")
 
-		hr = endTokens[0].to_i - startTokens[0].to_i 
-		min = endTokens[1].to_i - startTokens[1].to_i
-		sec = endTokens[2].to_i - startTokens[2].to_i
+		hr  = (endTokens[0].to_i - startTokens[0].to_i).to_s; hr  = "0" + hr  if (hr.length == 1)
+		min = (endTokens[1].to_i - startTokens[1].to_i).to_s; min = "0" + min if (min.length == 1)
+		sec = (endTokens[2].to_i - startTokens[2].to_i).to_s; sec = "0" + sec if (sec.length == 1)
 
 		return hr.to_s + ":" + min.to_s + ":" + sec.to_s
 	end

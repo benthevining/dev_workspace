@@ -54,8 +54,6 @@ module CMake
 
 		command += (" --config " + mode + " -j " + NUM_CPU_CORES)
 
-		puts "\n" + command + "\n\n"
-
 		Dir.chdir(REPO_ROOT) do 
 			Log.capture_build_output(command)
 		end
