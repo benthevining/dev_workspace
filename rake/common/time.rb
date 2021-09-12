@@ -47,6 +47,7 @@ module FormattedTime
 
 			str += ", " if (str.length > 0)
 			str += (strip_token.(sec) + " seconds")
+			return str
 		}
 
 		return hr + ":" + min + ":" + sec + " (" + verbose_string.call.to_s + ")"
