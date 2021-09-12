@@ -4,8 +4,6 @@ module Init
 
 		puts "\n -- installing ccache..."
 
-		url = "http://github.com/cristianadam/ccache/releases/download/v4.4/" + OS.getNameAsString + ".tar.xz"
-
 		dir = REPO_ROOT + "/Cache/ccache"
 
 		return if (File.exist?(dir + "/ccache"))
@@ -14,12 +12,13 @@ module Init
 
 		path = dir + "/ccache.tar"
 
+		url = "http://github.com/cristianadam/ccache/releases/download/v4.4/" + OS.getNameAsString + ".tar.xz"
+
 		Download.download_file(url, path) unless File.exist?(path)
 
 		Dir.chdir(dir) do 
 			Rake.sh "cmake -E tar xvf " + path
 		end
-
 	end
 
 
