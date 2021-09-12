@@ -4,7 +4,6 @@ project (Workspace)
 
 
 option (BV_WORKSPACE_BUILD "" ON)
-option (BV_USE_CCACHE "" ON)
 
 set (ENV{CPM_SOURCE_CACHE} ${CMAKE_CURRENT_LIST_DIR}/Cache)
 set (CPM_Shared-code_SOURCE ${CMAKE_CURRENT_LIST_DIR}/Shared-code)
