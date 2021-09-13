@@ -1,8 +1,36 @@
 module Init
 
-	def self.install_ccache()
+	def self.install_cmake()
 
-		return if OS.program_exists?("ccache")
+		dir = REPO_ROOT + "/Cache/cmake"
+
+		return if (File.exist?(dir + "/cmake"))
+
+		puts "\n -- installing cmake..."
+
+		FileUtils.mkdir(dir) unless Dir.exist?(dir)
+
+		path = dir + "/cmake.tar"
+
+		url = "http://github.com/Kitware/CMake/releases/download/v3.21.2/cmake-3.21.2-" + OS.getNameAsString.downcase
+
+		url += "-universal" if (OS.mac?)
+
+		if (OS.windows?)
+			url += ".zip"
+		else
+			url += ".tar.gz"
+		end
+
+		Download.download_file(url, path) unless File.exist?(path)
+
+		Dir.chdir(dir) do 
+			Rake.sh "cmake -E tar xvf " + path
+		end
+	end
+
+
+	def self.install_ccache()
 
 		dir = REPO_ROOT + "/Cache/ccache"
 
@@ -45,7 +73,8 @@ module Init
 
 		Git.init_all_submodules
 
-		self.install_ccache
+		self.install_cmake unless OS.program_exists?("cmake")
+		self.install_ccache unless OS.program_exists?("ccache")
 
 		self.install_linux_deps if OS.linux?
 
