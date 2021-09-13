@@ -23,10 +23,9 @@ REPO_PATHS = Array.new
 PLUGIN_NAMES = Array.new
 APP_NAMES = Array.new
 
-Dir.chdir(REPO_ROOT) do 
+Dir.chdir(REPO_ROOT + "/ruby") do 
 
 	json = JSON.parse(File.read("products.json"))
-
 
 	json["product"].each { |product|
 
