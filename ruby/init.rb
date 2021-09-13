@@ -1,5 +1,7 @@
 module Init
 
+	# TO DO: install clang-format
+
 	def self.install_cmake()
 
 		dir = REPO_ROOT + "/Cache/cmake"
