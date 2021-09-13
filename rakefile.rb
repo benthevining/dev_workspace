@@ -55,45 +55,45 @@ end
 namespace :build do
 
 	desc "Builds all apps, and all formats of all plugins"
-	task :all, [:mode] => ["rake:config"] do |t, args|
+	task :all, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		CMake.build_all(BuildMode.parse(args.mode))
 	end
 
 	desc "Builds all plugins"
-	task :plugins, [:mode] => ["rake:config"] do |t, args|
+	task :plugins, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		CMake.build_target(BuildMode.parse(args.mode), "ALL_PLUGINS")
 	end
 
 	desc "Builds all apps"
-	task :apps, [:mode] => ["rake:config"] do |t, args|
+	task :apps, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		CMake.build_target(BuildMode.parse(args.mode), "ALL_APPS")
 	end
 
 
 	desc "Builds Imogen"
-	task :imogen, [:mode, :formats] => ["rake:config"] do |t, args|
+	task :imogen, [:mode, :formats] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		CMake.build_plugin("Imogen", BuildMode.parse(args.mode), args.formats, args.extras)
 	end
 
 	desc "Builds Kicklab"
-	task :kicklab, [:mode, :formats] => ["rake:config"] do |t, args|
+	task :kicklab, [:mode, :formats] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		CMake.build_plugin("Kicklab", BuildMode.parse(args.mode), args.formats, args.extras)
 	end
 
 
 	desc "Builds ImogenRemote"
-	task :imogen_remote, [:mode] => ["rake:config"] do |t, args|
+	task :imogen_remote, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		CMake.build_app("ImogenRemote", BuildMode.parse(args.mode))
 	end
 
 	desc "Builds StageHand"
-	task :stagehand, [:mode] => ["rake:config"] do |t, args|
+	task :stagehand, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 		CMake.build_app("StageHand", BuildMode.parse(args.mode))
 	end
