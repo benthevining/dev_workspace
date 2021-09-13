@@ -50,6 +50,10 @@ jobs:
     - name: Rake init
       shell: bash
       run: cd Workspace && rake init
+      
+    - name: Rake config
+      shell: bash
+      run: cd Workspace && rake 'config[release]'
 
     - name: Run build
       shell: bash
