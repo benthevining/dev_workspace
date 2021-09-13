@@ -2,6 +2,8 @@ module Init
 
 	def self.install_ccache()
 
+		return if OS.program_exists?("ccache")
+
 		dir = REPO_ROOT + "/Cache/ccache"
 
 		return if (File.exist?(dir + "/ccache"))
