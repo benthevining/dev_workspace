@@ -8,7 +8,7 @@ module DefaultRepoFiles
 
 		config_file_in_repo = -> (repodir, filename) {
 			Dir.chdir(repodir) do 
-				FileUtils.cp(to_rel_path.(REPO_ROOT), to_rel_path.(dir))
+				FileUtils.cp(to_rel_path.(REPO_ROOT, filename), to_rel_path.(repodir, filename))
 			end
 		}
 
