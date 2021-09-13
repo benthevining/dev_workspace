@@ -27,16 +27,4 @@ module ClangFormat
 		}
 	end
 
-
-	def self.configure_repo(dir)
-
-		to_clangformat_path = -> (basedir) {
-			return basedir.to_s + "/.clang-format"
-		}
-
-		# copy the clang-format config file from the Workspace repo to all child repos
-		Dir.chdir(dir) do 
-			FileUtils.cp(to_clangformat_path.(REPO_ROOT), to_clangformat_path.(dir))
-		end
-	end
 end

@@ -25,7 +25,7 @@ namespace :format do
 
 	desc "Configures default repo scripts"
 	task :repos do
-		PostConfig.run
+		DefaultRepoFiles.run
 	end
 
 	desc "Runs all formatting tasks"
@@ -40,7 +40,7 @@ desc "Runs CMake configuration"
 task :config, [:mode] do |t, args|
 	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 	CMake.configure(BuildMode.parse(args.mode))
-	PostConfig.run
+	DefaultRepoFiles.run
 end
 
 desc "Initializes this workspace"

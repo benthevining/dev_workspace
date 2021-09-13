@@ -7,5 +7,7 @@ module PostConfig
 			RepoUtils.configure(dir)
 			ClangFormat.configure_repo(dir)
 		}
+
+		DefaultRepoFiles.run
 	end
 end
