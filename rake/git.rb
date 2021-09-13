@@ -72,8 +72,6 @@ module Git
   			self.update_subdir(path)
   		}
 
-  		self.update_subdir(REPO_ROOT + "/rake/post_configure/DefaultGithubRepo")
-
   		self.commit_dev_workspace
   	end
 end
