@@ -1,6 +1,6 @@
 REPO_ROOT = File.expand_path((File.dirname(__FILE__))).to_s
 
-require_relative "rake/RakeUtils.rb"
+require_relative "ruby/RubyUtils.rb"
 
 
 ##  UTILITY TASKS
