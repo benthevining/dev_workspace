@@ -57,6 +57,8 @@ module CMake
 		Dir.chdir(REPO_ROOT) do 
 			Log.capture_build_output(command)
 		end
+
+		puts "\n\n Built " + target + "! \n\n"
 	end
 
 	def self.build_all(mode)
