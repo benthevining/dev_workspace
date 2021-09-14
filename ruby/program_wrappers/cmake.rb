@@ -50,7 +50,7 @@ module CMake
 			Log.capture_build_output(command)
 		end
 
-		puts "\n\n Built " + target + "! \n\n"
+		puts "\n\n Built " + target + "! \n\n" unless target == "_ALL"
 	end
 
 
