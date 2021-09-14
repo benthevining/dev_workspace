@@ -14,22 +14,33 @@ module Log
 
 	def self.capture_build_output(command)
 
-		self.delete
-
+		#  record build start time
 		startTimeObject = Time.now
 		startTimeString = FormattedTime.get(startTimeObject).to_s
 		puts "\n Build start time: " + startTimeString
 
-		# this performs the actual build
 		puts "\n" + command
-		stdout, stderr, status = Open3.capture3(command)
+		stdout, stderr, status = Open3.capture3(command)  # this performs the actual build
 
+		exit_code = status.to_s[-1]
+
+		#  record build end time
 		endTimeObject = Time.now
 		endTimeString = FormattedTime.get(endTimeObject).to_s
 		puts "\n Build end time: " + endTimeString
 
+		#  calculate build duration
 		duration = FormattedTime.compare(startTimeObject, endTimeObject).to_s
 		puts "\n Build duration: " + duration
+
+		# HACK: for now, capturing the build output to the log file prevents CI builds from failing even if the build exits with a code other than 0
+		# so until I can find a fix for this, manually check for failure to fail the CI build if the build didn't succeed
+		if exit_code != "0"
+			puts "\n Build failed. Check the log file for details."
+			exit false
+		end
+
+		puts "\n Build succeeded!\n Build exit status: " + exit_code
 
 		File.new(@@log_file, "w") unless File.exist?(@@log_file)
 
@@ -40,9 +51,11 @@ module Log
 
 			f.write("Original command line invocation: \n" + command + "\n")
 
+			f.write("Build exit status: " + exit_code + "\n")
+
 			f.write("\n \n  -- ERRORS -- \n" + stderr) unless stderr.empty?
 
-			f.write("\n \n" + stdout) 
+			f.write("\n \n" + stdout)
 		}
 
 		# copy log file to deploy dir 
