@@ -56,10 +56,10 @@ module Git
   		Rake.sh "git submodule update"
 
   		REPO_PATHS.each { |repo|
-  			rec_dir = repo == REPO_ROOT + "/Shared-code" ? path + "/cmake/UsefulScripts" : path + "/UsefulScripts"
+  			rec_dir = repo == REPO_ROOT + "/Shared-code" ? repo + "/cmake/UsefulScripts" : repo + "/UsefulScripts"
 
   			update_subdir.(rec_dir)
-  			update_subdir.(path)
+  			update_subdir.(repo)
   		}
 
   		update_subdir.(REPO_ROOT + "/PrivateSDKs")
