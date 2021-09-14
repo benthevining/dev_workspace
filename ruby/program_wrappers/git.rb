@@ -65,6 +65,8 @@ module Git
   			update_subdir.(path)
   		}
 
+  		update_subdir.(REPO_ROOT + "/PrivateSDKs")
+
   		self.commit_dev_workspace
   	end
 end
