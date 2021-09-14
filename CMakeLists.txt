@@ -14,9 +14,7 @@ list (APPEND BV_CCACHE_OPTIONS "CCACHE_DIR=${CMAKE_CURRENT_LIST_DIR}/Cache/ccach
 
 add_subdirectory (PrivateSDKs)
 
-add_subdirectory (imogen)
-add_subdirectory (kicklab)
-add_subdirectory (StageHand)
+add_subdirectory (products)
 
 #add_subdirectory (lab)
 

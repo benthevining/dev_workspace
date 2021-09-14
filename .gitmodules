@@ -2,13 +2,13 @@
 	path = Shared-code
 	url = https://github.com/BenViningMusicSoftware/Shared-code
 [submodule "imogen"]
-	path = imogen
+	path = products/imogen
 	url = https://github.com/benthevining/imogen
 [submodule "kicklab"]
-	path = kicklab
+	path = products/kicklab
 	url = https://github.com/benthevining/kicklab
 [submodule "StageHand"]
-	path = StageHand
+	path = products/StageHand
 	url = https://github.com/BenViningMusicSoftware/StageHand
 [submodule "lab"]
 	path = lab

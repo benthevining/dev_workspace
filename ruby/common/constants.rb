@@ -18,12 +18,12 @@ verbose(DEBUG_OUTPUT)
 
 #
 
-REPO_SUBDIRS = ["Shared-code", "lab"]
+REPO_SUBDIRS = Array.new
 REPO_PATHS = Array.new
 PLUGIN_NAMES = Array.new
 APP_NAMES = Array.new
 
-Dir.chdir(REPO_ROOT + "/ruby") do 
+Dir.chdir(REPO_ROOT + "/products") do 
 
 	json = JSON.parse(File.read("products.json"))
 
@@ -44,8 +44,11 @@ Dir.chdir(REPO_ROOT + "/ruby") do
 end
 
 REPO_SUBDIRS.each { |repo|
-	REPO_PATHS.push(REPO_ROOT + "/" + repo)
+	REPO_PATHS.push(REPO_ROOT + "/products/" + repo)
 }
+
+REPO_PATHS.push(REPO_ROOT + "/Shared-code")
+REPO_PATHS.push(REPO_ROOT + "/lab")
 
 PRODUCT_NAMES = PLUGIN_NAMES + APP_NAMES
 
