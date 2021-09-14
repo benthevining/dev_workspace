@@ -84,7 +84,11 @@ module CMake
 		end
 
 		to_formatted_formatString = -> (formatName) {
-			return (formatName == "standalone" || formatName == "unity") ? formatName.capitalize : formatName.upcase
+			return formatName.capitalize if formatName == "standalone" || formatName == "unity"
+
+			return "AUv3" if formatName == "auv3"
+
+			return formatName.upcase
 		}
 
 		actualFormats = Array.new

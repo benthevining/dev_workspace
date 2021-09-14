@@ -7,6 +7,8 @@ module Log
 
 	def self.delete()
 		File.delete(@@log_file) if File.exist?(@@log_file)
+		deployedFile = REPO_ROOT + "/Builds/deploy/build.log"
+		File.delete(deployedFile) if File.exist?(deployedFile)
 	end
 
 
