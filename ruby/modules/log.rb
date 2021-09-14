@@ -10,22 +10,6 @@ module Log
 	end
 
 
-	def self.copy_to_deploy_dir()
-
-		return if not File.exist?(@@log_file)
-
-		deploy_dir = REPO_ROOT + "/Builds/deploy"
-
-		FileUtils.mkdir(deploy_dir) unless Dir.exist?(deploy_dir)
-
-		dest = deploy_dir + "/build.log"
-
-		File.new(dest, "w") unless File.exist?(dest)
-
-		FileUtils.cp(@@log_file, dest)
-	end
-
-
 	def self.capture_build_output(command)
 
 		self.delete
@@ -50,14 +34,25 @@ module Log
 		File.open(@@log_file, "w") { |f| 
 			f.write("Build start time: " + startTimeString.to_s + "\n")
 			f.write("Build end time: " + endTimeString.to_s + "\n")
-			f.write("Total build duration: " + duration + "\n")
+			f.write("Total build duration: " + duration + "\n\n")
+
+			f.write("Original command line invocation: \n" + command + "\n")
 
 			f.write("\n \n  -- ERRORS -- \n" + stderr) unless stderr.empty?
 
 			f.write("\n \n" + stdout) 
 		}
 
-		self.copy_to_deploy_dir
+		# copy to deploy dir 
+		deploy_dir = REPO_ROOT + "/Builds/deploy"
+
+		FileUtils.mkdir(deploy_dir) unless Dir.exist?(deploy_dir)
+
+		dest = deploy_dir + "/build.log"
+
+		File.new(dest, "w") unless File.exist?(dest)
+
+		FileUtils.cp(@@log_file, dest)
 	end
 
 end

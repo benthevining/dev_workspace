@@ -5,9 +5,7 @@ module Download
 
     def self.download_file(url, path)
         
-        if (not File.exist?(path))
-            File.new(path, "w")
-        end
+        File.new(path, "w") unless File.exist?(path)
 
         # from: https://stackoverflow.com/a/33746205
 

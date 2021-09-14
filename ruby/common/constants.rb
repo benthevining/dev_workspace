@@ -39,9 +39,7 @@ Dir.chdir(REPO_ROOT + "/ruby") do
 		else next
 		end
 
-		if product.has_key?("subdir")
-			REPO_SUBDIRS.push(product["subdir"])
-		end
+		REPO_SUBDIRS.push(product["subdir"]) if product.has_key?("subdir")
 	}
 end
 

@@ -12,12 +12,9 @@ module CMake
 				command += " -DCMAKE_BUILD_TYPE=" + mode
 			end
 
-			if not extraDefines.empty?
-				extraDefines.each { |define|
-					next if define.empty?
-					command += " -D" + define
-				}
-			end
+			extraDefines.each { |define|
+				command += " -D" + define unless define.empty?
+			}
 
 			if OS.mac?
 				command += " -G Xcode"
@@ -32,10 +29,7 @@ module CMake
 
 	def self.configure_ios(mode, extraDefines = [])
 
-		if not OS.mac?
-			puts "Warning - compiling for iOS is only recommended on MacOS."
-			return
-		end
+		return unless OS.mac?
 
 		extraDefines.push("CMAKE_SYSTEM_NAME=iOS", 
 						  "CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=\"iPhone Developer\"")
@@ -46,7 +40,7 @@ module CMake
 	end
 
 
-	def self.build_target(mode, target)
+	def self.build_target(target, mode)
 
 		command = "cmake --build Builds"
 
@@ -61,24 +55,24 @@ module CMake
 		puts "\n\n Built " + target + "! \n\n"
 	end
 
+
 	def self.build_all(mode)
-		self.build_target(mode, "_ALL")
+		self.build_target("_ALL", mode)
 		puts "Built everything!"
 	end
 
 
 	def self.build_plugin(target, mode, firstFormat, restFormats)
 
-		def self.build_all_formats_for_plugin(target, mode)
-			self.build_target(mode, (target + "_All"))
+		build_all_formats_for_plugin = -> (target, mode) {
+			self.build_target(target + "_All", mode)
 			puts "Built all formats for " + target
-		end
+		}
 
 		if firstFormat.to_s.empty?
-			self.build_all_formats_for_plugin(target, mode)
+			build_all_formats_for_plugin.(target, mode)
 			return
 		end
-
 
 		formats = [firstFormat]
 
@@ -87,9 +81,14 @@ module CMake
 		}
 
 		if formats.empty?
-			self.build_all_formats_for_plugin(target, mode)
+			build_all_formats_for_plugin.(target, mode)
 			return
 		end
+
+		to_formatted_formatString = -> (formatName) {
+				return formatName.capitalize if formatName == "standalone" || formatName == "unity"
+				return formatName.upcase
+		}
 
 		actualFormats = Array.new
 		targetNames = Array.new
@@ -101,16 +100,11 @@ module CMake
 			next if format.empty?
 
 			if format == "all"
-				self.build_all_formats_for_plugin(target, mode)
+				build_all_formats_for_plugin.(target, mode)
 				return
 			end
 
-			def self.to_formatted_formatString(format)
-				return format.capitalize if format == "standalone" || format == "unity"
-				return format.upcase
-			end
-
-			newFormat = self.to_formatted_formatString(format)
+			newFormat = to_formatted_formatString.(format)
 
 			actualFormats.push(newFormat)
 
@@ -120,17 +114,15 @@ module CMake
 		}
 
 		if targetNames.empty? || actualFormats.empty?
-			self.build_all_formats_for_plugin(target, mode)
+			build_all_formats_for_plugin.(target, mode)
 			return
 		end
 
-		self.build_target(mode, targetNames.join(" "))
+		targetNames.each { |target|
+			self.build_target(target, mode)
+		}
+
 		puts "Built formats of " + target + ": " + actualFormats.join(" ")
 	end
 
-
-	def self.build_app(target, mode)
-		self.build_target(mode, target)
-		puts "Built " + target
-	end
 end

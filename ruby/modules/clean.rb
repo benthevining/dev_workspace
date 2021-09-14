@@ -1,17 +1,5 @@
 module Clean
 
-	def self.delete_build_dir()
-        dir = REPO_ROOT + "/Builds/"
-        FileUtils.remove_dir(dir) if Dir.exist?(dir)
-    end
-
-
-    def self.delete_cpm_cache()
-        dir = REPO_ROOT + "/Cache/"
-        FileUtils.remove_dir(dir) if Dir.exist?(dir)
-    end
-
-
     def self.delete_installed_plugins()
 
         def delete_list_of_plugin_names(list, dir)
@@ -40,12 +28,16 @@ module Clean
 
 
 	def self.run()
-		self.delete_build_dir
-        #self.delete_installed_plugins
+
+        # delete builds dir
+        dir = REPO_ROOT + "/Builds/"
+        FileUtils.remove_dir(dir) if Dir.exist?(dir)
 
         REPO_PATHS.each { |repo|
             path = repo.to_s + "/Builds"
             FileUtils.remove_dir(path) if Dir.exist?(path)
         }
+
+        # self.delete_installed_plugins
 	end
 end

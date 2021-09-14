@@ -43,16 +43,13 @@ module Git
 	
   	def self.uth()
 
-  		def self.update_subdir(dir)
-
-  			puts dir
-
+  		update_subdir = -> (dir) {
   			Dir.chdir(dir) do 
   				Rake.sh ("git checkout " + @@branch_name)
   				Rake.sh ("git pull -j " + NUM_CPU_CORES + " origin " + @@branch_name)
   				Rake.sh ("git commit -a -m \"Submodule auto-update\" && git push") do |ok, res| end
   			end
-  		end
+  		}
 
   		self.pull_dev_workspace
 
@@ -68,8 +65,8 @@ module Git
   				rec_dir = path + "/UsefulScripts"
   			end
 
-  			self.update_subdir(rec_dir)
-  			self.update_subdir(path)
+  			update_subdir.(rec_dir)
+  			update_subdir.(path)
   		}
 
   		self.commit_dev_workspace
