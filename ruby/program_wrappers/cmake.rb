@@ -30,6 +30,7 @@ module CMake
 		return unless OS.mac?
 
 		extraDefines.push("CMAKE_SYSTEM_NAME=iOS", 
+						  "CMAKE_CROSSCOMPILING=TRUE",
 						  "CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=\"iPhone Developer\"")
 
 		# CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=<10 character id>
