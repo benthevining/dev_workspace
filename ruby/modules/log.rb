@@ -33,14 +33,7 @@ module Log
 		duration = FormattedTime.compare(startTimeObject, endTimeObject).to_s
 		puts "\n Build duration: " + duration
 
-		# HACK: for now, capturing the build output to the log file prevents CI builds from failing even if the build exits with a code other than 0
-		# so until I can find a fix for this, manually check for failure to fail the CI build if the build didn't succeed
-		if exit_code != "0"
-			puts "\n Build failed. Check the log file for details."
-			exit false
-		end
-
-		puts "\n Build succeeded!\n Build exit status: " + exit_code
+		#-----  write log file  -----#
 
 		File.new(@@log_file, "w") unless File.exist?(@@log_file)
 
@@ -58,7 +51,7 @@ module Log
 			f.write("\n \n" + stdout)
 		}
 
-		# copy log file to deploy dir 
+		#-----  copy log file to deploy dir  -----#
 		deploy_dir = REPO_ROOT + "/Builds/deploy"
 
 		FileUtils.mkdir(deploy_dir) unless Dir.exist?(deploy_dir)
@@ -68,6 +61,15 @@ module Log
 		File.new(dest, "w") unless File.exist?(dest)
 
 		FileUtils.cp(@@log_file, dest)
+
+		# HACK: for now, capturing the build output to the log file prevents CI builds from failing even if the build exits with a code other than 0
+		# so until I can find a fix for this, manually check for failure to fail the CI build if the build didn't succeed
+		if exit_code != "0"
+			puts "\n Build failed. Check the log file for details."
+			exit false
+		end
+
+		puts "\n Build succeeded!\n Build exit status: " + exit_code
 	end
 
 end
