@@ -18,12 +18,13 @@ verbose(DEBUG_OUTPUT)
 
 #
 
-REPO_SUBDIRS = Array.new
 REPO_PATHS = Array.new
 PLUGIN_NAMES = Array.new
 APP_NAMES = Array.new
 
 Dir.chdir(REPO_ROOT + "/products") do 
+
+	REPO_SUBDIRS = Array.new
 
 	json = JSON.parse(File.read("products.json"))
 
@@ -41,11 +42,11 @@ Dir.chdir(REPO_ROOT + "/products") do
 
 		REPO_SUBDIRS.push(product["subdir"]) if product.has_key?("subdir")
 	}
-end
 
-REPO_SUBDIRS.each { |repo|
-	REPO_PATHS.push(REPO_ROOT + "/products/" + repo)
-}
+	REPO_SUBDIRS.each { |repo|
+		REPO_PATHS.push(REPO_ROOT + "/products/" + repo)
+	}
+end
 
 REPO_PATHS.push(REPO_ROOT + "/Shared-code")
 REPO_PATHS.push(REPO_ROOT + "/lab")
