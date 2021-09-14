@@ -43,7 +43,7 @@ module Log
 			f.write("\n \n" + stdout) 
 		}
 
-		# copy to deploy dir 
+		# copy log file to deploy dir 
 		deploy_dir = REPO_ROOT + "/Builds/deploy"
 
 		FileUtils.mkdir(deploy_dir) unless Dir.exist?(deploy_dir)

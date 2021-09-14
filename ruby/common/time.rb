@@ -34,18 +34,21 @@ module FormattedTime
 			str = ""
 
 			strip_token = -> (token) {
-				return token[1] if (token.to_i < 10)
-				return token
+				return token.to_i < 10 ? token[1] : token
 			}
 
 			str += (strip_token.(hr) + " hours") if (hr.to_i > 0)
 
-			if (min.to_i > 0)
+			add_comma_if_needed = -> {
 				str += ", " if (str.length > 0)
+			}
+
+			if (min.to_i > 0)
+				add_comma_if_needed.call
 				str += (strip_token.(min) + " minutes")
 			end
 
-			str += ", " if (str.length > 0)
+			add_comma_if_needed.call
 			str += (strip_token.(sec) + " seconds")
 			return str
 		}

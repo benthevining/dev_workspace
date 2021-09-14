@@ -7,11 +7,7 @@ module ClangFormat
 
 			Dir.glob("**/").each do |file|
 
-				if dir[-1] == "/"
-					newDir = dir + file
-				else 
-					newDir = dir + "/" + file
-				end
+				newDir = dir[-1] == "/" ? dir + file : dir + "/" + file
 
 				newDir.slice!(newDir.length-1, newDir.length) if newDir[-1] == "/"
 

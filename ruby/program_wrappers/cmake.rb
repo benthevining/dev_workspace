@@ -8,9 +8,7 @@ module CMake
 
 			command = "cmake -B Builds" 
 
-			if (OS.linux?)
-				command += " -DCMAKE_BUILD_TYPE=" + mode
-			end
+			command += " -DCMAKE_BUILD_TYPE=" + mode if OS.linux?
 
 			extraDefines.each { |define|
 				command += " -D" + define unless define.empty?
@@ -44,7 +42,7 @@ module CMake
 
 		command = "cmake --build Builds"
 
-		command += (" --target " + target) if (target != "_ALL")
+		command += (" --target " + target) unless target == "_ALL"
 
 		command += (" --config " + mode + " -j " + NUM_CPU_CORES)
 
@@ -69,11 +67,6 @@ module CMake
 			puts "Built all formats for " + target
 		}
 
-		if firstFormat.to_s.empty?
-			build_all_formats_for_plugin.(target, mode)
-			return
-		end
-
 		formats = [firstFormat]
 
 		restFormats.each { |format|
@@ -86,8 +79,7 @@ module CMake
 		end
 
 		to_formatted_formatString = -> (formatName) {
-				return formatName.capitalize if formatName == "standalone" || formatName == "unity"
-				return formatName.upcase
+			return (formatName == "standalone" || formatName == "unity") ? formatName.capitalize : formatName.upcase
 		}
 
 		actualFormats = Array.new

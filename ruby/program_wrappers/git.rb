@@ -59,11 +59,7 @@ module Git
 
   			path = REPO_ROOT + "/" + repo
 
-  			if repo == "Shared-code" 
-  				rec_dir = path + "/cmake/UsefulScripts"
-  			else 
-  				rec_dir = path + "/UsefulScripts"
-  			end
+  			rec_dir = repo == "Shared-code" ? path + "/cmake/UsefulScripts" : path + "/UsefulScripts"
 
   			update_subdir.(rec_dir)
   			update_subdir.(path)
