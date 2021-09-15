@@ -24,7 +24,10 @@ display_and_execute_rake_command() {
 	rake $1
 }
 
-display_and_execute_rake_command "init"
+if ! $( ${BV_SKIP_INIT:-FALSE} ); then 
+	display_and_execute_rake_command "init"
+fi
+
 display_and_execute_rake_command "config[$BUILD_CONFIG]"
 display_and_execute_rake_command "build:$BUILD_TARGET[$BUILD_CONFIG]"
 

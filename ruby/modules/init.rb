@@ -69,13 +69,11 @@ module Init
 
 	def self.init()
 
-		if not IGNORE_GIT_FOR_INIT
-			Dir.chdir(REPO_ROOT) do 
-				Rake.sh "git remote update && git fetch"
-			end
-
-			Git.init_all_submodules
+		Dir.chdir(REPO_ROOT) do 
+			Rake.sh "git remote update && git fetch"
 		end
+
+		Git.init_all_submodules
 
 		cache_dir = REPO_ROOT + "/Cache"
 		FileUtils.mkdir(cache_dir) unless Dir.exist?(cache_dir)
