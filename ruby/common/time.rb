@@ -37,7 +37,14 @@ module FormattedTime
 				return token.to_i < 10 ? token[1] : token
 			}
 
-			str += (strip_token.(hr) + " hours") if (hr.to_i > 0)
+			make_plural_if_needed = -> (num) {
+				str += "s" if num.to_i > 1
+			}
+
+			if (hr.to_i > 0)
+				str += (strip_token.(hr) + " hour")
+				make_plural_if_needed.(hr)
+			end
 
 			add_comma_if_needed = -> {
 				str += ", " if (str.length > 0)
@@ -45,11 +52,14 @@ module FormattedTime
 
 			if (min.to_i > 0)
 				add_comma_if_needed.call
-				str += (strip_token.(min) + " minutes")
+				str += (strip_token.(min) + " minute")
+				make_plural_if_needed.(min)
 			end
 
 			add_comma_if_needed.call
-			str += (strip_token.(sec) + " seconds")
+			str += (strip_token.(sec) + " second")
+			make_plural_if_needed.(sec)
+
 			return str
 		}
 
