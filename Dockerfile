@@ -8,7 +8,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     clang-11 \
     ninja-build \
     pkg-config \
-    openssh-client
+    openssh-client \
+    apt
 
 # Make sure clang is the default compiler
 RUN DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/bin/cc cc /usr/bin/clang-11 100 && \
