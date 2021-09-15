@@ -57,21 +57,21 @@ namespace :build do
 	desc "Builds all apps, and all formats of all plugins"
 	task :all, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		Log.delete
+		Log.delete_build_log
 		CMake.build_all(BuildMode.parse(args.mode))
 	end
 
 	desc "Builds all plugins"
 	task :plugins, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		Log.delete
+		Log.delete_build_log
 		CMake.build_target(BuildMode.parse(args.mode), "ALL_PLUGINS")
 	end
 
 	desc "Builds all apps"
 	task :apps, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		Log.delete
+		Log.delete_build_log
 		CMake.build_target(BuildMode.parse(args.mode), "ALL_APPS")
 	end
 
@@ -79,14 +79,14 @@ namespace :build do
 	desc "Builds Imogen"
 	task :imogen, [:mode, :formats] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		Log.delete
+		Log.delete_build_log
 		CMake.build_plugin("Imogen", BuildMode.parse(args.mode), args.formats, args.extras)
 	end
 
 	desc "Builds Kicklab"
 	task :kicklab, [:mode, :formats] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		Log.delete
+		Log.delete_build_log
 		CMake.build_plugin("Kicklab", BuildMode.parse(args.mode), args.formats, args.extras)
 	end
 
@@ -94,14 +94,14 @@ namespace :build do
 	desc "Builds ImogenRemote"
 	task :imogen_remote, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		Log.delete
+		Log.delete_build_log
 		CMake.build_target("ImogenRemote", BuildMode.parse(args.mode))
 	end
 
 	desc "Builds StageHand"
 	task :stagehand, [:mode] do |t, args|
 		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		Log.delete
+		Log.delete_build_log
 		CMake.build_target("StageHand", BuildMode.parse(args.mode))
 	end
 end

@@ -2,7 +2,8 @@ module CMake
 
 	def self.configure(mode, extraDefines = [])
 
-		Log.delete
+		Log.delete_build_log
+		Log.delete_config_log
 
 		Dir.chdir(REPO_ROOT) do 
 
@@ -20,7 +21,7 @@ module CMake
 				command += " -G \"Visual Studio 16 2019\""
 			end # use default Ninja generator on Linux
 
-			Rake.sh command
+			Log.capture_config_output(command)
 		end
 	end
 
