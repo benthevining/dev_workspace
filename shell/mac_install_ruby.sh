@@ -9,5 +9,9 @@ if [ ! -d "$WORKING_DIR" ]; then
 fi
 
 cd $WORKING_DIR
+
 curl --remote-name https://raw.githubusercontent.com/monfresh/install-ruby-on-macos/master/install-ruby
+
 /usr/bin/env bash $WORKING_DIR/install-ruby 2>&1 | tee $WORKING_DIR/install.log
+
+exit 0
