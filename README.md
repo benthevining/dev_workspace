@@ -42,6 +42,8 @@ After cloning this repo, you should run `rake init` once. If you haven't pulled 
 
 # Rake environment variables
 
-**DEFAULT_BUILD_CONFIG:** either `Build` or `Debug`. Defaults to `Debug`. Defines the default build configuration used for the config and build tasks if mode is not specified as an argument to the task.
+**BV_DEFAULT_BUILD_CONFIG:** either `Build` or `Debug`. Defaults to `Debug`. Defines the default build configuration used for the config and build tasks if mode is not specified as an argument to the task.
 
-**DEBUG_OUTPUT:** either `true` or `false`. Defaults to `true` if the value of `DEFAULT_BUILD_CONFIG` is `Debug`, else `false`. Defines whether rake will be verbose with its console output.
+**BV_DEBUG_RAKE_OUTPUT:** either `true` or `false`. Defaults to `true` if the value of `DEFAULT_BUILD_CONFIG` is `Debug`, else `false`. Defines whether rake will be verbose with its console output.
+
+**BV_COMMIT_TO_REPOS:** either `true` or `false`. Defaults to `true`. Determines whether the ruby code will invoke a `git commit` when the submodules are updated with `rake uth`.
