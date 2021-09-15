@@ -5,6 +5,16 @@ module CMake
 		Log.delete_build_log
 		Log.delete_config_log
 
+		if CROSSCOMPILE_IOS
+
+			extraDefines.push("CMAKE_SYSTEM_NAME=iOS", 
+						      "CMAKE_CROSSCOMPILING=TRUE",
+						      "CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=\"iPhone Developer\"")
+
+		# CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=<10 character id>
+
+		end
+
 		Dir.chdir(REPO_ROOT) do 
 
 			command = "cmake -B Builds -DCMAKE_BUILD_TYPE=" + mode
@@ -21,20 +31,6 @@ module CMake
 
 			Log.capture_config_output(command)
 		end
-	end
-
-
-	def self.configure_ios(mode, extraDefines = [])
-
-		return unless OS.mac?
-
-		extraDefines.push("CMAKE_SYSTEM_NAME=iOS", 
-						  "CMAKE_CROSSCOMPILING=TRUE",
-						  "CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=\"iPhone Developer\"")
-
-		# CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=<10 character id>
-
-		self.configure(mode, repoDir, extraDefines)
 	end
 
 

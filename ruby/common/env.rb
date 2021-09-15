@@ -14,3 +14,7 @@ COMMIT_TO_REPOS = ENV.has_key?('BV_COMMIT_TO_REPOS') ? ENV['BV_COMMIT_TO_REPOS']
 #
 
 ENV["PATH"] = ENV["PATH"].split(File::PATH_SEPARATOR).push(REPO_ROOT + "/Cache/").join(File::PATH_SEPARATOR)
+
+#
+
+CROSSCOMPILE_IOS = ENV.has_key?('BV_CROSSCOMPILE_IOS') ? (ENV['BV_CROSSCOMPILE_IOS'].downcase == "true" and OS.mac?) : false
