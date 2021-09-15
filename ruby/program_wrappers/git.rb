@@ -15,6 +15,9 @@ module Git
 
 
 	def self.commit(dir)
+
+		return unless COMMIT_TO_REPOS
+
 		Dir.chdir(dir) do 
 			Rake.sh "git commit -a -m \"Rake auto-commit\"" do |ok, res| end
 		end
@@ -22,6 +25,9 @@ module Git
 
 
 	def self.pull(dir)
+
+		return if not COMMIT_TO_REPOS
+
 		Dir.chdir(dir) do 
     		Rake.sh ("git pull --rebase -j " + NUM_CPU_CORES) do |ok, res| end
 		end
@@ -47,7 +53,10 @@ module Git
   			Dir.chdir(dir) do 
   				Rake.sh ("git checkout " + @@branch_name)
   				Rake.sh ("git pull -j " + NUM_CPU_CORES + " origin " + @@branch_name)
-  				Rake.sh ("git commit -a -m \"Submodule auto-update\" && git push") do |ok, res| end
+
+  				if COMMIT_TO_REPOS
+  					Rake.sh ("git commit -a -m \"Submodule auto-update\" && git push") do |ok, res| end
+  				end
   			end
   		}
 

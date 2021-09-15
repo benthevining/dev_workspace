@@ -12,3 +12,7 @@ verbose(DEBUG_OUTPUT)
 cache_path = REPO_ROOT + "/Cache/"
 
 ENV["PATH"] = ENV["PATH"].split(File::PATH_SEPARATOR).push(cache_path).join(File::PATH_SEPARATOR)
+
+#
+
+COMMIT_TO_REPOS = ENV.has_key?('BV_COMMIT_TO_REPOS') ? ENV['BV_COMMIT_TO_REPOS'] : true
