@@ -1,7 +1,5 @@
 FROM ubuntu:latest AS base
 
-WORKDIR /
-
 FROM base AS juce_dev_machine
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
@@ -17,6 +15,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 # Make sure clang is the default compiler:
 RUN DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/bin/cc cc /usr/bin/clang-11 100
 RUN DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-11 100
+
+ADD . /dev_workspace
 
 WORKDIR /dev_workspace
 
