@@ -62,7 +62,11 @@ module Init
 
 		Rake.sh "sudo apt-get update" do |ok, res| end
 
-		Rake.sh ("sudo apt-get install -y " + deps.join(" "))
+		Rake.sh ("sudo apt-get install -y " + deps.join(" ")) do |ok, res|
+			if not ok
+				Rake.sh ("apt-get install -y " + deps.join(" "))
+			end
+		end
 	end
 
 
