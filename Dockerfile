@@ -1,5 +1,7 @@
 FROM ubuntu:latest AS base
 
+WORKDIR /
+
 FROM base AS juce_dev_machine
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
@@ -16,8 +18,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 RUN DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/bin/cc cc /usr/bin/clang-11 100
 RUN DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-11 100
 
-WORKDIR /
-
-RUN pwd
+WORKDIR /dev_workspace
 
 RUN shell/ci_build.sh
