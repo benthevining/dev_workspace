@@ -24,7 +24,9 @@ display_and_execute_rake_command() {
 	rake $1
 }
 
-if ! ${BV_SKIP_INIT:-FALSE} ; then 
+SKIPPING_INIT=${BV_SKIP_INIT:-FALSE}
+
+if ! $SKIPPING_INIT ; then 
 	display_and_execute_rake_command "init"
 fi
 
