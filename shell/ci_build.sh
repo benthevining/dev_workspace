@@ -6,6 +6,8 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 cd $SCRIPT_DIR/..
 
+BV_COMMIT_TO_REPOS="false"
+
 rake init
 
 rake "config[$BUILD_CONFIG]"
