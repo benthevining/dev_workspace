@@ -80,6 +80,8 @@ module Init
 
 		self.install_linux_deps if OS.linux?
 
+		Rake.sh "brew install lv2" if OS.mac?
+
 		puts "\n \n"
 	end
 
