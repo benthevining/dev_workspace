@@ -18,3 +18,7 @@ ENV["PATH"] = ENV["PATH"].split(File::PATH_SEPARATOR).push(REPO_ROOT + "/Cache/"
 #
 
 CROSSCOMPILE_IOS = ENV.has_key?('BV_CROSSCOMPILE_IOS') ? (ENV['BV_CROSSCOMPILE_IOS'].downcase == "true" and OS.mac?) : false
+
+#
+
+IGNORE_GIT_FOR_INIT = Env.has_key?('BV_IGNORE_GIT_IN_INIT') ? Env['BV_IGNORE_GIT_IN_INIT'].downcase == "true" : false

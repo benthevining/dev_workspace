@@ -20,4 +20,6 @@ ADD . /dev_workspace
 
 WORKDIR /dev_workspace
 
+ENV BV_IGNORE_GIT_IN_INIT=TRUE
+
 RUN bash shell/ci_build.sh

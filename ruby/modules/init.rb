@@ -69,11 +69,13 @@ module Init
 
 	def self.init()
 
-		Dir.chdir(REPO_ROOT) do 
-			Rake.sh "git remote update && git fetch"
-		end
+		if not IGNORE_GIT_FOR_INIT
+			Dir.chdir(REPO_ROOT) do 
+				Rake.sh "git remote update && git fetch"
+			end
 
-		Git.init_all_submodules
+			Git.init_all_submodules
+		end
 
 		self.install_cmake unless OS.program_exists?("cmake")
 		self.install_ccache unless OS.program_exists?("ccache")
