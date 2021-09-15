@@ -16,6 +16,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 RUN DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/bin/cc cc /usr/bin/clang-11 100
 RUN DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-11 100
 
-WORKDIR ./dev_workspace
+WORKDIR /
 
 RUN shell/ci_build.sh
