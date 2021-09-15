@@ -7,9 +7,7 @@ module CMake
 
 		Dir.chdir(REPO_ROOT) do 
 
-			command = "cmake -B Builds" 
-
-			command += " -DCMAKE_BUILD_TYPE=" + mode if OS.linux?
+			command = "cmake -B Builds -DCMAKE_BUILD_TYPE=" + mode
 
 			extraDefines.each { |define|
 				command += " -D" + define unless define.empty?
