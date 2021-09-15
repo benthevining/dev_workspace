@@ -27,8 +27,6 @@ After cloning this repo, you should run `rake init` once. If you haven't pulled 
 
 `rake uth` to update all git submodules to their latest commits. You should usually run this after making changes to any of the git submodules, for those changes to be reflected here in the super-repo.
 
-All the build tasks automatically invoke the `config` task, but you can run just the CMake configuration by itself with `rake config[<MODE>]`, where `<MODE>` is either `Debug` or `Release` (default is `Debug`)
-
 ## Build tasks
 
 `rake build:all[<MODE>]`
