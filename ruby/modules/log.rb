@@ -20,6 +20,17 @@ module Log
 	end
 
 
+	def self.create_log_dir_if_needed()
+		deploy_dir = REPO_ROOT + "/Builds/deploy"
+		FileUtils.mkdir(deploy_dir) unless Dir.exist?(deploy_dir)
+
+		log_dir = deploy_dir + "/logs"
+		FileUtils.mkdir(log_dir) unless Dir.exist?(log_dir)
+
+		return log_dir
+	end
+
+
 	def self.capture_config_output(command)
 
 		startTime = Time.now
@@ -46,11 +57,8 @@ module Log
 		}
 
 		#-----  copy log file to deploy dir  -----#
-		deploy_dir = REPO_ROOT + "/Builds/deploy/logs"
-
-		FileUtils.mkdir(deploy_dir) unless Dir.exist?(deploy_dir)
-
-		dest = deploy_dir + "/config.log"
+		
+		dest = self.create_log_dir_if_needed().to_s + "/config.log"
 
 		File.new(dest, "w") unless File.exist?(dest)
 
@@ -103,11 +111,8 @@ module Log
 		}
 
 		#-----  copy log file to deploy dir  -----#
-		deploy_dir = REPO_ROOT + "/Builds/deploy/logs"
 
-		FileUtils.mkdir(deploy_dir) unless Dir.exist?(deploy_dir)
-
-		dest = deploy_dir + "/build.log"
+		dest = self.create_log_dir_if_needed().to_s + "/build.log"
 
 		File.new(dest, "w") unless File.exist?(dest)
 
