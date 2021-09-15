@@ -9,8 +9,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     cmake \
     ninja-build \
     pkg-config \
-    openssh-client
-# Todo: add Ruby install...
+    openssh-client \
+    ruby
 
 # Make sure clang is the default compiler:
 RUN DEBIAN_FRONTEND=noninteractive \
