@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # first, check if ruby can already be found...
 if command -v ruby &> /dev/null; then

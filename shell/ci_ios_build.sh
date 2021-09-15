@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 export BV_CROSSCOMPILE_IOS="TRUE"
 

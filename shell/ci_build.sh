@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
 
-BUILD_CONFIG="release"
-BUILD_TARGET="all"
+BUILD_CONFIG=${BV_BUILD_CONFIG:-release}
+BUILD_TARGET=${BV_BUILD_TARGET:-all}
 
 export BV_COMMIT_TO_REPOS="FALSE"
 export BV_DEFAULT_BUILD_CONFIG=$BUILD_CONFIG
 export BV_IGNORE_CCACHE="FALSE"
-export BV_USE_LV2_JUCE="TRUE"
+export BV_USE_LV2_JUCE="FALSE"
 export BV_COPY_TO_DEPLOY_FOLDER="TRUE"
 export BV_DEBUG_RAKE_OUTPUT="FALSE"
 
@@ -24,7 +24,7 @@ display_and_execute_rake_command() {
 	rake $1
 }
 
-if ! $( ${BV_SKIP_INIT:-FALSE} ); then 
+if ! ${BV_SKIP_INIT:-FALSE} ; then 
 	display_and_execute_rake_command "init"
 fi
 
