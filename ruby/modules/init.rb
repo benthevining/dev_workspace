@@ -77,6 +77,9 @@ module Init
 			Git.init_all_submodules
 		end
 
+		cache_dir = REPO_ROOT + "/Cache"
+		FileUtils.mkdir(cache_dir) unless Dir.exist?(cache_dir)
+
 		self.install_cmake unless OS.program_exists?("cmake")
 		self.install_ccache unless OS.program_exists?("ccache")
 
