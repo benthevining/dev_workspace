@@ -4,8 +4,11 @@
 
 BUILD_CONFIG="release"
 
-export BV_COMMIT_TO_REPOS="false"
+export BV_COMMIT_TO_REPOS="FALSE"
 export BV_DEFAULT_BUILD_CONFIG=$BUILD_CONFIG
+export BV_IGNORE_CCACHE="FALSE"
+export BV_USE_LV2_JUCE="TRUE"
+export BV_COPY_TO_DEPLOY_FOLDER="TRUE"
 
 ################
 

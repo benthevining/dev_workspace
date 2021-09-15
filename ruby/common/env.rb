@@ -9,7 +9,7 @@ verbose(DEBUG_OUTPUT)
 
 #
 
-COMMIT_TO_REPOS = ENV.has_key?('BV_COMMIT_TO_REPOS') ? ENV['BV_COMMIT_TO_REPOS'] == "true" : true
+COMMIT_TO_REPOS = ENV.has_key?('BV_COMMIT_TO_REPOS') ? ENV['BV_COMMIT_TO_REPOS'].downcase == "true" : true
 
 #
 
