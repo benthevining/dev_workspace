@@ -37,8 +37,7 @@ module CMake
 	def self.build_target(target, mode)
 
 		if not Dir.exist?(REPO_ROOT + "/Builds")
-			puts "ERROR: your build directory hasn't been configured yet.\nTry running this command again after you run 'rake config'."
-			exit false
+			abort "ERROR: your build directory hasn't been configured yet.\nTry running this command again after you run 'rake config'."
 		end
 
 		command = "cmake --build Builds"

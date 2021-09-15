@@ -67,8 +67,7 @@ module Log
 		# HACK: for now, capturing the output to the log file prevents CI builds from failing even if the build exits with a code other than 0
 		# so until I can find a fix for this, manually check for failure to fail the CI build if the build didn't succeed
 		if exit_code != "0"
-			puts "\n Configuration failed. Check the log file for details."
-			exit false
+			abort "Configuration failed. Check the log file for details."
 		end
 
 		puts "\n Configuration succeeded!\n CMake exit code: " + exit_code
@@ -120,8 +119,7 @@ module Log
 
 		# HACK -- see comment above
 		if exit_code != "0"
-			puts "\n Build failed. Check the log file for details."
-			exit false
+			abort "Build failed. Check the log file for details."
 		end
 
 		puts "\n Build succeeded!\n Build exit status: " + exit_code
