@@ -21,4 +21,4 @@ CROSSCOMPILE_IOS = ENV.has_key?('BV_CROSSCOMPILE_IOS') ? (ENV['BV_CROSSCOMPILE_I
 
 #
 
-IGNORE_GIT_FOR_INIT = Env.has_key?('BV_IGNORE_GIT_IN_INIT') ? Env['BV_IGNORE_GIT_IN_INIT'].downcase == "true" : false
+IGNORE_GIT_FOR_INIT = ENV.has_key?('BV_IGNORE_GIT_IN_INIT') ? ENV['BV_IGNORE_GIT_IN_INIT'].downcase == "true" : false
