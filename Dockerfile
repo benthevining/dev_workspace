@@ -1,11 +1,11 @@
-FROM ruby:latest 
+FROM rikorose/gcc-cmake:latest
 
 # Install deps
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     git \
+    ruby \
     clang-11 \
-    cmake \
     ninja-build \
     pkg-config \
     openssh-client \
