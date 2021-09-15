@@ -19,10 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
 RUN DEBIAN_FRONTEND=noninteractive \
     update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-11 100
 
-WORKDIR .
+COPY . /v
+WORKDIR /v
 
-RUN rake init
-
-RUN rake config[release]
-
-RUN rake build:all[release]
+RUN shell/ci_build.sh
