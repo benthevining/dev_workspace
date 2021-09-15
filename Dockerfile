@@ -24,4 +24,4 @@ ENV BV_SKIP_INIT=TRUE
 
 RUN bash shell/ci_build.sh
 
-COPY /Cache /Cache
+COPY ./Cache /Cache
