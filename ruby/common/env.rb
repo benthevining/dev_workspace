@@ -16,3 +16,9 @@ ENV["PATH"] = ENV["PATH"].split(File::PATH_SEPARATOR).push(cache_path).join(File
 #
 
 COMMIT_TO_REPOS = ENV.has_key?('BV_COMMIT_TO_REPOS') ? ENV['BV_COMMIT_TO_REPOS'] : true
+
+if COMMIT_TO_REPOS
+	puts "Committing to git repos..."
+else
+	puts "Not committing to git repos"
+end
