@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# first, check if ruby can already be found...
+if command -v ruby &> /dev/null; then
+	echo "Ruby is already installed on your machine!"
+	exit 0
+fi
+
+
 WORKING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 WORKING_DIR+="/../Cache/install_ruby"
