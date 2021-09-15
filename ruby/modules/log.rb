@@ -57,7 +57,7 @@ module Log
 		}
 
 		#-----  copy log file to deploy dir  -----#
-		
+
 		dest = self.create_log_dir_if_needed().to_s + "/config.log"
 
 		File.new(dest, "w") unless File.exist?(dest)
@@ -118,8 +118,7 @@ module Log
 
 		FileUtils.cp(@@build_log_file, dest)
 
-		# HACK: for now, capturing the build output to the log file prevents CI builds from failing even if the build exits with a code other than 0
-		# so until I can find a fix for this, manually check for failure to fail the CI build if the build didn't succeed
+		# HACK -- see comment above
 		if exit_code != "0"
 			puts "\n Build failed. Check the log file for details."
 			exit false

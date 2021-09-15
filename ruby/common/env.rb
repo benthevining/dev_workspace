@@ -2,7 +2,7 @@ DEFAULT_BUILD_CONFIG = ENV.has_key?('BV_DEFAULT_BUILD_CONFIG') ? BuildMode.parse
 
 #
 
-DEBUG_OUTPUT = ENV.has_key?('BV_DEBUG_RAKE_OUTPUT') ? ENV['BV_DEBUG_RAKE_OUTPUT'] : DEFAULT_BUILD_CONFIG == 'Debug'
+DEBUG_OUTPUT = ENV.has_key?('BV_DEBUG_RAKE_OUTPUT') ? ENV['BV_DEBUG_RAKE_OUTPUT'].downcase == "true" : DEFAULT_BUILD_CONFIG == 'Debug'
 
 Rake.application.options.trace = DEBUG_OUTPUT
 verbose(DEBUG_OUTPUT)
