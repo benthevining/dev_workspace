@@ -19,8 +19,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
 RUN DEBIAN_FRONTEND=noninteractive \
     update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-11 100
 
-COPY . /v
-WORKDIR /v
+WORKDIR .
 
 RUN rake init
 
