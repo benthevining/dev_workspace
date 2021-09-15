@@ -49,7 +49,7 @@ jobs:
 
     - name: Run CI build script
       shell: bash
-      run: cd Workspace && bash shell/ci_build.sh
+      run: bash Workspace/shell/ci_build.sh
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
