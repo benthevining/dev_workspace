@@ -20,4 +20,4 @@ ADD . /dev_workspace
 
 WORKDIR /dev_workspace
 
-RUN shell/ci_build.sh
+RUN bash shell/ci_build.sh
