@@ -46,7 +46,7 @@ end
 desc "Initializes this workspace"
 task :init do 
 	Init.init
-	Rake::Task["uth"].invoke
+	Rake::Task["uth"].invoke unless SKIP_GIT_PULL_IN_INIT
 	Rake::Task["format:repos"].invoke
 end
 
