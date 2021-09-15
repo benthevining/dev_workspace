@@ -18,4 +18,6 @@ RUN DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/bin/c++ c+
 
 WORKDIR /
 
+RUN pwd
+
 RUN shell/ci_build.sh
