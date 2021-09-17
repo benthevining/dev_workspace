@@ -16,3 +16,6 @@
 [submodule "PrivateSDKs"]
 	path = PrivateSDKs
 	url = https://github.com/BenViningMusicSoftware/PrivateSDKs.git
+[submodule "plugin_qc"]
+	path = plugin_qc
+	url = https://github.com/BenViningMusicSoftware/plugin_qc.git
