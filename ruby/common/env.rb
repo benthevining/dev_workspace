@@ -1,28 +1,41 @@
 DEFAULT_BUILD_CONFIG = ENV.has_key?('BV_DEFAULT_BUILD_CONFIG') ? BuildMode.parse(ENV['BV_DEFAULT_BUILD_CONFIG']) : 'Debug'
 
+ENV["PATH"] = ENV["PATH"].split(File::PATH_SEPARATOR).push(REPO_ROOT + "/Cache/").join(File::PATH_SEPARATOR)
+
 #
 
-DEBUG_OUTPUT = ENV.has_key?('BV_DEBUG_RAKE_OUTPUT') ? ENV['BV_DEBUG_RAKE_OUTPUT'].downcase == "true" : DEFAULT_BUILD_CONFIG == 'Debug'
+def _bv_parse_bool_env_var(env_var_name, default)
+
+	return default unless ENV.has_key?(env_var_name)
+
+	teststr = ENV[env_var_name.to_s]
+
+	return (teststr.downcase == "true" or teststr == "1")
+end
+
+#
+
+DEBUG_OUTPUT = _bv_parse_bool_env_var('BV_DEBUG_RAKE_OUTPUT', DEFAULT_BUILD_CONFIG == 'Debug')
 
 Rake.application.options.trace = DEBUG_OUTPUT
 verbose(DEBUG_OUTPUT)
 
 #
 
-COMMIT_TO_REPOS = ENV.has_key?('BV_COMMIT_TO_REPOS') ? ENV['BV_COMMIT_TO_REPOS'].downcase == "true" : true
+COMMIT_TO_REPOS = _bv_parse_bool_env_var('BV_COMMIT_TO_REPOS', true)
 
 #
 
-ENV["PATH"] = ENV["PATH"].split(File::PATH_SEPARATOR).push(REPO_ROOT + "/Cache/").join(File::PATH_SEPARATOR)
+CROSSCOMPILE_IOS = OS.mac? ? _bv_parse_bool_env_var('BV_CROSSCOMPILE_IOS', false) : false
 
 #
 
-CROSSCOMPILE_IOS = ENV.has_key?('BV_CROSSCOMPILE_IOS') ? (ENV['BV_CROSSCOMPILE_IOS'].downcase == "true" and OS.mac?) : false
+SKIP_GIT_PULL_IN_INIT = _bv_parse_bool_env_var('BV_SKIP_GIT_PULL_IN_INIT', false)
 
 #
 
-SKIP_GIT_PULL_IN_INIT = ENV.has_key?('BV_SKIP_GIT_PULL_IN_INIT') ? ENV['BV_SKIP_GIT_PULL_IN_INIT'].downcase == "true" : false
+USE_LOG_FILES = _bv_parse_bool_env_var('BV_USE_LOG_FILES', true)
 
 #
 
-USE_LOG_FILES = ENV.has_key?('BV_USE_LOG_FILES') ? ENV['BV_USE_LOG_FILES'].downcase == "true" : true
+IGNORE_PLUGINVAL = _bv_parse_bool_env_var('BV_IGNORE_PLUGINVAL', false)
