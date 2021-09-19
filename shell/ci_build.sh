@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 
 BUILD_CONFIG=${BV_BUILD_CONFIG:-release}
 BUILD_TARGET=${BV_BUILD_TARGET:-all}
@@ -22,7 +21,7 @@ cd $SCRIPT_DIR/..
 display_and_execute_rake_command() {
 	printf "\n\n rake $1"
 	printf "\n\n"
-	rake $1
+	rake "$1"
 
 	if [ "$?" -ne "0" ]; then
 		echo "Command failed: $1"

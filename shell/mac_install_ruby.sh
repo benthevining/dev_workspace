@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 # first, check if ruby can already be found...
 if command -v ruby &> /dev/null; then
@@ -8,7 +10,6 @@ fi
 
 
 WORKING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
 WORKING_DIR+="/../Cache/install_ruby"
 
 if [ ! -d "$WORKING_DIR" ]; then  
