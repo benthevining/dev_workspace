@@ -3,18 +3,16 @@ require "open3"
 
 module Log 
 
-	@@build_log_file = REPO_ROOT + "/Builds/build.log"
-	@@config_log_file = REPO_ROOT + "/Builds/config.log"
-
-
 	def self.delete_build_log()
-		File.delete(@@build_log_file) if File.exist?(@@build_log_file)
+		file = REPO_ROOT + "/Builds/build.log"
+		File.delete(file) if File.exist?(file)
 		deployedFile = REPO_ROOT + "/Builds/deploy/logs/build.log"
 		File.delete(deployedFile) if File.exist?(deployedFile)
 	end
 
 	def self.delete_config_log()
-		File.delete(@@config_log_file) if File.exist?(@@config_log_file)
+		file = REPO_ROOT + "/Builds/config.log"
+		File.delete(file) if File.exist?(file)
 		deployedFile = REPO_ROOT + "/Builds/deploy/logs/config.log"
 		File.delete(deployedFile) if File.exist?(deployedFile)
 	end
@@ -54,7 +52,9 @@ module Log
 	end
 
 
-	def self.run_logged_task(command, taskName, outputFile, shortFilename)
+	def self.run_logged_task(command, taskName, fileName)
+
+		outputFile = REPO_ROOT + "/Builds/" + fileName
 
 		startTime = Time.now
 
@@ -75,19 +75,19 @@ module Log
 			f.write("\n \n" + data[:out].join)
 		}
 
-		dest = self.create_log_dir_if_needed().to_s + "/" + shortFilename
+		dest = self.create_log_dir_if_needed().to_s + "/" + fileName
 		File.new(dest, "w") unless File.exist?(dest)
 		FileUtils.cp(outputFile, dest)
 	end
 
 
 	def self.capture_config_output(command)
-		self.run_logged_task(command, "Configure", @@config_log_file, "config.log")
+		self.run_logged_task(command, "Configure", "config.log")
 	end
 
 
 	def self.capture_build_output(command)
-		self.run_logged_task(command, "Build", @@build_log_file, "build.log")
+		self.run_logged_task(command, "Build", "build.log")
 	end
 
 end

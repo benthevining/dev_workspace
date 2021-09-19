@@ -29,11 +29,7 @@ module CMake
 				command += " -G \"Visual Studio 16 2019\""
 			end # use default Ninja generator on Linux
 
-			if USE_LOG_FILES
-				Log.capture_config_output(command)
-			else
-				Rake.sh command
-			end
+			Log.capture_config_output(command)
 		end
 	end
 
@@ -51,11 +47,7 @@ module CMake
 		command += (" --config " + mode + " -j " + NUM_CPU_CORES)
 
 		Dir.chdir(REPO_ROOT) do 
-			if USE_LOG_FILES
-				Log.capture_build_output(command)
-			else 
-				Rake.sh command
-			end
+			Log.capture_build_output(command)
 		end
 
 		puts "\n\n Built " + target + "! \n\n" unless target == "_ALL"
