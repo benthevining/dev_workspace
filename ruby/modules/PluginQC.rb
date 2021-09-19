@@ -23,9 +23,13 @@ module PluginQC
 			# run build
 			Rake.sh ("cmake --build Builds --config " + mode + " -j " + NUM_CPU_CORES)
 
-
-
 			puts "\nBuilt plugin QC tools!\n"
+		end
+	end
+
+	def self.run_pluginval_command(pathToPlugin, strictness = 5)
+		Dir.chdir(REPO_ROOT + "/plugin_qc/Builds/pluginval/pluginval_artefacts/Debug/") do
+			Rake.sh ("./pluginval --strictnessLevel " + strictness.to_s + " --validate " + pathToPlugin)
 		end
 	end
 end
