@@ -41,8 +41,6 @@ module Clean
             safe_delete_dir.(repo.to_s + "/Builds")
         }
 
-        safe_delete_dir.(REPO_ROOT + "/plugin_qc/Builds")
-
         # self.delete_installed_plugins
 	end
 end
