@@ -1,6 +1,10 @@
-DEFAULT_BUILD_CONFIG = ENV.has_key?('BV_DEFAULT_BUILD_CONFIG') ? BuildMode.parse(ENV['BV_DEFAULT_BUILD_CONFIG']) : 'Debug'
+def add_to_path(newPath)
 
-ENV["PATH"] = ENV["PATH"].split(File::PATH_SEPARATOR).push(REPO_ROOT + "/Cache/").join(File::PATH_SEPARATOR)
+	ENV["PATH"] = ENV["PATH"].split(File::PATH_SEPARATOR).push(newPath).join(File::PATH_SEPARATOR)
+
+end
+
+add_to_path(REPO_ROOT + "/Cache/")
 
 #
 
@@ -12,6 +16,10 @@ def _bv_parse_bool_env_var(env_var_name, default)
 
 	return (teststr.downcase == "true" or teststr == "1")
 end
+
+#
+
+DEFAULT_BUILD_CONFIG = ENV.has_key?('BV_DEFAULT_BUILD_CONFIG') ? BuildMode.parse(ENV['BV_DEFAULT_BUILD_CONFIG']) : 'Debug'
 
 #
 

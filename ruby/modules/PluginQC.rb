@@ -1,3 +1,5 @@
+add_to_path(REPO_ROOT + "/plugin_qc/Builds/pluginval/pluginval_artefacts/Debug/")
+
 module PluginQC
 
 	def self.build(mode = "Debug")
@@ -21,8 +23,7 @@ module PluginQC
 			# run build
 			Rake.sh ("cmake --build Builds --config " + mode + " -j " + NUM_CPU_CORES)
 
-			# run install script
-			Rake.sh (REPO_ROOT + "/plugin_qc/Builds/pluginval_install.sh")
+
 
 			puts "\nBuilt plugin QC tools!\n"
 		end
