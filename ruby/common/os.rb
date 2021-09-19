@@ -21,23 +21,10 @@ module OS
 
 
   	def self.getNameAsString()
-
-  		if self.mac?
-  			return "macOS"
-  		end
-
-  		if self.windows?
-  			return "Windows"
-  		end
-
-  		if self.linux?
-  			return "Linux"
-  		end
-
-  		if self.jruby?
-  			return "jruby"
-  		end
-
+  		return "macOS" if self.mac?
+  		return "Windows" if self.windows?
+  		return "Linux" if self.linux?
+  		return "jruby" if self.jruby?
   		return "Unknown"
   	end
 

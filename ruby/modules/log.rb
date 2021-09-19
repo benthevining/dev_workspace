@@ -31,7 +31,7 @@ module Log
 
 	def self.capture_process_output(command)
 
-		data = {:out => [], :err => []}
+		data = {:out => [], :err => [], :status => false}
 
 		# see: http://stackoverflow.com/a/1162850/83386
 		Open3.popen3(command) do |stdin, stdout, stderr, thread|
@@ -45,7 +45,8 @@ module Log
 			    end
 			end
 
-			thread.join # don't exit until the external process is done
+			thread.join 
+			data[:status] = thread.value.success?
 		end
 
 		return data
@@ -78,6 +79,10 @@ module Log
 		dest = self.create_log_dir_if_needed().to_s + "/" + fileName
 		File.new(dest, "w") unless File.exist?(dest)
 		FileUtils.cp(outputFile, dest)
+
+		if not data[:status]
+			abort taskName + " failed. Check log file for details."
+		end
 	end
 
 
