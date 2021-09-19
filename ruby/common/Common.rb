@@ -7,3 +7,5 @@ require_relative "constants.rb"
 
 require_relative "download.rb"
 require_relative "time.rb"
+
+require_relative "startup_script.rb"
