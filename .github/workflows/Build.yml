@@ -9,14 +9,13 @@ jobs:
 
   build:
 
-    name: ${{ matrix.artifact }} build
+    name: ${{ matrix.os }} build
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
-        artifact: [Windows, Linux, Mac]
 
     steps:
 
@@ -48,5 +47,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ runner.artifact }}.zip
+        name: ${{ runner.os }}.zip
         path: Workspace/Builds/deploy/
