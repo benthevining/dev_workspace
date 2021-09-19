@@ -16,13 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
-        include:
-        - os: windows-latest
-        - os: ubuntu-latest
-        - os: macos-latest
-        - artifact: Windows
-        - artifact: Linux
-        - artifact: Mac
+        artifact: [Windows, Linux, Mac]
 
     steps:
 
