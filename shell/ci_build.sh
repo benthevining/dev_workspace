@@ -12,8 +12,6 @@ export BV_COPY_TO_DEPLOY_FOLDER="TRUE"
 export BV_USE_LV2_JUCE="TRUE"
 export BV_DEBUG_RAKE_OUTPUT="FALSE"
 
-export BV_USE_LOG_FILES="FALSE"
-
 #
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"

@@ -7,15 +7,6 @@ module FormattedTime
 	end
 
 
-	def self.get(time)
-		hr  = self.check_time_token(time.hour.to_s)
-		min = self.check_time_token(time.min.to_s)
-		sec = self.check_time_token(time.sec.to_s)
-
-		return hr.to_s + ":" + min.to_s + ":" + sec.to_s
-	end
-
-
 	def self.compare(startTime, endTime)
 
 		dif_secs = (endTime - startTime).to_i

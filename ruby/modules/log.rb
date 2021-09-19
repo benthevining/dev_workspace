@@ -31,98 +31,63 @@ module Log
 	end
 
 
-	def self.capture_config_output(command)
+	def self.capture_process_output(command)
+
+		data = {:out => [], :err => []}
+
+		# see: http://stackoverflow.com/a/1162850/83386
+		Open3.popen3(command) do |stdin, stdout, stderr, thread|
+		    # read each stream from a new thread
+			{ :out => stdout, :err => stderr }.each do |key, stream|
+			    Thread.new do
+			      	until (line = stream.gets).nil? do
+				        data[key].push line
+				        puts "#{line}"
+			      	end
+			    end
+			end
+
+			thread.join # don't exit until the external process is done
+		end
+
+		return data
+	end
+
+
+	def self.run_logged_task(command, taskName, outputFile, shortFilename)
 
 		startTime = Time.now
 
 		puts "\n" + command
-		stdout, stderr, status = Open3.capture3(command)  
 
-		exit_code = status.to_s[-1]
+		data = self.capture_process_output(command)
 
 		duration = FormattedTime.compare(startTime, Time.now).to_s
 
-		puts "Configure duration: " + duration
+		puts taskName + " duration: " + duration
 
-		#-----  write to log file  -----#
+		File.new(outputFile, "w") unless File.exist?(outputFile)
 
-		File.new(@@config_log_file, "w") unless File.exist?(@@config_log_file)
-
-		File.open(@@config_log_file, "w") { |f| 
-			f.write("Configure duration: " + duration + "\n\n")
+		File.open(outputFile, "w") { |f| 
+			f.write(taskName + " duration: " + duration + "\n\n")
 			f.write("Original command line invocation: \n" + command + "\n")
-			f.write("CMake exit code: " + exit_code + "\n")
-			f.write("\n \n  -- ERRORS -- \n" + stderr) unless stderr.empty?
-			f.write("\n \n" + stdout)
+			f.write("\n \n  -- ERRORS -- \n" + data[:err].join) unless data[:err].empty?
+			f.write("\n \n" + data[:out].join)
 		}
 
-		#-----  copy log file to deploy dir  -----#
-
-		dest = self.create_log_dir_if_needed().to_s + "/config.log"
-
+		dest = self.create_log_dir_if_needed().to_s + "/" + shortFilename
 		File.new(dest, "w") unless File.exist?(dest)
+		FileUtils.cp(outputFile, dest)
+	end
 
-		FileUtils.cp(@@config_log_file, dest)
 
-		# HACK: for now, capturing the output to the log file prevents CI builds from failing even if the build exits with a code other than 0
-		# so until I can find a fix for this, manually check for failure to fail the CI build if the build didn't succeed
-		if exit_code != "0"
-			abort "Configuration failed. Check the log file for details."
-		end
-
-		puts "\n Configuration succeeded!\n CMake exit code: " + exit_code
+	def self.capture_config_output(command)
+		self.run_logged_task(command, "Configure", @@config_log_file, "config.log")
 	end
 
 
 	def self.capture_build_output(command)
-
-		#  record build start time
-		startTimeObject = Time.now
-		startTimeString = FormattedTime.get(startTimeObject).to_s
-		puts "\n Build start time: " + startTimeString
-
-		puts "\n" + command
-		stdout, stderr, status = Open3.capture3(command)  # this performs the actual build
-
-		exit_code = status.to_s[-1]
-
-		#  record build end time
-		endTimeObject = Time.now
-		endTimeString = FormattedTime.get(endTimeObject).to_s
-		puts "\n Build end time: " + endTimeString
-
-		#  calculate build duration
-		duration = FormattedTime.compare(startTimeObject, endTimeObject).to_s
-		puts "\n Build duration: " + duration
-
-		#-----  write to log file  -----#
-
-		File.new(@@build_log_file, "w") unless File.exist?(@@build_log_file)
-
-		File.open(@@build_log_file, "w") { |f| 
-			f.write("Build start time: " + startTimeString.to_s + "\n")
-			f.write("Build end time: " + endTimeString.to_s + "\n")
-			f.write("Total build duration: " + duration + "\n\n")
-			f.write("Original command line invocation: \n" + command + "\n")
-			f.write("Build exit status: " + exit_code + "\n")
-			f.write("\n \n  -- ERRORS -- \n" + stderr) unless stderr.empty?
-			f.write("\n \n" + stdout)
-		}
-
-		#-----  copy log file to deploy dir  -----#
-
-		dest = self.create_log_dir_if_needed().to_s + "/build.log"
-
-		File.new(dest, "w") unless File.exist?(dest)
-
-		FileUtils.cp(@@build_log_file, dest)
-
-		# HACK -- see comment above
-		if exit_code != "0"
-			abort "Build failed. Check the log file for details."
-		end
-
-		puts "\n Build succeeded!\n Build exit status: " + exit_code
+		self.run_logged_task(command, "Build", @@build_log_file, "build.log")
 	end
 
 end

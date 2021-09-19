@@ -40,6 +40,3 @@ CROSSCOMPILE_IOS = OS.mac? ? _bv_parse_bool_env_var('BV_CROSSCOMPILE_IOS', false
 
 SKIP_GIT_PULL_IN_INIT = _bv_parse_bool_env_var('BV_SKIP_GIT_PULL_IN_INIT', false)
 
-#
-
-USE_LOG_FILES = _bv_parse_bool_env_var('BV_USE_LOG_FILES', true)
