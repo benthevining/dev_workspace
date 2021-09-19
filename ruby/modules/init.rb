@@ -88,6 +88,8 @@ module Init
 
 		self.install_linux_deps if OS.linux?
 
+		PluginQC.build unless IGNORE_PLUGINVAL
+
 		puts "\n \n"
 	end
 
