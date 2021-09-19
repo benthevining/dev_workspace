@@ -72,6 +72,7 @@ module Git
   		}
 
   		update_subdir.(REPO_ROOT + "/PrivateSDKs")
+  		update_subdir.(REPO_ROOT + "/plugin_qc")
 
   		self.commit_dev_workspace
   	end
