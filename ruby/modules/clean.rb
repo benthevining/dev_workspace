@@ -29,14 +29,19 @@ module Clean
 
 	def self.run()
 
+        safe_delete_dir = -> (dir) {
+            FileUtils.remove_dir(dir) if Dir.exist?(dir)
+        }
+
         # delete builds dir
-        dir = REPO_ROOT + "/Builds/"
-        FileUtils.remove_dir(dir) if Dir.exist?(dir)
+        safe_delete_dir.(REPO_ROOT + "/Builds/")
 
         REPO_PATHS.each { |repo|
             path = repo.to_s + "/Builds"
-            FileUtils.remove_dir(path) if Dir.exist?(path)
+            safe_delete_dir.(repo.to_s + "/Builds")
         }
+
+        safe_delete_dir.(REPO_ROOT + "/plugin_qc/Builds")
 
         # self.delete_installed_plugins
 	end
