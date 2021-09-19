@@ -9,17 +9,17 @@ if command -v ruby &> /dev/null; then
 fi
 
 
-WORKING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-WORKING_DIR+="/../Cache/install_ruby"
+working_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+working_dir+="/../Cache/install_ruby"
 
-if [ ! -d "$WORKING_DIR" ]; then  
-	mkdir $WORKING_DIR
+if [ ! -d "$working_dir" ]; then  
+	mkdir $working_dir
 fi
 
-cd $WORKING_DIR
+cd "$working_dir"
 
 curl --remote-name https://raw.githubusercontent.com/monfresh/install-ruby-on-macos/master/install-ruby
 
-/usr/bin/env bash $WORKING_DIR/install-ruby 2>&1 | tee $WORKING_DIR/install.log
+/usr/bin/env bash "$working_dir/install-ruby" 2>&1 | tee "$working_dir/install.log"
 
 exit 0

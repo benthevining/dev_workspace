@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-BUILD_CONFIG=${BV_BUILD_CONFIG:-release}
-BUILD_TARGET=${BV_BUILD_TARGET:-all}
+readonly build_config=${BV_BUILD_CONFIG:-release}
+readonly build_target=${BV_BUILD_TARGET:-all}
 
 export BV_COMMIT_TO_REPOS="FALSE"
-export BV_DEFAULT_BUILD_CONFIG=$BUILD_CONFIG
+export BV_DEFAULT_BUILD_CONFIG=$build_config
 export BV_IGNORE_CCACHE="FALSE"
 export BV_COPY_TO_DEPLOY_FOLDER="TRUE"
 
@@ -13,8 +13,8 @@ export BV_DEBUG_RAKE_OUTPUT="FALSE"
 
 #
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-cd $SCRIPT_DIR/..
+readonly script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd "$script_dir/.."
 
 #
 
@@ -30,7 +30,7 @@ display_and_execute_rake_command() {
 }
 
 display_and_execute_rake_command "init"
-display_and_execute_rake_command "config[$BUILD_CONFIG]"
-display_and_execute_rake_command "build:$BUILD_TARGET[$BUILD_CONFIG]"
+display_and_execute_rake_command "config[$build_config]"
+display_and_execute_rake_command "build:$build_target[$build_config]"
 
 exit 0

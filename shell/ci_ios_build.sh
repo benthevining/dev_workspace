@@ -4,8 +4,8 @@ set -euo pipefail
 
 export BV_CROSSCOMPILE_IOS="TRUE"
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+readonly script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-bash $SCRIPT_DIR/ci_build.sh
+/usr/bin/env bash "$script_dir/ci_build.sh"
 
 exit 0
