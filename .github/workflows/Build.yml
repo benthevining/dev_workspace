@@ -5,14 +5,11 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
 
   build:
 
-    name: ${{ matrix.os }} build
+    name: ${{ matrix.artifact }} build
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
@@ -23,6 +20,9 @@ jobs:
         - os: windows-latest
         - os: ubuntu-latest
         - os: macos-latest
+        - artifact: Windows
+        - artifact: Linux
+        - artifact: Mac
 
     steps:
 
@@ -54,5 +54,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ runner.os }}.zip
+        name: ${{ runner.artifact }}.zip
         path: Workspace/Builds/deploy/
