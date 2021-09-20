@@ -1,20 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM rikorose/gcc-cmake:latest
-
-# Install deps
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    git \
-    ruby \
-    clang-11 \
-    ninja-build \
-    pkg-config \
-    openssh-client \
-    && rm -rf /var/lib/apt/lists/*
-
-# Make sure clang is the default compiler
-RUN DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/bin/cc cc /usr/bin/clang-11 100 && \
-    DEBIAN_FRONTEND=noninteractive update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-11 100
+FROM benvining/dev_machine:latest
 
 WORKDIR /workspace
 
