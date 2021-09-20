@@ -28,19 +28,4 @@ module OS
   		return "Unknown"
   	end
 
-
-  	def self.program_exists?(command)
-
-  		exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
-
-	  	ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-	    	exts.each do |ext|
-	      		exe = File.join(path, "#{command}#{ext}")
-	      		return true if File.file?(exe) and File.executable?(exe)
-	    	end
-	  	end
-	  	
-	  	return false
-  	end
-
 end

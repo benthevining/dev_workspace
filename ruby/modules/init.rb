@@ -1,27 +1,5 @@
 module Init
 
-	def self.install_ccache()
-
-		dir = REPO_ROOT + "/Cache/ccache"
-
-		return if (File.exist?(dir + "/ccache"))
-
-		puts "\n -- installing ccache..."
-
-		FileUtils.mkdir(dir) unless Dir.exist?(dir)
-
-		path = dir + "/ccache.tar"
-
-		url = "http://github.com/cristianadam/ccache/releases/download/v4.4/" + OS.getNameAsString + ".tar.xz"
-
-		Download.download_file(url, path) unless File.exist?(path)
-
-		Dir.chdir(dir) do 
-			Rake.sh "cmake -E tar xvf " + path
-		end
-	end
-
-
 	def self.install_linux_deps
 
 		puts "\n -- installing Linux dependencies..."
@@ -50,8 +28,6 @@ module Init
 
 		cache_dir = REPO_ROOT + "/Cache"
 		FileUtils.mkdir(cache_dir) unless Dir.exist?(cache_dir)
-
-		self.install_ccache unless OS.program_exists?("ccache")
 
 		self.install_linux_deps if OS.linux?
 
