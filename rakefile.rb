@@ -34,20 +34,11 @@ namespace :format do
 end
 
 
-##  CONFIGURATION TASKS
-
 desc "Runs CMake configuration"
 task :config, [:mode] do |t, args|
 	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 	CMake.configure(BuildMode.parse(args.mode))
 	DefaultRepoFiles.run
-end
-
-desc "Initializes this workspace"
-task :init do 
-	Init.init
-	Rake::Task["uth"].invoke unless SKIP_GIT_PULL_IN_INIT
-	Rake::Task["format:repos"].invoke
 end
 
 

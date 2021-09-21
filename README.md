@@ -17,8 +17,6 @@ Once the script is done, quit and relaunch terminal!
 
 # Using Rake tasks
 
-After cloning this repo, you should run `rake init` once. If you haven't pulled the repo in 12 years and then pull again, maybe run `rake init` again just for good measure.
-
 `rake -T` to list all available tasks.
 
 ## Utility

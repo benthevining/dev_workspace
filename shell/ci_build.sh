@@ -29,7 +29,6 @@ display_and_execute_rake_command() {
 	fi
 }
 
-display_and_execute_rake_command "init"
 display_and_execute_rake_command "config[$build_config]"
 display_and_execute_rake_command "build:$build_target[$build_config]"
 
