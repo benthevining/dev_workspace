@@ -3,12 +3,11 @@
 readonly build_config=${BV_BUILD_CONFIG:-release}
 readonly build_target=${BV_BUILD_TARGET:-all}
 
+export LEMONS_USE_LV2_JUCE="TRUE"
+export LEMONS_COPY_TO_DEPLOY_FOLDER="TRUE"
+
 export BV_COMMIT_TO_REPOS="FALSE"
 export BV_DEFAULT_BUILD_CONFIG=$build_config
-export BV_IGNORE_CCACHE="FALSE"
-export BV_COPY_TO_DEPLOY_FOLDER="TRUE"
-
-export BV_USE_LV2_JUCE="TRUE"
 export BV_DEBUG_RAKE_OUTPUT="FALSE"
 
 #
