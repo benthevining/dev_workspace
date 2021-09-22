@@ -65,6 +65,9 @@ module Git
   		Rake.sh "git submodule update"
 
   		REPO_PATHS.each { |repo|
+
+  			continue if repo == REPO_ROOT + "/PrivateSDKs"
+
   			rec_dir = repo == REPO_ROOT + "/Lemons" ? repo + "/cmake/GetLemons" : repo + "/GetLemons"
 
   			update_subdir.(rec_dir)
