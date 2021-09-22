@@ -7,9 +7,6 @@
 [submodule "kicklab"]
 	path = products/kicklab
 	url = https://github.com/benthevining/kicklab
-[submodule "lab"]
-	path = lab
-	url = https://github.com/benthevining/TestLab.git
 [submodule "PrivateSDKs"]
 	path = PrivateSDKs
 	url = https://github.com/benthevining/PrivateSDKs.git
