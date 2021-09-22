@@ -16,7 +16,5 @@ add_subdirectory (PrivateSDKs)
 
 add_subdirectory (products)
 
-#add_subdirectory (lab)
-
 
 include (CPack)
