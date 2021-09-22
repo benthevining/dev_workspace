@@ -10,3 +10,6 @@
 [submodule "Lemons"]
 	path = Lemons
 	url = https://github.com/benthevining/Lemons
+[submodule "extras/TestLab"]
+	path = extras/TestLab
+	url = https://github.com/benthevining/TestLab.git

@@ -14,6 +14,10 @@ set (LEMONS_CCACHE_OPTIONS "CCACHE_BASEDIR=${CMAKE_CURRENT_LIST_DIR}")
 
 option (BV_BUILD_EXTRAS "" ON)
 
+if (BV_BUILD_EXTRAS)
+	add_subdirectory (extras)
+endif()
+
 
 add_subdirectory (PrivateSDKs)
 
