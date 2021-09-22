@@ -1,20 +1,3 @@
-[![Build](https://github.com/BenViningMusicSoftware/dev_workspace/actions/workflows/Build.yml/badge.svg?branch=main)](https://github.com/BenViningMusicSoftware/dev_workspace/actions/workflows/autoBuild.yml)
-
-# Installing Ruby
-
-## MacOS
-
-There's a handy shell script at `shell/mac_install_ruby.sh` -- simply run this shell script once. It is safe to run multiple times on the same machine.
-
-This simply fetches and runs the script from [this repo](https://github.com/monfresh/install-ruby-on-macos).
-
-Once the script is done, quit and relaunch terminal!
-
-## Windows
-
-## Linux
-
-
 # Using Rake tasks
 
 `rake -T` to list all available tasks.
