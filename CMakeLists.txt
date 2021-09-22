@@ -17,7 +17,7 @@ add_subdirectory (PrivateSDKs)
 add_subdirectory (products)
 
 
-option (BV_BUILD_EXTRAS "" ON)
+option (BV_BUILD_EXTRAS "" OFF)
 
 if (BV_BUILD_EXTRAS)
 	add_subdirectory (extras)
