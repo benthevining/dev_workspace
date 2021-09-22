@@ -13,6 +13,3 @@
 [submodule "lab"]
 	path = lab
 	url = https://github.com/benthevining/TestLab.git
-[submodule "PrivateSDKs"]
-	path = PrivateSDKs
-	url = https://github.com/BenViningMusicSoftware/PrivateSDKs.git
