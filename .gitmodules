@@ -7,9 +7,6 @@
 [submodule "kicklab"]
 	path = products/kicklab
 	url = https://github.com/benthevining/kicklab
-[submodule "StageHand"]
-	path = products/StageHand
-	url = https://github.com/BenViningMusicSoftware/StageHand
 [submodule "lab"]
 	path = lab
 	url = https://github.com/benthevining/TestLab.git
