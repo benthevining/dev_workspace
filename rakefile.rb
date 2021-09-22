@@ -88,13 +88,6 @@ namespace :build do
 		Log.delete_build_log
 		CMake.build_target("ImogenRemote", BuildMode.parse(args.mode))
 	end
-
-	desc "Builds StageHand"
-	task :stagehand, [:mode] do |t, args|
-		args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-		Log.delete_build_log
-		CMake.build_target("StageHand", BuildMode.parse(args.mode))
-	end
 end
 
 

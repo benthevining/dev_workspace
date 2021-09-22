@@ -16,12 +16,6 @@
          "name":"Kicklab",
          "type":"plugin",
          "subdir":"kicklab"
-     },
-
-     {
-         "name":"StageHand",
-         "type":"app",
-         "subdir":"StageHand"
      }
   ]   
 }
