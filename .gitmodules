@@ -1,6 +1,3 @@
-[submodule "Shared-code"]
-	path = Shared-code
-	url = https://github.com/BenViningMusicSoftware/Shared-code
 [submodule "imogen"]
 	path = products/imogen
 	url = https://github.com/benthevining/imogen
