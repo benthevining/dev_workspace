@@ -74,7 +74,8 @@ module Git
   			update_subdir.(repo)
   		}
 
-  		update_subdir.(REPO_ROOT + "/PrivateSDKs")
+  		update_subdir.(REPO_ROOT + "/extras/TestLab/GetLemons")
+  		update_subdir.(REPO_ROOT + "/extras/TestLab")
 
   		self.commit_dev_workspace
   	end
