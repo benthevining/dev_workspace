@@ -12,16 +12,16 @@ set (LEMONS_CCACHE_OPTIONS "CCACHE_BASEDIR=${CMAKE_CURRENT_LIST_DIR}")
 #list (APPEND LEMONS_CCACHE_OPTIONS "CCACHE_DIR=${CMAKE_CURRENT_LIST_DIR}/Cache/ccache/cache")
 
 
+add_subdirectory (PrivateSDKs)
+
+add_subdirectory (products)
+
+
 option (BV_BUILD_EXTRAS "" ON)
 
 if (BV_BUILD_EXTRAS)
 	add_subdirectory (extras)
 endif()
-
-
-add_subdirectory (PrivateSDKs)
-
-add_subdirectory (products)
 
 
 include (CPack)
