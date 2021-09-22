@@ -66,7 +66,7 @@ module Git
 
   		REPO_PATHS.each { |repo|
 
-  			continue if repo == REPO_ROOT + "/PrivateSDKs"
+  			next if repo == REPO_ROOT + "/PrivateSDKs"
 
   			rec_dir = repo == REPO_ROOT + "/Lemons" ? repo + "/cmake/GetLemons" : repo + "/GetLemons"
 
