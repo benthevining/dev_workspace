@@ -15,22 +15,9 @@ task :uth => [:clean] do
 	Git.uth
 end
 
-
-namespace :format do 
-
-	desc "Runs clang-format over all source code"
-	task :code do
-		ClangFormat.run
-	end
-
-	desc "Configures default repo scripts"
-	task :repos do
-		DefaultRepoFiles.run
-	end
-
-	desc "Runs all formatting tasks"
-	task :all => [:repos, :code]
-	
+desc "Runs clang-format over all source code"
+task :format do
+	ClangFormat.run
 end
 
 
