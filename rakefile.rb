@@ -25,7 +25,6 @@ desc "Runs CMake configuration"
 task :config, [:mode] do |t, args|
 	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
 	CMake.configure(BuildMode.parse(args.mode))
-	DefaultRepoFiles.run
 end
 
 
