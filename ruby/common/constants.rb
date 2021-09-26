@@ -38,7 +38,6 @@ Dir.chdir(REPO_ROOT + "/products") do
 end
 
 REPO_PATHS.push(REPO_ROOT + "/Lemons")
-REPO_PATHS.push(REPO_ROOT + "/PrivateSDKs")
 
 PRODUCT_NAMES = PLUGIN_NAMES + APP_NAMES
 

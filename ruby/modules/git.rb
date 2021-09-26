@@ -66,8 +66,6 @@ module Git
 
   		REPO_PATHS.each { |repo|
 
-  			next if repo == REPO_ROOT + "/PrivateSDKs"
-
   			rec_dir = repo == REPO_ROOT + "/Lemons" ? repo + "/cmake/GetLemons" : repo + "/GetLemons"
 
   			update_subdir.(rec_dir)
@@ -76,6 +74,7 @@ module Git
 
   		update_subdir.(REPO_ROOT + "/extras/TestLab/GetLemons")
   		update_subdir.(REPO_ROOT + "/extras/TestLab")
+  		update_subdir.(REPO_ROOT + "/extras/PrivateSDKs")
 
   		self.commit_dev_workspace
   	end
