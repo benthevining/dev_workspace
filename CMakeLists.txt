@@ -23,5 +23,4 @@ if (BV_BUILD_EXTRAS)
 	add_subdirectory (extras)
 endif()
 
-
 include (CPack)
