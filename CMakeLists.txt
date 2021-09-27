@@ -9,7 +9,7 @@ set (ENV{CPM_SOURCE_CACHE} ${CMAKE_CURRENT_LIST_DIR}/Cache)
 set (CPM_Lemons_SOURCE ${CMAKE_CURRENT_LIST_DIR}/Lemons)
 
 set (LEMONS_CCACHE_OPTIONS "CCACHE_BASEDIR=${CMAKE_CURRENT_LIST_DIR}")
-#list (APPEND LEMONS_CCACHE_OPTIONS "CCACHE_DIR=${CMAKE_CURRENT_LIST_DIR}/Cache/ccache/cache")
+list (APPEND LEMONS_CCACHE_OPTIONS "CCACHE_DIR=${CMAKE_CURRENT_LIST_DIR}/Cache/ccache/cache")
 
 
 add_subdirectory (extras/PrivateSDKs)
@@ -22,5 +22,6 @@ option (BV_BUILD_EXTRAS "" OFF)
 if (BV_BUILD_EXTRAS)
 	add_subdirectory (extras)
 endif()
+
 
 include (CPack)
