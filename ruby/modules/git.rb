@@ -66,7 +66,7 @@ module Git
 
   		REPO_PATHS.each { |repo|
 
-  			rec_dir = repo == REPO_ROOT + "/Lemons" ? repo + "/cmake/GetLemons" : repo + "/GetLemons"
+  			rec_dir = repo == REPO_ROOT + "/Lemons" ? repo + "/cmake/third_party/GetLemons" : repo + "/GetLemons"
 
   			update_subdir.(rec_dir)
   			update_subdir.(repo)
