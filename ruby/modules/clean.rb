@@ -42,5 +42,10 @@ module Clean
         }
 
         # self.delete_installed_plugins
+
+        # clean Lemons docs dir
+        Dir.chdir(REPO_ROOT + "/Lemons/doxygen") do 
+            Rake.sh("make clean")
+        end
 	end
 end
