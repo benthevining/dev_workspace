@@ -18,7 +18,10 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-    - uses: benthevining/dev_machine@v0.0.1
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6 
+        bundler-cache: true
 
     - name: Checkout code
       uses: actions/checkout@v2
