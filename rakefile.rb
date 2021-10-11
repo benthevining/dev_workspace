@@ -76,9 +76,3 @@ namespace :build do
 	end
 end
 
-
-desc "Runs CPack to create installers"
-task :pack, [:mode] do |t, args|
-	args.with_defaults(:mode => DEFAULT_BUILD_CONFIG)
-	CPack.run(BuildMode.parse(args.mode))
-end
