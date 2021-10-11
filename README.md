@@ -28,8 +28,3 @@
 **BV_DEBUG_RAKE_OUTPUT:** either `true` or `false`. Defaults to `true` if the value of `DEFAULT_BUILD_CONFIG` is `Debug`, else `false`. Defines whether rake will be verbose with its console output.
 
 **BV_COMMIT_TO_REPOS:** either `true` or `false`. Defaults to `true`. Determines whether the ruby code will invoke a `git commit` when the submodules are updated with `rake uth`.
-
-
-# Docker 
-
-A docker container containing this workspace's entire build can be found [here](https://hub.docker.com/repository/docker/benvining/workspace).
