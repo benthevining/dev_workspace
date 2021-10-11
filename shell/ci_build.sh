@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 readonly build_config=${BV_BUILD_CONFIG:-release}
 readonly build_target=${BV_BUILD_TARGET:-all}
 
@@ -14,9 +16,17 @@ export BV_BUILD_EXTRAS="FALSE"
 #
 
 readonly script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-cd "$script_dir/.."
 
 #
+
+readonly deps_script="$script_dir/../Lemons/scripts/install_deps.sh"
+
+chmod u+x "$deps_script"
+bash "$deps_script"
+
+#
+
+cd "$script_dir/.."
 
 display_and_execute_rake_command() {
 	printf "\n\n rake $1"
