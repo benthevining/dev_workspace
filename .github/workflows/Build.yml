@@ -36,7 +36,7 @@ jobs:
         path: Workspace/Cache
         key: ${{ runner.os }}.${{ hashFiles('**/') }}
         restore-keys: |
-          blahblahbal.
+          ${{ runner.os }}.
 
     - name: Run CI build script
       shell: bash
