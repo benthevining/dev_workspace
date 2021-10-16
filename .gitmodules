@@ -5,7 +5,7 @@
 	path = products/kicklab
 	url = https://github.com/benthevining/kicklab
 [submodule "PrivateSDKs"]
-	path = extras/PrivateSDKs
+	path = PrivateSDKs
 	url = https://github.com/benthevining/PrivateSDKs.git
 [submodule "Lemons"]
 	path = Lemons
