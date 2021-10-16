@@ -1,5 +1,0 @@
-require_relative "clangformat.rb"
-require_relative "clean.rb"
-require_relative "cmake.rb"
-require_relative "git.rb"
-require_relative "log.rb"
