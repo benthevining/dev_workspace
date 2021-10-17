@@ -7,17 +7,18 @@ SHELL := /bin/bash
 .PHONY: all imogen kicklab clean config defaults docs format help translations uth wipe
 
 LEMONS := Lemons
+LEMONS_MAKE_FILES := $(LEMONS)/make
 LEMONS_SCRIPTS := $(LEMONS)/scripts
 LEMONS_MODULES := $(LEMONS)/modules
 
-include $(LEMONS)/basic_settings.make
+include $(LEMONS_MAKE_FILES)/basic_settings.make
 
 PROJECTS := products
 PROJECT_DIRS := $(shell find $(PROJECTS) -type d)
 SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "$(SOURCE_FILE_PATTERNS)")
 LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FILE_PATTERNS)")
 
-include $(LEMONS)/cmake/cmake.make
+include $(LEMONS_MAKE_FILES)/cmake.make
 
 #
 
