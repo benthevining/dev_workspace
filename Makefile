@@ -14,12 +14,12 @@ SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "*.h|*.cpp|*CMakeList
 BUILD_TYPE := Debug
 
 ifeq ($(OS),Windows_NT)
-	CMAKE_GENERATOR := \"Visual Studio 16 2019\"
+	CMAKE_GENERATOR := Visual Studio 16 2019
 else
 	UNAME_S := $(shell uname -s)
 
 	ifeq ($(UNAME_S),Linux)
-		CMAKE_GENERATOR := \"Unix Makefiles\"
+		CMAKE_GENERATOR := Unix Makefiles
 	else ifeq ($(UNAME_S),Darwin)
 		CMAKE_GENERATOR := Xcode
 	else 
@@ -40,7 +40,7 @@ all: .out/Build ## Builds everything
 # Configures the build
 Builds: $(SOURCE_FILES) 
 	@echo "Configuring cmake..."
-	cmake -B Builds -G $(CMAKE_GENERATOR) -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
+	cmake -B Builds -G "$(CMAKE_GENERATOR)" -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
 
 #
 
