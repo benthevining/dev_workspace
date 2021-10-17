@@ -3,7 +3,7 @@ SHELL := /bin/bash
 .ONESHELL:
 .DELETE_ON_ERROR:
 .DEFAULT_GOAL := help
-.PHONY: all clean config defaults docs format help translations uth wipe
+.PHONY: all imogen kicklab clean config defaults docs format help translations uth wipe
 
 #
 
@@ -29,14 +29,32 @@ include $(LEMONS)/cmake/Makefile
 
 #
 
-all: $(TEMP)/$(BUILD) ## Builds everything
+all: $(TEMP)/$(BUILD)/all ## Builds everything
 
 # Executes the all build
-$(TEMP)/$(BUILD): config
-	@echo "Building..."
+$(TEMP)/$(BUILD)/all: config
+	@echo "Building everything..."
 	@mkdir -p $(@D)
 	$(CMAKE_BUILD_COMMAND)
 	@touch $@
+
+imogen: $(TEMP)/$(BUILD)/imogen ## Builds Imogen
+
+$(TEMP)/$(BUILD)/imogen: config
+	@echo "Building Imogen..."
+	@mkdir -p $(@D)
+	$(CMAKE_BUILD_COMMAND) --target Imogen_All
+	@touch $@
+
+kicklab: $(TEMP)/$(BUILD)/kicklab ## Builds Kicklab
+
+$(TEMP)/$(BUILD)/kicklab: config
+	@echo "Building Kicklab..."
+	@mkdir -p $(@D)
+	$(CMAKE_BUILD_COMMAND) --target Kicklab_All
+	@touch $@
+
+#
 
 config: $(BUILD) ## Runs CMake configuration
 
