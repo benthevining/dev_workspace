@@ -7,8 +7,6 @@ SHELL := /bin/bash
 
 #
 
-BUILD_TYPE := Debug
-
 PYTHON := python
 
 PROJECTS := products
@@ -19,7 +17,6 @@ SOURCE_FILE_PATTERNS := *.h|*.cpp|*CMakeLists.txt
 SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "$(SOURCE_FILE_PATTERNS)")
 
 TEMP = .out
-BUILD := Builds
 CACHE := Cache
 
 LEMONS := Lemons
@@ -28,21 +25,7 @@ LEMONS_MODULES := $(LEMONS)/modules
 LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FILE_PATTERNS)")
 LEMONS_CMAKE_FILES := $(shell find $(LEMONS) -type f -name "*.cmake|*CMakeLists.txt")
 
-#
-
-ifeq ($(OS),Windows_NT)
-	CMAKE_GENERATOR := Visual Studio 16 2019
-else
-	UNAME_S := $(shell uname -s)
-
-	ifeq ($(UNAME_S),Linux)
-		CMAKE_GENERATOR := Unix Makefiles
-	else ifeq ($(UNAME_S),Darwin)
-		CMAKE_GENERATOR := Xcode
-	else 
-		$(error Unknown operating system!)
-	endif
-endif
+include $(LEMONS)/cmake/Makefile
 
 #
 
@@ -52,17 +35,15 @@ all: $(TEMP)/$(BUILD) ## Builds everything
 $(TEMP)/$(BUILD): config
 	@echo "Building..."
 	@mkdir -p $(@D)
-	cmake --build $(BUILD) --config $(BUILD_TYPE)
+	$(CMAKE_BUILD_COMMAND)
 	@touch $@
-
-#
 
 config: $(BUILD) ## Runs CMake configuration
 
 # Configures the build
 $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(LEMONS_CMAKE_FILES)
 	@echo "Configuring cmake..."
-	cmake -B $(BUILD) -G "$(CMAKE_GENERATOR)" -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
+	$(CMAKE_CONFIGURE_COMMAND)
 
 #
 
@@ -74,7 +55,7 @@ format: $(FORMAT_SENTINEL) ## Runs clang-format
 $(FORMAT_SENTINEL): $(LEMONS_SCRIPTS)/run_clang_format.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
 	@echo "Running clang-format..."
 	@mkdir -p $(@D)
-	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $(PROJECTS)/$$dir ; done
+	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $$dir ; done
 	cd $(LEMONS) && $(MAKE) format
 	@touch $@
 
@@ -100,7 +81,7 @@ translations: $(TRANSLATION_SENTINEL) ## Generates JUCE translation files for Le
 $(TRANSLATION_SENTINEL): $(LEMONS_SCRIPTS)/generate_translation_file.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
 	@echo "Generating translation files..."
 	@mkdir -p $(@D)
-	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $(PROJECTS)/$$dir $(TRANSLATION_OUTPUT) ; done
+	@for dir in $(PROJECT_DIRS) ; do cd $$dir && $(PYTHON) $< Source $(TRANSLATION_OUTPUT) ; done
 	cd $(LEMONS) && $(MAKE) translations
 	@touch $@
 
@@ -121,9 +102,9 @@ PLUGINVAL_APP := $(PLUGINVAL_REPO)/$(BUILD)/pluginval_artefacts/$(BUILD_TYPE)/pl
 # Builds pluginval from source
 $(PLUGINVAL_APP): $(PLUGINVAL_REPO)
 	@echo "Configuring pluginval build..."
-	cd $(PLUGINVAL_REPO) && cmake -B $(BUILD) -G "$(CMAKE_GENERATOR)" -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
+	cd $(PLUGINVAL_REPO) && $(CMAKE_CONFIGURE_COMMAND)
 	@echo "Running plugival build..."
-	cd $(PLUGINVAL_REPO) && cmake --build $(BUILD) --config $(BUILD_TYPE)
+	cd $(PLUGINVAL_REPO) && $(CMAKE_BUILD_COMMAND)
 
 pluginval: $(PLUGINVAL_APP) ## Builds pluginval from source
 
@@ -138,7 +119,6 @@ clean: ## Cleans the source tree
 wipe: clean ## Cleans everything, and busts the CPM cache
 	@echo "Wiping workspace cache..."
 	rm -rf $(CACHE)
-	cd $(LEMONS) && $(MAKE) wipe
 
 help: ## Prints the list of commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
