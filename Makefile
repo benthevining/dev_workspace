@@ -2,30 +2,22 @@ SHELL := /bin/bash
 .SHELLFLAGS := -eu -o pipefail -c
 .ONESHELL:
 .DELETE_ON_ERROR:
+	
 .DEFAULT_GOAL := help
 .PHONY: all imogen kicklab clean config defaults docs format help translations uth wipe
-
-#
-
-PYTHON := python
-
-PROJECTS := products
-PROJECT_DIRS := $(shell find $(PROJECTS) -type d)
-
-SOURCE_FILE_PATTERNS := *.h|*.cpp|*CMakeLists.txt
-
-SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "$(SOURCE_FILE_PATTERNS)")
-
-TEMP = .out
-CACHE := Cache
 
 LEMONS := Lemons
 LEMONS_SCRIPTS := $(LEMONS)/scripts
 LEMONS_MODULES := $(LEMONS)/modules
-LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FILE_PATTERNS)")
-LEMONS_CMAKE_FILES := $(shell find $(LEMONS) -type f -name "*.cmake|*CMakeLists.txt")
 
-include $(LEMONS)/cmake/Makefile
+include $(LEMONS)/basic_settings.make
+
+PROJECTS := products
+PROJECT_DIRS := $(shell find $(PROJECTS) -type d)
+SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "$(SOURCE_FILE_PATTERNS)")
+LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FILE_PATTERNS)")
+
+include $(LEMONS)/cmake/cmake.make
 
 #
 
@@ -59,7 +51,7 @@ $(TEMP)/$(BUILD)/kicklab: config
 config: $(BUILD) ## Runs CMake configuration
 
 # Configures the build
-$(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(LEMONS_CMAKE_FILES)
+$(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f -name "*.cmake|*CMakeLists.txt")
 	@echo "Configuring cmake..."
 	$(CMAKE_CONFIGURE_COMMAND)
 
@@ -79,17 +71,11 @@ $(FORMAT_SENTINEL): $(LEMONS_SCRIPTS)/run_clang_format.py $(SOURCE_FILES) $(LEMO
 
 #
 
-SUBMODULE_COMMAND := git checkout main && git fetch && git pull
-
 uth: ## Updates all git submodules to head
 	@echo "Updating git submodules..."
-	git fetch && git pull
-	git submodule update
-	git submodule foreach '$(SUBMODULE_COMMAND)'
+	$(GIT_UTH)
 
 #
-
-TRANSLATION_OUTPUT := needed_translations.txt
 
 TRANSLATION_SENTINEL := $(TEMP)/translations
 
@@ -139,4 +125,4 @@ wipe: clean ## Cleans everything, and busts the CPM cache
 	rm -rf $(CACHE)
 
 help: ## Prints the list of commands
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@$(PRINT_HELP_LIST)
