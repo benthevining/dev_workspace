@@ -3,7 +3,7 @@ SHELL := /bin/bash
 .ONESHELL:
 .DELETE_ON_ERROR:
 .DEFAULT_GOAL := help
-.PHONY: clean defaults docs format help uth
+.PHONY: all clean config defaults docs format help uth
 
 #
 
@@ -37,14 +37,21 @@ endif
 
 all: $(TEMP)/$(BUILD) ## Builds everything
 
-$(TEMP)/$(BUILD): $(BUILD)
+# Executes the all build
+$(TEMP)/$(BUILD): config
 	@echo "Building..."
 	@mkdir -p $(@D)
 	cmake --build $(BUILD) --config $(BUILD_TYPE)
 	@touch $@
 
+#
+
+config: $(BUILD) ## Runs CMake configuration
+
+LEMONS_CMAKE_FILES := $(shell find $(LEMONS) -type f -name "*.cmake|*CMakeLists.txt")
+
 # Configures the build
-$(BUILD): $(SOURCE_FILES) 
+$(BUILD): $(SOURCE_FILES) $(LEMONS_CMAKE_FILES)
 	@echo "Configuring cmake..."
 	cmake -B $(BUILD) -G "$(CMAKE_GENERATOR)" -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
 
