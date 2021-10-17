@@ -2,21 +2,16 @@
 
 set -euo pipefail
 
-readonly build_config=${BV_BUILD_CONFIG:-release}
-readonly build_target=${BV_BUILD_TARGET:-all}
-
 export LEMONS_USE_LV2_JUCE="TRUE"
 export LEMONS_COPY_TO_DEPLOY_FOLDER="TRUE"
 
-#
-
 readonly script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-/usr/bin/env bash "$script_dir/../Lemons/install_deps/install_deps.sh"
+readonly workspace_root="$script_dir/.."
 
-#
+/usr/bin/env bash "$workspace_root/Lemons/install_deps/install_deps.sh"
 
-cd "$script_dir/.."
+cd "$workspace_root"
 
 make all
 
