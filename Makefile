@@ -3,7 +3,7 @@ SHELL := /bin/bash
 .ONESHELL:
 .DELETE_ON_ERROR:
 .DEFAULT_GOAL := help
-.PHONY: all clean config defaults docs format help uth
+.PHONY: all clean config defaults docs format help translations uth
 
 #
 
@@ -11,15 +11,23 @@ BUILD_TYPE := Debug
 
 PYTHON := python
 
-PROJECT_DIRS := $(shell find products -type d)
+PROJECTS := products
+PROJECT_DIRS := $(shell find $(PROJECTS) -type d)
 
-SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "*.h|*.cpp|*CMakeLists.txt")
+SOURCE_FILE_PATTERNS := *.h|*.cpp|*CMakeLists.txt
+
+SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "$(SOURCE_FILE_PATTERNS)")
 
 TEMP = .out
-
 BUILD := Builds
 
 LEMONS := Lemons
+LEMONS_SCRIPTS := $(LEMONS)/scripts
+LEMONS_MODULES := $(LEMONS)/modules
+LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FILE_PATTERNS)")
+LEMONS_CMAKE_FILES := $(shell find $(LEMONS) -type f -name "*.cmake|*CMakeLists.txt")
+
+#
 
 ifeq ($(OS),Windows_NT)
 	CMAKE_GENERATOR := Visual Studio 16 2019
@@ -50,10 +58,8 @@ $(TEMP)/$(BUILD): config
 
 config: $(BUILD) ## Runs CMake configuration
 
-LEMONS_CMAKE_FILES := $(shell find $(LEMONS) -type f -name "*.cmake|*CMakeLists.txt")
-
 # Configures the build
-$(BUILD): $(SOURCE_FILES) $(LEMONS_CMAKE_FILES)
+$(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(LEMONS_CMAKE_FILES)
 	@echo "Configuring cmake..."
 	cmake -B $(BUILD) -G "$(CMAKE_GENERATOR)" -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
 
@@ -63,14 +69,12 @@ FORMAT_SENTINEL := $(TEMP)/format
 
 format: $(FORMAT_SENTINEL) ## Runs clang-format
 
-$(FORMAT_SENTINEL): $(LEMONS)/scripts/run_clang_format.py $(SOURCE_FILES)
+# Executes clang-format
+$(FORMAT_SENTINEL): $(LEMONS_SCRIPTS)/run_clang_format.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
 	@echo "Running clang-format..."
 	@mkdir -p $(@D)
-
-	for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $$dir ; done
-
+	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $(PROJECTS)/$$dir ; done
 	cd $(LEMONS) && $(MAKE) format
-
 	@touch $@
 
 #
@@ -85,11 +89,30 @@ uth: ## Updates all git submodules to head
 
 #
 
+TRANSLATION_OUTPUT := needed_translations.txt
+
+TRANSLATION_SENTINEL := $(TEMP)/translations
+
+translations: $(TRANSLATION_SENTINEL) ## Generates JUCE translation files for Lemons and for each project
+
+# Executes the translation file generation
+$(TRANSLATION_SENTINEL): $(LEMONS_SCRIPTS)/generate_translation_file.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
+	@echo "Generating translation files..."
+	@mkdir -p $(@D)
+	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $(PROJECTS)/$$dir $(TRANSLATION_OUTPUT) ; done
+	cd $(LEMONS) && $(MAKE) translations
+	@touch $@
+
+#
+
 clean: ## Cleans the source tree
+	@echo "Cleaning workspace..."
 	rm -rf $(BUILD) $(TEMP)
+	@for dir in $(PROJECT_DIRS) ; do rm -rf $(PROJECTS)/$$dir/$(TRANSLATION_OUTPUT) ; done
 	cd $(LEMONS) && $(MAKE) clean
 
 wipe: clean ## Cleans everything, and busts the CPM cache
+	@echo "Wiping workspace cache..."
 	rm -rf Cache
 	cd $(LEMONS) && $(MAKE) wipe
 
