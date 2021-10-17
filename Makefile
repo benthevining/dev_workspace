@@ -7,7 +7,7 @@ SHELL := /bin/bash
 .PHONY: all imogen kicklab clean config defaults docs format help translations uth wipe
 
 LEMONS := Lemons
-LEMONS_MAKE_FILES := $(LEMONS)/make
+LEMONS_MAKE_FILES := $(LEMONS)/util/make
 LEMONS_SCRIPTS := $(LEMONS)/scripts
 LEMONS_MODULES := $(LEMONS)/modules
 
@@ -22,30 +22,17 @@ include $(LEMONS_MAKE_FILES)/cmake.make
 
 #
 
-all: $(TEMP)/$(BUILD)/all ## Builds everything
-
-# Executes the all build
-$(TEMP)/$(BUILD)/all: config
+all: config ## Builds everything
 	@echo "Building everything..."
-	@mkdir -p $(@D)
 	$(CMAKE_BUILD_COMMAND)
-	@touch $@
 
-imogen: $(TEMP)/$(BUILD)/imogen ## Builds Imogen
-
-$(TEMP)/$(BUILD)/imogen: config
+imogen: config ## Builds Imogen
 	@echo "Building Imogen..."
-	@mkdir -p $(@D)
 	$(CMAKE_BUILD_COMMAND) --target Imogen_All
-	@touch $@
 
-kicklab: $(TEMP)/$(BUILD)/kicklab ## Builds Kicklab
-
-$(TEMP)/$(BUILD)/kicklab: config
+kicklab: config ## Builds Kicklab
 	@echo "Building Kicklab..."
-	@mkdir -p $(@D)
 	$(CMAKE_BUILD_COMMAND) --target Kicklab_All
-	@touch $@
 
 #
 
@@ -58,12 +45,10 @@ $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f 
 
 #
 
-FORMAT_SENTINEL := $(TEMP)/format
-
-format: $(FORMAT_SENTINEL) ## Runs clang-format
+format: $(TEMP)/format ## Runs clang-format
 
 # Executes clang-format
-$(FORMAT_SENTINEL): $(LEMONS_SCRIPTS)/run_clang_format.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
+$(TEMP)/format: $(LEMONS_SCRIPTS)/run_clang_format.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
 	@echo "Running clang-format..."
 	@mkdir -p $(@D)
 	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $$dir ; done
@@ -78,42 +63,17 @@ uth: ## Updates all git submodules to head
 
 #
 
-TRANSLATION_SENTINEL := $(TEMP)/translations
-
-translations: $(TRANSLATION_SENTINEL) ## Generates JUCE translation files for Lemons and for each project
+translations: $(TEMP)/translations ## Generates JUCE translation files for Lemons and for each project
 
 # Executes the translation file generation
-$(TRANSLATION_SENTINEL): $(LEMONS_SCRIPTS)/generate_translation_file.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
+$(TEMP)/translations: $(LEMONS_SCRIPTS)/generate_translation_file.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
 	@echo "Generating translation files..."
 	@mkdir -p $(@D)
 	@for dir in $(PROJECT_DIRS) ; do cd $$dir && $(PYTHON) $< Source $(TRANSLATION_OUTPUT) ; done
 	cd $(LEMONS) && $(MAKE) translations
 	@touch $@
 
-######
-
-# TESTING #
-
-PLUGINVAL_REPO := $(CACHE)/pluginval
-
-# Clones the pluginval repo to the cache
-$(PLUGINVAL_REPO): 
-	@echo "Cloning pluginval repo..."
-	cd $(CACHE) && git clone https://github.com/Tracktion/pluginval.git
-	cd $(PLUGINVAL_REPO) && git submodule init && git fetch && git pull
-
-PLUGINVAL_APP := $(PLUGINVAL_REPO)/$(BUILD)/pluginval_artefacts/$(BUILD_TYPE)/pluginval.app
-
-# Builds pluginval from source
-$(PLUGINVAL_APP): $(PLUGINVAL_REPO)
-	@echo "Configuring pluginval build..."
-	cd $(PLUGINVAL_REPO) && $(CMAKE_CONFIGURE_COMMAND)
-	@echo "Running plugival build..."
-	cd $(PLUGINVAL_REPO) && $(CMAKE_BUILD_COMMAND)
-
-pluginval: $(PLUGINVAL_APP) ## Builds pluginval from source
-
-######
+#
 
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
