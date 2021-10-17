@@ -7,6 +7,10 @@ SHELL := /bin/bash
 
 #
 
+BUILD_TYPE := Debug
+
+PYTHON := python
+
 PROJECT_DIRS := $(shell find products -type d)
 
 SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "*.h|*.cpp|*CMakeLists.txt")
@@ -16,8 +20,6 @@ TEMP = .out
 BUILD := Builds
 
 LEMONS := Lemons
-
-BUILD_TYPE := Debug
 
 ifeq ($(OS),Windows_NT)
 	CMAKE_GENERATOR := Visual Studio 16 2019
@@ -65,9 +67,7 @@ $(FORMAT_SENTINEL): $(LEMONS)/scripts/run_clang_format.py $(SOURCE_FILES)
 	@echo "Running clang-format..."
 	@mkdir -p $(@D)
 
-	for dir in $(PROJECT_DIRS) ; do \
-		python $< $$dir ; \
-	done
+	for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $$dir ; done
 
 	cd $(LEMONS) && $(MAKE) format
 
