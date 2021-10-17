@@ -11,6 +11,12 @@ PROJECT_DIRS := $(shell find products -type d)
 
 SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "*.h|*.cpp|*CMakeLists.txt")
 
+TEMP = .out
+
+BUILD := Builds
+
+LEMONS := Lemons
+
 BUILD_TYPE := Debug
 
 ifeq ($(OS),Windows_NT)
@@ -29,24 +35,26 @@ endif
 
 #
 
-all: .out/Build ## Builds everything
+all: $(TEMP)/$(BUILD) ## Builds everything
 
-.out/Build: Builds
+$(TEMP)/$(BUILD): $(BUILD)
 	@echo "Building..."
 	@mkdir -p $(@D)
-	cmake --build Builds --config $(BUILD_TYPE)
+	cmake --build $(BUILD) --config $(BUILD_TYPE)
 	@touch $@
 
 # Configures the build
-Builds: $(SOURCE_FILES) 
+$(BUILD): $(SOURCE_FILES) 
 	@echo "Configuring cmake..."
-	cmake -B Builds -G "$(CMAKE_GENERATOR)" -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
+	cmake -B $(BUILD) -G "$(CMAKE_GENERATOR)" -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
 
 #
 
-format: .out/format ## Runs clang-format
+FORMAT_SENTINEL := $(TEMP)/format
 
-.out/format: Lemons/scripts/run_clang_format.py $(SOURCE_FILES)
+format: $(FORMAT_SENTINEL) ## Runs clang-format
+
+$(FORMAT_SENTINEL): $(LEMONS)/scripts/run_clang_format.py $(SOURCE_FILES)
 	@echo "Running clang-format..."
 	@mkdir -p $(@D)
 
@@ -54,7 +62,7 @@ format: .out/format ## Runs clang-format
 		python $< $$dir ; \
 	done
 
-	cd Lemons && $(MAKE) format
+	cd $(LEMONS) && $(MAKE) format
 
 	@touch $@
 
@@ -71,8 +79,8 @@ uth: ## Updates all git submodules to head
 #
 
 clean: ## Cleans the source tree
-	rm -rf Builds
-	cd Lemons && $(MAKE) clean
+	rm -rf $(BUILD)
+	cd $(LEMONS) && $(MAKE) clean
 
 help: ## Prints the list of commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
