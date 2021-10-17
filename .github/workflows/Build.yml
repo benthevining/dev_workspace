@@ -35,7 +35,11 @@ jobs:
       shell: bash
       run: bash Lemons/install_deps/install_deps.sh
 
-    - name: Build all
+    - name: Configure build
+      shell: bash
+      run: make config
+
+    - name: Run build
       shell: bash
       run: make all
 
