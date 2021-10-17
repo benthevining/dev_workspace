@@ -86,7 +86,7 @@ uth: ## Updates all git submodules to head
 #
 
 clean: ## Cleans the source tree
-	rm -rf $(BUILD)
+	rm -rf $(BUILD) $(TEMP)
 	cd $(LEMONS) && $(MAKE) clean
 
 help: ## Prints the list of commands
