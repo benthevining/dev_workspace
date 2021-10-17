@@ -3,7 +3,7 @@ SHELL := /bin/bash
 .ONESHELL:
 .DELETE_ON_ERROR:
 .DEFAULT_GOAL := help
-.PHONY: all clean config defaults docs format help translations uth
+.PHONY: all clean config defaults docs format help translations uth wipe
 
 #
 
@@ -20,6 +20,7 @@ SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "$(SOURCE_FILE_PATTER
 
 TEMP = .out
 BUILD := Builds
+CACHE := Cache
 
 LEMONS := Lemons
 LEMONS_SCRIPTS := $(LEMONS)/scripts
@@ -103,17 +104,40 @@ $(TRANSLATION_SENTINEL): $(LEMONS_SCRIPTS)/generate_translation_file.py $(SOURCE
 	cd $(LEMONS) && $(MAKE) translations
 	@touch $@
 
-#
+######
+
+# TESTING #
+
+PLUGINVAL_REPO := $(CACHE)/pluginval
+
+# Clones the pluginval repo to the cache
+$(PLUGINVAL_REPO): 
+	@echo "Cloning pluginval repo..."
+	cd $(CACHE) && git clone https://github.com/Tracktion/pluginval.git
+	cd $(PLUGINVAL_REPO) && git submodule init && git fetch && git pull
+
+PLUGINVAL_APP := $(PLUGINVAL_REPO)/$(BUILD)/pluginval_artefacts/$(BUILD_TYPE)/pluginval.app
+
+# Builds pluginval from source
+$(PLUGINVAL_APP): $(PLUGINVAL_REPO)
+	@echo "Configuring pluginval build..."
+	cd $(PLUGINVAL_REPO) && cmake -B $(BUILD) -G "$(CMAKE_GENERATOR)" -DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
+	@echo "Running plugival build..."
+	cd $(PLUGINVAL_REPO) && cmake --build $(BUILD) --config $(BUILD_TYPE)
+
+pluginval: $(PLUGINVAL_APP) ## Builds pluginval from source
+
+######
 
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
-	rm -rf $(BUILD) $(TEMP)
+	rm -rf $(BUILD) $(TEMP) $(PLUGINVAL_REPO)/$(BUILD)
 	@for dir in $(PROJECT_DIRS) ; do rm -rf $(PROJECTS)/$$dir/$(TRANSLATION_OUTPUT) ; done
 	cd $(LEMONS) && $(MAKE) clean
 
 wipe: clean ## Cleans everything, and busts the CPM cache
 	@echo "Wiping workspace cache..."
-	rm -rf Cache
+	rm -rf $(CACHE)
 	cd $(LEMONS) && $(MAKE) wipe
 
 help: ## Prints the list of commands
