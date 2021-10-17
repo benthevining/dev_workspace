@@ -34,7 +34,7 @@ all: .out/Build ## Builds everything
 .out/Build: Builds
 	@echo "Building..."
 	@mkdir -p $(@D)
-	cmake --build Builds --target ALL_BUILD --config $(BUILD_TYPE)
+	cmake --build Builds --config $(BUILD_TYPE)
 	@touch $@
 
 # Configures the build
