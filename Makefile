@@ -66,13 +66,13 @@ translations: $(LEMONS_SCRIPTS)/generate_translation_file.py $(SOURCE_FILES) $(L
 
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
-	rm -rf $(BUILD) $(PLUGINVAL_REPO)/$(BUILD)
+	@$(RM) $(BUILD) $(PLUGINVAL_REPO)/$(BUILD)
 	@for dir in $(PROJECT_DIRS) ; do rm -rf $(PROJECTS)/$$dir/$(TRANSLATION_OUTPUT) ; done
 	cd $(LEMONS) && $(MAKE) $@
 
 wipe: clean ## Cleans everything, and busts the CPM cache
 	@echo "Wiping workspace cache..."
-	rm -rf $(CACHE)
+	@$(RM) $(CACHE)
 
 help: ## Prints the list of commands
 	@$(PRINT_HELP_LIST)
