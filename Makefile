@@ -2,9 +2,10 @@ SHELL := /bin/bash
 .SHELLFLAGS := -eu -o pipefail -c
 .ONESHELL:
 .DELETE_ON_ERROR:
-	
+
 .DEFAULT_GOAL := help
-.PHONY: all imogen kicklab clean config defaults docs format help translations uth wipe
+
+THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 LEMONS := Lemons
 LEMONS_MAKE_FILES := $(LEMONS)/util/make
@@ -13,6 +14,8 @@ LEMONS_MODULES := $(LEMONS)/modules
 
 include $(LEMONS_MAKE_FILES)/basic_settings.make
 include $(LEMONS_MAKE_FILES)/cmake.make
+
+.PHONY: $(ALL_PHONY_TARGETS)
 
 PROJECTS := products
 PROJECT_DIRS := $(shell find $(PROJECTS) -type d)
