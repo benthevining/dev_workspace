@@ -28,6 +28,14 @@ all: config ## Builds everything
 	@echo "Building everything..."
 	$(CMAKE_BUILD_COMMAND)
 
+plugins: config ## Builds all plugins
+	@echo "Building all plugins..."
+	$(CMAKE_BUILD_COMMAND) --target ALL_PLUGINS
+
+apps: config ## Builds all apps
+	@echo "Building all apps..."
+	$(CMAKE_BUILD_COMMAND) --target ALL_APPS
+
 imogen: config ## Builds Imogen
 	@echo "Building Imogen..."
 	$(CMAKE_BUILD_COMMAND) --target Imogen_All
