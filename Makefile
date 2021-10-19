@@ -8,9 +8,9 @@ SHELL := /bin/bash
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 LEMONS := Lemons
-LEMONS_MAKE_FILES := $(LEMONS)/util/make
 LEMONS_SCRIPTS := $(LEMONS)/scripts
 LEMONS_MODULES := $(LEMONS)/modules
+LEMONS_MAKE_FILES := $(LEMONS)/util/make
 
 include $(LEMONS_MAKE_FILES)/basic_settings.make
 include $(LEMONS_MAKE_FILES)/cmake.make
