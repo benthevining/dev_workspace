@@ -26,23 +26,23 @@ LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FI
 
 all: config ## Builds everything
 	@echo "Building everything..."
-	$(CMAKE_BUILD_COMMAND) 2>&1 | tee $(BUILD_LOG_FILE)
+	time $(CMAKE_BUILD_COMMAND) 2>&1 | tee $(BUILD_LOG_FILE)
 
 plugins: config ## Builds all plugins
 	@echo "Building all plugins..."
-	$(CMAKE_BUILD_COMMAND) --target ALL_PLUGINS | tee $(BUILD_LOG_FILE)
+	time $(CMAKE_BUILD_COMMAND) --target ALL_PLUGINS | tee $(BUILD_LOG_FILE)
 
 apps: config ## Builds all apps
 	@echo "Building all apps..."
-	$(CMAKE_BUILD_COMMAND) --target ALL_APPS | tee $(BUILD_LOG_FILE)
+	time $(CMAKE_BUILD_COMMAND) --target ALL_APPS | tee $(BUILD_LOG_FILE)
 
 imogen: config ## Builds Imogen
 	@echo "Building Imogen..."
-	$(CMAKE_BUILD_COMMAND) --target Imogen_All | tee $(BUILD_LOG_FILE)
+	time $(CMAKE_BUILD_COMMAND) --target Imogen_All | tee $(BUILD_LOG_FILE)
 
 kicklab: config ## Builds Kicklab
 	@echo "Building Kicklab..."
-	$(CMAKE_BUILD_COMMAND) --target Kicklab_All | tee $(BUILD_LOG_FILE)
+	time $(CMAKE_BUILD_COMMAND) --target Kicklab_All | tee $(BUILD_LOG_FILE)
 
 #
 
@@ -51,7 +51,8 @@ config: $(BUILD) ## Runs CMake configuration
 # Configures the build
 $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f -name "$(CMAKE_FILE_PATTERNS)")
 	@echo "Configuring cmake..."
-	$(CMAKE_CONFIGURE_COMMAND) | tee $(CONFIG_LOG_FILE)
+	$(CMAKE_CONFIGURE_COMMAND)
+	
 
 #
 
