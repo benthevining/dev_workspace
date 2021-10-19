@@ -18,7 +18,7 @@ include $(LEMONS_MAKE_FILES)/cmake.make
 .PHONY: $(ALL_PHONY_TARGETS)
 
 PROJECTS := products
-PROJECT_DIRS := $(shell find $(PROJECTS) -type d)
+PROJECT_DIRS := $(shell find $(PROJECTS) -type d -maxdepth 1 ! -name $(PROJECTS))
 SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "$(SOURCE_FILE_PATTERNS)")
 LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FILE_PATTERNS)")
 
@@ -26,23 +26,23 @@ LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FI
 
 all: config ## Builds everything
 	@echo "Building everything..."
-	$(CMAKE_BUILD_COMMAND)
+	$(CMAKE_BUILD_COMMAND) 2>&1 | tee $(BUILD_LOG_FILE)
 
 plugins: config ## Builds all plugins
 	@echo "Building all plugins..."
-	$(CMAKE_BUILD_COMMAND) --target ALL_PLUGINS
+	$(CMAKE_BUILD_COMMAND) --target ALL_PLUGINS | tee $(BUILD_LOG_FILE)
 
 apps: config ## Builds all apps
 	@echo "Building all apps..."
-	$(CMAKE_BUILD_COMMAND) --target ALL_APPS
+	$(CMAKE_BUILD_COMMAND) --target ALL_APPS | tee $(BUILD_LOG_FILE)
 
 imogen: config ## Builds Imogen
 	@echo "Building Imogen..."
-	$(CMAKE_BUILD_COMMAND) --target Imogen_All
+	$(CMAKE_BUILD_COMMAND) --target Imogen_All | tee $(BUILD_LOG_FILE)
 
 kicklab: config ## Builds Kicklab
 	@echo "Building Kicklab..."
-	$(CMAKE_BUILD_COMMAND) --target Kicklab_All
+	$(CMAKE_BUILD_COMMAND) --target Kicklab_All | tee $(BUILD_LOG_FILE)
 
 #
 
@@ -51,7 +51,7 @@ config: $(BUILD) ## Runs CMake configuration
 # Configures the build
 $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f -name "$(CMAKE_FILE_PATTERNS)")
 	@echo "Configuring cmake..."
-	$(CMAKE_CONFIGURE_COMMAND)
+	$(CMAKE_CONFIGURE_COMMAND) | tee $(CONFIG_LOG_FILE)
 
 #
 
@@ -77,8 +77,8 @@ translations: $(LEMONS_SCRIPTS)/generate_translation_file.py $(SOURCE_FILES) $(L
 
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
-	@$(RM) $(BUILD) $(PLUGINVAL_REPO)/$(BUILD)
-	@for dir in $(PROJECT_DIRS) ; do rm -rf $(PROJECTS)/$$dir/$(TRANSLATION_OUTPUT) ; done
+	@$(RM) $(BUILD) $(CONFIG_LOG_FILE) $(BUILD_LOG_FILE)
+	@for dir in $(PROJECT_DIRS) ; do $(RM) $$dir/$(TRANSLATION_OUTPUT) ; done
 	cd $(LEMONS) && $(MAKE) $@
 
 wipe: clean ## Cleans everything, and busts the CPM cache
