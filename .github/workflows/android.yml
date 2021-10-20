@@ -20,4 +20,8 @@ jobs:
 
     - name: Install dependencies
       shell: bash
-      run: export CROSSCOMPILE_ANDROID=1 && bash Lemons/util/install_deps/install_deps.sh
+      run: bash Lemons/util/install_deps/install_deps.sh
+      
+    - name: Install dependencies
+      shell: bash
+      run: bash Lemons/util/install_deps/os/install_android_deps.sh
