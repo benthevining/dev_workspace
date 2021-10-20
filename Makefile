@@ -12,8 +12,6 @@ LEMONS_SCRIPTS := $(LEMONS)/scripts
 LEMONS_MODULES := $(LEMONS)/modules
 LEMONS_MAKE_FILES := $(LEMONS)/util/make
 
-QC := plugin_qc
-
 include $(LEMONS_MAKE_FILES)/Makefile
 
 .PHONY: $(ALL_PHONY_TARGETS)
@@ -56,12 +54,6 @@ $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f 
 	$(CMAKE_CONFIGURE_COMMAND)
 
 
-#####  QC  #####
-
-qc: all ## Builds the QC suite
-	cd $(QC) && $(MAKE) all
-
-
 #####  UTILITIES  #####
 
 format: $(LEMONS_SCRIPTS)/run_clang_format.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) ## Runs clang-format
@@ -83,7 +75,6 @@ clean: ## Cleans the source tree
 	@$(RM) $(BUILD) $(LOGS)
 	@for dir in $(PROJECT_DIRS) ; do $(RM) $$dir/$(TRANSLATION_OUTPUT) ; done
 	cd $(LEMONS) && $(MAKE) $@
-	cd $(QC) && $(MAKE) $@
 
 wipe: clean ## Cleans everything, and busts the CPM cache
 	@echo "Wiping workspace cache..."
