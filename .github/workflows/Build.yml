@@ -52,3 +52,42 @@ jobs:
       with:
         name: ${{ runner.os }}.zip
         path: Builds/deploy/
+
+
+  ios:
+
+    name: iOS build 
+    runs-on: macos-latest
+    timeout-minutes: 60
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
+        submodules: recursive
+
+    - name: Set up cache
+      uses: actions/cache@v2
+      with:
+        path: Cache
+        key: ios.${{ hashFiles('**/') }}
+        restore-keys: ios.
+
+    - name: Install dependencies
+      shell: bash
+      run: bash Lemons/util/install_deps/install_deps.sh
+
+    - name: Configure build
+      shell: bash
+      run: make config CROSSCOMPILE_IOS=1
+
+    - name: Run build
+      shell: bash
+      run: make all
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ios.zip
+        path: Builds/deploy/
