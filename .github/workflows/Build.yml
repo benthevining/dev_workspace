@@ -34,6 +34,10 @@ jobs:
     - name: Install dependencies
       shell: bash
       run: bash Lemons/util/install_deps/install_deps.sh
+      
+    - name: Install msbuild
+      if: matrix.os == 'windows-latest'
+      uses: microsoft/setup-msbuild@v1.0.3
 
     - name: Configure build
       shell: bash
