@@ -14,8 +14,7 @@ LEMONS_MAKE_FILES := $(LEMONS)/util/make
 
 QC := plugin_qc
 
-include $(LEMONS_MAKE_FILES)/basic_settings.make
-include $(LEMONS_MAKE_FILES)/cmake.make
+include $(LEMONS_MAKE_FILES)/Makefile
 
 .PHONY: $(ALL_PHONY_TARGETS)
 
