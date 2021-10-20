@@ -80,7 +80,7 @@ translations: $(LEMONS_SCRIPTS)/generate_translation_file.py $(SOURCE_FILES) $(L
 
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
-	@$(RM) $(BUILD) $(CONFIG_LOG_FILE) $(BUILD_LOG_FILE)
+	@$(RM) $(BUILD) $(LOGS)
 	@for dir in $(PROJECT_DIRS) ; do $(RM) $$dir/$(TRANSLATION_OUTPUT) ; done
 	cd $(LEMONS) && $(MAKE) $@
 	cd $(QC) && $(MAKE) $@

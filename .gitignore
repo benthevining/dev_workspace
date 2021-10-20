@@ -1,6 +1,5 @@
 **/.DS_Store
 Builds/
 Cache/
-config.log
-build.log
+logs/
 needed_translations.txt
