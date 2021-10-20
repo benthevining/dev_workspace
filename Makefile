@@ -28,23 +28,23 @@ LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FI
 
 all: config ## Builds everything
 	@echo "Building everything..."
-	time $(CMAKE_BUILD_COMMAND) 2>&1 | tee $(BUILD_LOG_FILE)
+	time $(CMAKE_BUILD_COMMAND) $(WRITE_BUILD_LOG)
 
 plugins: config ## Builds all plugins
 	@echo "Building all plugins..."
-	time $(CMAKE_BUILD_COMMAND) --target ALL_PLUGINS | tee $(BUILD_LOG_FILE)
+	time $(CMAKE_BUILD_COMMAND) --target ALL_PLUGINS $(WRITE_BUILD_LOG)
 
 apps: config ## Builds all apps
 	@echo "Building all apps..."
-	time $(CMAKE_BUILD_COMMAND) --target ALL_APPS | tee $(BUILD_LOG_FILE)
+	time $(CMAKE_BUILD_COMMAND) --target ALL_APPS $(WRITE_BUILD_LOG)
 
 imogen: config ## Builds Imogen
 	@echo "Building Imogen..."
-	time $(CMAKE_BUILD_COMMAND) --target Imogen_All | tee $(BUILD_LOG_FILE)
+	time $(CMAKE_BUILD_COMMAND) --target Imogen_All $(WRITE_BUILD_LOG)
 
 kicklab: config ## Builds Kicklab
 	@echo "Building Kicklab..."
-	time $(CMAKE_BUILD_COMMAND) --target Kicklab_All | tee $(BUILD_LOG_FILE)
+	time $(CMAKE_BUILD_COMMAND) --target Kicklab_All $(WRITE_BUILD_LOG)
 
 #
 
