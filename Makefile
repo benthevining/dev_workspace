@@ -12,6 +12,8 @@ LEMONS_SCRIPTS := $(LEMONS)/scripts
 LEMONS_MODULES := $(LEMONS)/modules
 LEMONS_MAKE_FILES := $(LEMONS)/util/make
 
+QC := plugin_qc
+
 include $(LEMONS_MAKE_FILES)/basic_settings.make
 include $(LEMONS_MAKE_FILES)/cmake.make
 
@@ -81,6 +83,7 @@ clean: ## Cleans the source tree
 	@$(RM) $(BUILD) $(CONFIG_LOG_FILE) $(BUILD_LOG_FILE)
 	@for dir in $(PROJECT_DIRS) ; do $(RM) $$dir/$(TRANSLATION_OUTPUT) ; done
 	cd $(LEMONS) && $(MAKE) $@
+	cd $(QC) && $(MAKE) $@
 
 wipe: clean ## Cleans everything, and busts the CPM cache
 	@echo "Wiping workspace cache..."
