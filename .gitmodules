@@ -10,6 +10,4 @@
 [submodule "Lemons"]
 	path = Lemons
 	url = https://github.com/benthevining/Lemons
-[submodule "plugin_qc"]
-	path = plugin_qc
-	url = https://github.com/benthevining/plugin_qc.git
+
