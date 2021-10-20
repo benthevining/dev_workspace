@@ -1,0 +1,23 @@
+name: Android
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  android:
+
+    name: Android
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
+        submodules: recursive
+
+    - name: Install dependencies
+      shell: bash
+      run: export CROSSCOMPILE_ANDROID=1 && bash Lemons/util/install_deps/install_deps.sh
