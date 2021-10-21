@@ -51,7 +51,7 @@ config: $(BUILD) ## Runs CMake configuration
 # Configures the build
 $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f -name "$(CMAKE_FILE_PATTERNS)")
 	@echo "Configuring cmake..."
-	$(CMAKE_CONFIGURE_COMMAND)
+	$(CMAKE_CONFIGURE_COMMAND) $(WRITE_CONFIG_LOG)
 
 
 #####  UTILITIES  #####
