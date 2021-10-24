@@ -72,15 +72,15 @@ uth: ## Updates all git submodules to head
 
 translations: $(LEMONS_SCRIPTS)/generate_translation_file.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) ## Generates JUCE translation files for Lemons and for each project
 	@echo "Generating translation files..."
-	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $$dir/$(SOURCE) $$dir/$(TRANSLATION_OUTPUT) ; done
+	@for dir in $(PROJECT_DIRS) ; do mkdir $$dir/$(TRANSLATIONS) && $(PYTHON) $< $$dir/$(SOURCE) $$dir/$(TRANSLATIONS)/$(TRANSLATION_FILE_TEMPLATE) ; done
 	@cd $(LEMONS) && $(MAKE) $@
 
 #
 
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
-	@$(RM) $(BUILD) $(LOGS)
-	@for dir in $(PROJECT_DIRS) ; do $(RM) $$dir/$(TRANSLATION_OUTPUT) ; done
+	@$(RM) $(BUILD) $(LOGS) $(TRANSLATIONS)
+	@for dir in $(PROJECT_DIRS) ; do $(RM) $$dir/$(BUILD) $$dir/$(LOGS) $$dir/$(TRANSLATIONS) ; done
 	@cd $(LEMONS) && $(MAKE) $@
 
 wipe: clean ## Cleans everything, and busts the CPM cache
