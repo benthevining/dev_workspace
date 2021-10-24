@@ -56,10 +56,15 @@ $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f 
 
 #####  UTILITIES  #####
 
+propogate: $(LEMONS_SCRIPTS)/propogate_config_files.py ## Propogates configuration files from the Lemons repo outward to all product repos
+	@echo "Propogating configuration files..."
+	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $$dir ; done
+	@cd $(LEMONS) && $(MAKE) $@
+
 format: $(LEMONS_SCRIPTS)/run_clang_format.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) ## Runs clang-format
 	@echo "Running clang-format..."
 	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $$dir ; done
-	cd $(LEMONS) && $(MAKE) $@
+	@cd $(LEMONS) && $(MAKE) $@
 
 uth: ## Updates all git submodules to head
 	@echo "Updating git submodules..."
@@ -68,18 +73,20 @@ uth: ## Updates all git submodules to head
 translations: $(LEMONS_SCRIPTS)/generate_translation_file.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) ## Generates JUCE translation files for Lemons and for each project
 	@echo "Generating translation files..."
 	@for dir in $(PROJECT_DIRS) ; do cd $$dir && $(PYTHON) $< Source $(TRANSLATION_OUTPUT) ; done
-	cd $(LEMONS) && $(MAKE) $@
+	@cd $(LEMONS) && $(MAKE) $@
+
+#
 
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
 	@$(RM) $(BUILD) $(LOGS)
 	@for dir in $(PROJECT_DIRS) ; do $(RM) $$dir/$(TRANSLATION_OUTPUT) ; done
-	cd $(LEMONS) && $(MAKE) $@
+	@cd $(LEMONS) && $(MAKE) $@
 
 wipe: clean ## Cleans everything, and busts the CPM cache
 	@echo "Wiping workspace cache..."
 	@$(RM) $(CACHE)
-	cd $(LEMONS) && $(MAKE) $@
+	@cd $(LEMONS) && $(MAKE) $@
 
 help: ## Prints the list of commands
 	@$(PRINT_HELP_LIST)
