@@ -61,7 +61,7 @@ $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f 
 
 #####  UTILITIES  #####
 
-propogate: $(LEMONS_SCRIPTS)/propogate_config_files.py ## Propogates configuration files from the Lemons repo outward to all product repos
+propogate: $(LEMONS_SCRIPTS)/project_config/propogate_config_files.py ## Propogates configuration files from the Lemons repo outward to all product repos
 	@echo "Propogating configuration files..."
 	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $< $$dir ; done
 	@cd $(LEMONS) && $(MAKE) $@
