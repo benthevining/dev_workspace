@@ -5,5 +5,6 @@ BUILD := Builds
 
 LOGS := logs
 
+include $(_MAKE_UTILS_DIR)/system.make
 include $(_MAKE_UTILS_DIR)/logs.make
 include $(_MAKE_UTILS_DIR)/cmake.make
