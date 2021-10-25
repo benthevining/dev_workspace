@@ -93,7 +93,9 @@ translation_templates: $(LEMONS_SCRIPTS)/generate_translation_file_template.py $
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
 	@$(RM) $(BUILD) $(LOGS) $(TRANSLATIONS)
-	@for dir in $(PROJECT_DIRS) ; do $(RM) $$dir/$(BUILD) $$dir/$(LOGS) $$dir/$(TRANSLATIONS) ; done
+	@for dir in $(PROJECT_DIRS) ; do \
+		$(RM) $$dir/$(BUILD) $$dir/$(LOGS) $$dir/$(TRANSLATIONS) $$dir/assets/translations ; \
+	done
 	@cd $(LEMONS) && $(MAKE) $@
 
 wipe: clean ## Cleans everything, and busts the CPM cache
