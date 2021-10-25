@@ -4,8 +4,13 @@ ifdef CROSSCOMPILE_IOS
 	CMAKE_CONFIG_PRESET := config_ios
 	CMAKE_BUILD_PRESET := all_ios
 else 
-	CMAKE_CONFIG_PRESET := config
 	CMAKE_BUILD_PRESET := all
+
+	ifdef TESTS
+		CMAKE_CONFIG_PRESET := config_tests
+	else
+		CMAKE_CONFIG_PRESET := config
+	endif
 endif
 
 CMAKE_CONFIG_CMD += --preset $(CMAKE_CONFIG_PRESET)

@@ -18,7 +18,8 @@
       "description": "Confuguration with testing enabled",
       "inherits": "config",
       "cacheVariables": {
-        "LEMONS_BUILD_TESTS": "ON"
+        "LEMONS_BUILD_TESTS": "ON",
+        "LEMONS_SKIP_TRANSLATION_FILE_GENERATION": "ON"
       }
     },
     {

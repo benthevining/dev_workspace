@@ -62,6 +62,18 @@ $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f 
 
 # TESTING
 
+tests: build_tests ## Builds and runs all unit tests
+	@echo "Running tests..."
+	ctest --preset run_tests
+
+build_tests: configure_tests
+	@echo "Building tests..."
+	$(CMAKE_BUILD_CMD_PREFIX) tests $(CMAKE_BUILD_CMD_SUFFIX)
+
+configure_tests:
+	$(MAKE) config TESTS=1
+
+.PHONY: configure_tests build_tests
 
 #####  UTILITIES  #####
 
