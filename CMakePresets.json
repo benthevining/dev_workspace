@@ -13,6 +13,15 @@
       "binaryDir": "${sourceDir}/Builds"
     },
     {
+      "name": "config_tests",
+      "displayName": "Configure for testing",
+      "description": "Confuguration with testing enabled",
+      "inherits": "config",
+      "cacheVariables": {
+        "LEMONS_BUILD_TESTS": "ON"
+      }
+    },
+    {
       "name": "config_ios",
       "displayName": "Configure iOS",
       "description": "Configure an iOS crosscompile build",
