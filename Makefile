@@ -9,6 +9,7 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 LEMONS := Lemons
 LEMONS_SCRIPTS := $(LEMONS)/scripts
+LEMONS_TRANSLATION_SCRIPTS := $(LEMONS_SCRIPTS)/translations
 LEMONS_MODULES := $(LEMONS)/modules
 LEMONS_MAKE_FILES := $(LEMONS)/util/make
 
@@ -75,11 +76,11 @@ uth: ## Updates all git submodules to head
 translations: translation_templates ## Generates JUCE translation files for Lemons and for each project
 	@echo "Translating template files into target languages..."
 	@for dir in $(PROJECT_DIRS) ; do \
-		$(PYTHON) $(LEMONS_SCRIPTS)/generate_translation_files.py $$dir/$(TRANSLATION_FILE_TEMPLATE) $$dir/$(TRANSLATIONS) ; \
+		$(PYTHON) $(LEMONS_TRANSLATION_SCRIPTS)/generate_translation_files.py $$dir/$(TRANSLATION_FILE_TEMPLATE) $$dir/$(TRANSLATIONS) ; \
 	done
 	@cd $(LEMONS) && $(MAKE) $@
 
-translation_templates: $(LEMONS_SCRIPTS)/generate_translation_file_template.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
+translation_templates: $(LEMONS_TRANSLATION_SCRIPTS)/generate_translation_file_template.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
 	@echo "Generating template translation files..."
 	@for dir in $(PROJECT_DIRS) ; do \
 		mkdir $$dir/$(TRANSLATIONS) ; \
