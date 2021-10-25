@@ -14,6 +14,7 @@ LEMONS_MODULES := $(LEMONS)/modules
 LEMONS_MAKE_FILES := $(LEMONS)/util/make
 
 include $(LEMONS_MAKE_FILES)/Makefile
+include make/Makefile
 
 .PHONY: $(ALL_PHONY_TARGETS)
 
@@ -27,29 +28,32 @@ LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FI
 
 all: config ## Builds everything
 	@echo "Building everything..."
-	$(CMAKE_BUILD_COMMAND) $(WRITE_BUILD_LOG)
+	$(CMAKE_BUILD_COMMAND)
 
 plugins: config ## Builds all plugins
 	@echo "Building all plugins..."
-	$(CMAKE_BUILD_COMMAND) --target ALL_PLUGINS $(WRITE_BUILD_LOG)
+	$(CMAKE_BUILD_CMD_PREFIX) $@ $(CMAKE_BUILD_CMD_SUFFIX)
 
 apps: config ## Builds all apps
 	@echo "Building all apps..."
-	$(CMAKE_BUILD_COMMAND) --target ALL_APPS $(WRITE_BUILD_LOG)
+	$(CMAKE_BUILD_CMD_PREFIX) $@ $(CMAKE_BUILD_CMD_SUFFIX)
 
 imogen: config ## Builds Imogen
 	@echo "Building Imogen..."
-	$(CMAKE_BUILD_COMMAND) --target Imogen_All $(WRITE_BUILD_LOG)
+	$(CMAKE_BUILD_CMD_PREFIX) $@ $(CMAKE_BUILD_CMD_SUFFIX)
+
+imogen_remote: config ## Builds Imogen Remote
+	@echo "Building Imogen Remote..."
+	$(CMAKE_BUILD_CMD_PREFIX) $@ $(CMAKE_BUILD_CMD_SUFFIX)
 
 kicklab: config ## Builds Kicklab
 	@echo "Building Kicklab..."
-	$(CMAKE_BUILD_COMMAND) --target Kicklab_All $(WRITE_BUILD_LOG)
+	$(CMAKE_BUILD_CMD_PREFIX) $@ $(CMAKE_BUILD_CMD_SUFFIX)
 
 #
 
 config: $(BUILD) ## Runs CMake configuration
 
-# Configures the build
 $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f -name "$(CMAKE_FILE_PATTERNS)")
 	@echo "Configuring cmake..."
 	$(CMAKE_CONFIGURE_COMMAND) $(WRITE_CONFIG_LOG)
