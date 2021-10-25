@@ -1,0 +1,81 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 19,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "config",
+      "displayName": "Default config",
+      "description": "Default build configuration",
+      "binaryDir": "${sourceDir}/Builds"
+    },
+    {
+      "name": "config_ios",
+      "displayName": "Configure iOS",
+      "description": "Configure an iOS crosscompile build",
+      "inherits": "config",
+      "generator": "Xcode",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin" },
+      "cacheVariables": {
+        "DCMAKE_CROSSCOMPILING": "TRUE",
+        "CMAKE_SYSTEM_NAME": "iOS",
+        "CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY": "\"iPhone Developer\"",
+        "CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM": "$penv{DEV_TEAM_ID}"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "all",
+      "displayName": "Build all",
+      "description": "Builds everything",
+      "configurePreset": "config"
+    },
+    {
+      "name": "all_ios",
+      "displayName": "Builds iOS",
+      "description": "Builds everything for iOS",
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin" },
+      "configurePreset": "config_ios",
+      "nativeToolOptions": ["-sdk", "iphonesimulator", "-allowProvisioningUpdates"]
+    },
+    {
+      "name": "plugins",
+      "displayName": "Build plugins",
+      "description": "Builds all plugins",
+      "inherits": "all",
+      "targets": ["ALL_PLUGINS"]
+    },
+    {
+      "name": "apps",
+      "displayName": "Build apps",
+      "description": "Builds all apps",
+      "inherits": "all",
+      "targets": ["ALL_APPS"]
+    },
+    {
+      "name": "imogen",
+      "displayName": "Build Imogen",
+      "description": "Builds Imogen",
+      "inherits": "all",
+      "targets": ["Imogen_All"]
+    },
+    {
+      "name": "imogen_remote",
+      "displayName": "Build Imogen Remote",
+      "description": "Builds Imogen Remote",
+      "inherits": "all",
+      "targets": ["ImogenRemote"]
+    },
+    {
+      "name": "kicklab",
+      "displayName": "Build Kicklab",
+      "description": "Builds Kicklab",
+      "inherits": "all",
+      "targets": ["Kicklab_All"]
+    }
+  ]
+}

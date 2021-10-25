@@ -1,4 +1,5 @@
 **/.DS_Store
+CMakeUserPresets.json
 Builds/
 Cache/
 logs/
