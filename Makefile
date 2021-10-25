@@ -79,9 +79,9 @@ uth: ## Updates all git submodules to head
 
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
-	@$(RM) $(BUILD) $(LOGS) $(TRANSLATIONS)
+	@$(RM) $(BUILD) $(LOGS)
 	@for dir in $(PROJECT_DIRS) ; do \
-		$(RM) $$dir/$(BUILD) $$dir/$(LOGS) $$dir/assets/translations ; \
+		$(RM) $$dir/$(BUILD) $$dir/$(LOGS) ; \
 	done
 	@cd $(LEMONS) && $(MAKE) $@
 
