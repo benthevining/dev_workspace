@@ -68,15 +68,23 @@ format: $(LEMONS_SCRIPTS)/run_clang_format.py $(SOURCE_FILES) $(LEMONS_SOURCE_FI
 
 uth: ## Updates all git submodules to head
 	@echo "Updating git submodules..."
-	$(GIT_UTH)
+	@$(GIT_UTH)
+
+#
 
 translations: translation_templates ## Generates JUCE translation files for Lemons and for each project
-	@for dir in $(PROJECT_DIRS) ; do $(PYTHON) $(LEMONS_SCRIPTS)/generate_translation_files.py $$dir/$(TRANSLATION_FILE_TEMPLATE) $(TRANSLATIONS) ; done
+	@echo "Translating template files into target languages..."
+	@for dir in $(PROJECT_DIRS) ; do \
+		$(PYTHON) $(LEMONS_SCRIPTS)/generate_translation_files.py $$dir/$(TRANSLATION_FILE_TEMPLATE) $$dir/$(TRANSLATIONS) ; \
+	done
 	@cd $(LEMONS) && $(MAKE) $@
 
 translation_templates: $(LEMONS_SCRIPTS)/generate_translation_file_template.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
-	@echo "Generating translation files..."
-	@for dir in $(PROJECT_DIRS) ; do mkdir $$dir/$(TRANSLATIONS) && $(PYTHON) $< $$dir/$(SOURCE) $$dir/$(TRANSLATION_FILE_TEMPLATE) ; done
+	@echo "Generating template translation files..."
+	@for dir in $(PROJECT_DIRS) ; do \
+		mkdir $$dir/$(TRANSLATIONS) ; \
+		$(PYTHON) $< $$dir/$(SOURCE) $$dir/$(TRANSLATION_FILE_TEMPLATE) ; \
+	done
 
 .PHONY: translation_templates
 
