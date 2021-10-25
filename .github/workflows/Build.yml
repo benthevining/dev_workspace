@@ -84,7 +84,7 @@ jobs:
 
     - name: Run build
       shell: bash
-      run: make all
+      run: make all CROSSCOMPILE_IOS=1
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
