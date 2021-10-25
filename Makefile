@@ -73,29 +73,11 @@ uth: ## Updates all git submodules to head
 
 #
 
-translations: translation_templates ## Generates JUCE translation files for Lemons and for each project
-	@echo "Translating template files into target languages..."
-	@for dir in $(PROJECT_DIRS) ; do \
-		$(PYTHON) $(LEMONS_TRANSLATION_SCRIPTS)/generate_translation_files.py $$dir/$(TRANSLATION_FILE_TEMPLATE) $$dir/$(TRANSLATIONS) ; \
-	done
-	@cd $(LEMONS) && $(MAKE) $@
-
-translation_templates: $(LEMONS_TRANSLATION_SCRIPTS)/generate_translation_file_template.py $(SOURCE_FILES) $(LEMONS_SOURCE_FILES)
-	@echo "Generating template translation files..."
-	@for dir in $(PROJECT_DIRS) ; do \
-		mkdir $$dir/$(TRANSLATIONS) ; \
-		$(PYTHON) $< $$dir/$(SOURCE) $$dir/$(TRANSLATION_FILE_TEMPLATE) ; \
-	done
-
-.PHONY: translation_templates
-
-#
-
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
 	@$(RM) $(BUILD) $(LOGS) $(TRANSLATIONS)
 	@for dir in $(PROJECT_DIRS) ; do \
-		$(RM) $$dir/$(BUILD) $$dir/$(LOGS) $$dir/$(TRANSLATIONS) $$dir/assets/translations ; \
+		$(RM) $$dir/$(BUILD) $$dir/$(LOGS) $$dir/assets/translations ; \
 	done
 	@cd $(LEMONS) && $(MAKE) $@
 
