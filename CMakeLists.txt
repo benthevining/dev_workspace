@@ -17,6 +17,3 @@ list (APPEND LEMONS_CCACHE_OPTIONS "CCACHE_DIR=${CMAKE_CURRENT_LIST_DIR}/Cache/c
 add_subdirectory (PrivateSDKs)
 
 add_subdirectory (products)
-
-
-include (CPack)
