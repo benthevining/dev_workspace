@@ -85,6 +85,26 @@
       "description": "Builds Kicklab",
       "inherits": "all",
       "targets": ["Kicklab_All"]
+    },
+    {
+      "name": "tests",
+      "displayName": "Build tests",
+      "description": "Builds the UnitTestRunner",
+      "inherits": "all",
+      "configuration": "Debug",
+      "targets": ["UnitTestRunner"]
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "run_tests",
+      "displayName": "Run tests",
+      "description": "Runs all unit tests",
+      "configurePreset": "config_tests",
+      "configuration": "Debug",
+      "output": {
+        "outputLogFile": "${sourceDir}/logs/tests.log"
+      }
     }
   ]
 }

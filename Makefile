@@ -58,6 +58,10 @@ $(BUILD): $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f 
 	@echo "Configuring cmake..."
 	$(CMAKE_CONFIGURE_COMMAND) $(WRITE_CONFIG_LOG)
 
+#
+
+# TESTING
+
 
 #####  UTILITIES  #####
 
