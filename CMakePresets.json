@@ -91,7 +91,7 @@
       "name": "tests",
       "displayName": "Build tests",
       "description": "Builds the UnitTestRunner",
-      "inherits": "all",
+      "configurePreset": "config_tests",
       "configuration": "Debug",
       "targets": ["UnitTestRunner"]
     }
