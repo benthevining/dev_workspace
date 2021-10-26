@@ -71,7 +71,7 @@ build_tests: configure_tests
 	$(CMAKE_BUILD_CMD_PREFIX) tests $(CMAKE_BUILD_CMD_SUFFIX)
 
 configure_tests:
-	$(MAKE) config TESTS=1
+	@$(MAKE) config TESTS=1
 
 .PHONY: configure_tests build_tests
 
