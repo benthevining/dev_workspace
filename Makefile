@@ -104,7 +104,6 @@ clean: ## Cleans the source tree
 wipe: clean ## Cleans everything, and busts the CPM cache
 	@echo "Wiping workspace cache..."
 	@$(RM) $(CACHE)
-	@cd $(LEMONS) && $(MAKE) $@
 
 help: ## Prints the list of commands
 	@$(PRINT_HELP_LIST)
