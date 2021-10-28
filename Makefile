@@ -66,9 +66,7 @@ tests: build_tests ## Builds and runs all unit tests
 	@echo "Running tests..."
 	ctest --preset run_tests
 
-build_tests: configure_tests
-	@echo "Building tests..."
-	$(CMAKE_BUILD_CMD_PREFIX) tests $(CMAKE_BUILD_CMD_SUFFIX)
+build_tests: configure_tests all
 
 configure_tests:
 	@$(MAKE) config TESTS=1

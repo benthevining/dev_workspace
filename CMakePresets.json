@@ -86,14 +86,6 @@
       "description": "Builds Kicklab",
       "inherits": "all",
       "targets": ["Kicklab_All"]
-    },
-    {
-      "name": "tests",
-      "displayName": "Build tests",
-      "description": "Builds the UnitTestRunner",
-      "configurePreset": "config_tests",
-      "configuration": "Debug",
-      "targets": ["UnitTestRunner"]
     }
   ],
   "testPresets": [
