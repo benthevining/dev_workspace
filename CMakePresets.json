@@ -86,17 +86,46 @@
       "description": "Builds Kicklab",
       "inherits": "all",
       "targets": ["Kicklab_All"]
+    },
+    {
+      "name": "tests",
+      "displayName": "Build tests",
+      "description": "Builds all tests",
+      "inherits": "all",
+      "targets": ["ALL_PLUGINS", "UnitTestRunner"]
     }
   ],
   "testPresets": [
     {
       "name": "run_tests",
       "displayName": "Run tests",
-      "description": "Runs all unit tests",
+      "description": "Runs all tests",
       "configurePreset": "config_tests",
       "configuration": "Debug",
       "output": {
         "outputLogFile": "${sourceDir}/logs/tests.log"
+      }
+    },
+    {
+      "name": "unit_tests",
+      "displayName": "Run unit tests",
+      "description": "Runs the Lemons unit tests",
+      "inherits": "run_tests",
+      "filter": {
+        "include": {
+          "name": "LemonsUnitTests"
+        }
+      }
+    },
+    {
+      "name": "pluginval",
+      "displayName": "Run pluginval tests",
+      "description": "Runs all pluginval tests",
+      "inherits": "run_tests",
+      "filter": {
+        "include": {
+          "name": "-Pluginval+"
+        }
       }
     }
   ]

@@ -97,6 +97,7 @@ clean: ## Cleans the source tree
 	@for dir in $(PROJECT_DIRS) ; do \
 		$(RM) $$dir/$(BUILD) $$dir/$(LOGS) ; \
 	done
+	@$(RM) $(CACHE)/pluginval/Builds $(CACHE)/pluginval/bin
 	@cd $(LEMONS) && $(MAKE) $@
 
 wipe: clean ## Cleans everything, and busts the CPM cache
