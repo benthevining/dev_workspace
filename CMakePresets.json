@@ -23,7 +23,7 @@
         "CMAKE_CROSSCOMPILING": "TRUE",
         "CMAKE_SYSTEM_NAME": "iOS",
         "CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY": "\"iPhone Developer\"",
-        "CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM": "$penv{DEV_TEAM_ID}"
+        "CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM": "$env{DEV_TEAM_ID}"
       }
     },
     {
@@ -70,7 +70,7 @@
       "configurePreset": "tests",
       "configuration": "Debug",
       "output": {
-        "outputLogFile": "${sourceDir}/logs/tests.log"
+        "outputLogFile": "${sourceDir}/logs/tests/${presetName}.log"
       },
       "execution": {
         "noTestsAction": "error"
