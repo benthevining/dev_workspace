@@ -53,41 +53,6 @@
       "nativeToolOptions": ["-sdk", "iphonesimulator", "-allowProvisioningUpdates"]
     },
     {
-      "name": "plugins",
-      "displayName": "Build plugins",
-      "description": "Builds all plugins",
-      "inherits": "all",
-      "targets": ["ALL_PLUGINS"]
-    },
-    {
-      "name": "apps",
-      "displayName": "Build apps",
-      "description": "Builds all apps",
-      "inherits": "all",
-      "targets": ["ALL_APPS"]
-    },
-    {
-      "name": "imogen",
-      "displayName": "Build Imogen",
-      "description": "Builds Imogen",
-      "inherits": "all",
-      "targets": ["Imogen_All"]
-    },
-    {
-      "name": "imogen_remote",
-      "displayName": "Build Imogen Remote",
-      "description": "Builds Imogen Remote",
-      "inherits": "all",
-      "targets": ["ImogenRemote"]
-    },
-    {
-      "name": "kicklab",
-      "displayName": "Build Kicklab",
-      "description": "Builds Kicklab",
-      "inherits": "all",
-      "targets": ["Kicklab_All"]
-    },
-    {
       "name": "tests",
       "displayName": "Build tests",
       "description": "Builds all tests",
