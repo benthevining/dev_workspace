@@ -10,7 +10,7 @@
       "name": "config",
       "displayName": "Default config",
       "description": "Default build configuration",
-      "binaryDir": "${sourceDir}/Builds"
+      "binaryDir": "${sourceDir}/Builds/default"
     },
     {
       "name": "config_tests",
