@@ -16,7 +16,7 @@
       "name": "config_tests",
       "displayName": "Configure for testing",
       "description": "Confuguration with testing enabled",
-      "inherits": "config",
+      "binaryDir": "${sourceDir}/Builds/tests",
       "cacheVariables": {
         "LEMONS_BUILD_TESTS": "ON",
         "LEMONS_GENERATE_TRANSLATION_FILES": "OFF"
@@ -26,7 +26,7 @@
       "name": "config_ios",
       "displayName": "Configure iOS",
       "description": "Configure an iOS crosscompile build",
-      "inherits": "config",
+      "binaryDir": "${sourceDir}/Builds/ios",
       "generator": "Xcode",
       "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin" },
       "cacheVariables": {
@@ -91,7 +91,7 @@
       "name": "tests",
       "displayName": "Build tests",
       "description": "Builds all tests",
-      "inherits": "all",
+      "configurePreset": "config_tests",
       "targets": ["ALL_PLUGINS", "UnitTestRunner"]
     }
   ],

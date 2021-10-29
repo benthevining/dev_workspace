@@ -66,7 +66,8 @@ tests: build_tests ## Builds and runs all unit tests
 	@echo "Running tests..."
 	ctest --preset run_tests
 
-build_tests: configure_tests all
+build_tests: configure_tests
+	$(CMAKE_BUILD_CMD_PREFIX) tests $(CMAKE_BUILD_CMD_SUFFIX)
 
 configure_tests:
 	@$(MAKE) config TESTS=1
@@ -97,7 +98,7 @@ clean: ## Cleans the source tree
 	@for dir in $(PROJECT_DIRS) ; do \
 		$(RM) $$dir/$(BUILD) $$dir/$(LOGS) ; \
 	done
-	@$(RM) $(CACHE)/pluginval/Builds $(CACHE)/pluginval/bin
+	@$(RM) $(CACHE)/pluginval/bin
 	@cd $(LEMONS) && $(MAKE) $@
 
 wipe: clean ## Cleans everything, and busts the CPM cache
