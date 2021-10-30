@@ -19,12 +19,7 @@
       "inherits": "default",
       "generator": "Xcode",
       "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin" },
-      "cacheVariables": {
-        "CMAKE_CROSSCOMPILING": "TRUE",
-        "CMAKE_SYSTEM_NAME": "iOS",
-        "CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY": "\"iPhone Developer\"",
-        "CMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM": "$env{DEV_TEAM_ID}"
-      }
+      "toolchainFile": "${sourceDir}/Lemons/util/toolchains/ios.cmake"
     },
     {
       "name": "tests",
