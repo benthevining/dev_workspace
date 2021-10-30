@@ -64,9 +64,7 @@
   ],
   "testPresets": [
     {
-      "name": "all",
-      "displayName": "Run tests",
-      "description": "Runs all tests",
+      "name": "base",
       "configurePreset": "tests",
       "configuration": "Debug",
       "output": {
@@ -74,13 +72,20 @@
       },
       "execution": {
         "noTestsAction": "error"
-      }
+      },
+      "hidden": true
+    },
+    {
+      "name": "all",
+      "displayName": "Run tests",
+      "description": "Runs all tests",
+      "inherits": "base"
     },
     {
       "name": "units",
       "displayName": "Run unit tests",
       "description": "Runs the Lemons unit tests",
-      "inherits": "all",
+      "inherits": "base",
       "filter": {
         "include": {
           "name": "LemonsUnitTests"
@@ -91,7 +96,7 @@
       "name": "pluginval",
       "displayName": "Run pluginval tests",
       "description": "Runs all pluginval tests",
-      "inherits": "all",
+      "inherits": "base",
       "filter": {
         "include": {
           "name": "-Pluginval+"
