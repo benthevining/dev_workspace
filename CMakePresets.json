@@ -7,25 +7,33 @@
   },
   "configurePresets": [
     {
+      "name": "base",
+      "binaryDir": "${sourceDir}/Builds/${presetName}",
+      "environment": {
+        "lemons_toolchains": "${sourceDir}/Lemons/util/toolchains"
+      },
+      "hidden": true
+    },
+    {
       "name": "default",
       "displayName": "Default config",
       "description": "Default build configuration",
-      "binaryDir": "${sourceDir}/Builds/${presetName}"
+      "inherits": "base"
     },
     {
       "name": "ios",
       "displayName": "Configure iOS",
       "description": "Configure an iOS crosscompile build",
-      "inherits": "default",
+      "inherits": "base",
       "generator": "Xcode",
       "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Darwin" },
-      "toolchainFile": "${sourceDir}/Lemons/util/toolchains/ios.cmake"
+      "toolchainFile": "$env{lemons_toolchains}/ios.cmake"
     },
     {
       "name": "tests",
       "displayName": "Configure for testing",
       "description": "Confuguration with testing enabled",
-      "inherits": "default",
+      "inherits": "base",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "LEMONS_BUILD_TESTS": "ON",
