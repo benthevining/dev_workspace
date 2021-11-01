@@ -9,53 +9,65 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 LEMONS := Lemons
 LEMONS_SCRIPTS := $(LEMONS)/scripts
-LEMONS_MODULES := $(LEMONS)/modules
 
 include $(LEMONS)/util/make/Makefile
-include make/Makefile
 
 .PHONY: $(ALL_PHONY_TARGETS)
 
-PROJECT_DIRS := $(shell find products -type d -maxdepth 1 ! -name products)
-SOURCE_FILES := $(shell find $(PROJECT_DIRS) -type f -name "$(SOURCE_FILE_PATTERNS)")
-LEMONS_SOURCE_FILES := $(shell find $(LEMONS_MODULES) -type f -name "$(SOURCE_FILE_PATTERNS)")
+PROJECT_DIRS := $(shell find products -maxdepth 1 -type d ! -name products)
 
 
 #####  BUILDING  #####
 
-all: config ## Builds everything
+all: Builds/default ## Builds everything
 	@echo "Building everything..."
-	$(CMAKE_BUILD_COMMAND)
+	cmake --build --preset all -j $(NUM_CORES)
 
-plugins: config ## Builds all plugins
+ios: Builds/ios ## Builds everything for iOS
+	@echo "Building everything for iOS..."
+	cmake --build --preset ios -j $(NUM_CORES)
+
+plugins: Builds/default ## Builds all plugins
 	@echo "Building all plugins..."
-	$(CMAKE_BUILD_CMD_PREFIX) $@ $(CMAKE_BUILD_CMD_SUFFIX)
+	cmake --build --preset all --target ALL_PLUGINS -j $(NUM_CORES)
 
-apps: config ## Builds all apps
+apps: Builds/default ## Builds all apps
 	@echo "Building all apps..."
-	$(CMAKE_BUILD_CMD_PREFIX) $@ $(CMAKE_BUILD_CMD_SUFFIX)
+	cmake --build --preset all --target ALL_APPS -j $(NUM_CORES)
 
-imogen: config ## Builds Imogen
+imogen: Builds/default ## Builds Imogen
 	@echo "Building Imogen..."
-	$(CMAKE_BUILD_CMD_PREFIX) $@ $(CMAKE_BUILD_CMD_SUFFIX)
+	cmake --build --preset all --target Imogen_ALL -j $(NUM_CORES)
 
-imogen_remote: config ## Builds Imogen Remote
+imogen_remote: Builds/default ## Builds Imogen Remote
 	@echo "Building Imogen Remote..."
-	$(CMAKE_BUILD_CMD_PREFIX) $@ $(CMAKE_BUILD_CMD_SUFFIX)
+	cmake --build --preset all --target ImogenRemote -j $(NUM_CORES)
 
-kicklab: config ## Builds Kicklab
+kicklab: Builds/default ## Builds Kicklab
 	@echo "Building Kicklab..."
-	$(CMAKE_BUILD_CMD_PREFIX) $@ $(CMAKE_BUILD_CMD_SUFFIX)
+	cmake --build --preset all --target Kicklab_ALL -j $(NUM_CORES)
 
-#
+build_tests: Builds/tests ## Builds all tests
+	@echo "Building tests..."
+	cmake --build --preset tests -j $(NUM_CORES)
 
-config: Builds ## Runs CMake configuration
 
-Builds: $(SOURCE_FILES) $(LEMONS_SOURCE_FILES) $(shell find $(LEMONS) -type f -name "$(CMAKE_FILE_PATTERNS)")
+#####  CMAKE CONFIGURATION  #####
+
+config: Builds/default ## Runs CMake configuration
+
+Builds/default:
 	@echo "Configuring cmake..."
-	$(CMAKE_CONFIGURE_COMMAND) $(WRITE_CONFIG_LOG)
+	cmake --preset default -G $(CMAKE_GENERATOR)
 
-#
+Builds/ios:
+	@echo "Configuring cmake..."
+	cmake --preset ios
+
+Builds/tests:
+	@echo "Configuring cmake..."
+	cmake --preset tests -G $(CMAKE_GENERATOR)
+
 
 # TESTING
 
@@ -63,13 +75,6 @@ tests: build_tests ## Builds and runs all unit tests
 	@echo "Running tests..."
 	ctest --preset all
 
-build_tests: configure_tests
-	$(CMAKE_BUILD_CMD_PREFIX) tests $(CMAKE_BUILD_CMD_SUFFIX)
-
-configure_tests:
-	@$(MAKE) config TESTS=1
-
-.PHONY: configure_tests build_tests
 
 #####  UTILITIES  #####
 
@@ -91,7 +96,7 @@ uth: ## Updates all git submodules to head
 
 clean: ## Cleans the source tree
 	@echo "Cleaning workspace..."
-	@$(RM) Builds logs Testing/
+	@$(RM) Builds logs Testing
 	@for dir in $(PROJECT_DIRS) ; do \
 		$(RM) $$dir/Builds $$dir/logs ; \
 	done
