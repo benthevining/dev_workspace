@@ -4,8 +4,14 @@ Generators:
 * Linux: Ninja
 
 Aliases:
+* config: config[default]
 * all: build[all]
 * ios: build[ios]
+* plugins: build[all] -> ALL_PLUGINS
+* apps: build[all] -> ALL_APPS
+* imogen: build[all] -> Imogen_All
+* imogenRemote: build[all] -> ImogenRemote
+* kicklab: build[all] -> Kicklab_All
 * tests: test[all]
 
 Clean:
