@@ -10,7 +10,7 @@
       "name": "base",
       "binaryDir": "${sourceDir}/Builds/${presetName}",
       "environment": {
-        "lemons_toolchains": "${sourceDir}/Lemons/util/toolchains"
+        "lemons_toolchains": "${sourceDir}/Lemons/util/cmake/toolchains"
       },
       "hidden": true
     },
