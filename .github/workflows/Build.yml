@@ -41,11 +41,11 @@ jobs:
 
     - name: Configure build
       shell: bash
-      run: make config
+      run: cmake --preset default
 
     - name: Run build
       shell: bash
-      run: make all
+      run: cmake --build --preset all
 
     - name: Upload artifact
       uses: actions/upload-artifact@v2
