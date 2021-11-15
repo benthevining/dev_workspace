@@ -33,7 +33,7 @@ jobs:
 
     - name: Install dependencies
       shell: bash
-      run: bash Lemons/util/install_deps/install_deps.sh
+      run: cmake -P Lemons/util/deps/install_deps.cmake
       
     - name: Install msbuild
       if: matrix.os == 'windows-latest'
