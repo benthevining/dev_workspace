@@ -31,9 +31,10 @@ jobs:
         key: ${{ runner.os }}.${{ hashFiles('**/') }}
         restore-keys: ${{ runner.os }}.
 
-    - name: Install dependencies
-      shell: bash
-      run: cmake -P Lemons/util/DepsInstaller/install_deps.cmake
+    - name: Install deps
+      uses: benthevining/DepsInstaller@v0.2.0-alpha
+      with:
+        depfile_path: '$(pwd)/Depsfile'
       
     - name: Install msbuild
       if: matrix.os == 'windows-latest'
@@ -74,9 +75,10 @@ jobs:
         key: ios.${{ hashFiles('**/') }}
         restore-keys: ios.
 
-    - name: Install dependencies
-      shell: bash
-      run: bash Lemons/util/DepsInstaller/install_deps.sh
+    - name: Install deps
+      uses: benthevining/DepsInstaller@v0.2.0-alpha
+      with:
+        depfile_path: '$(pwd)/Depsfile'
 
     - name: Configure build
       shell: bash
